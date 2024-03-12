@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using KurtSingle;
+
+namespace KurtSingle;
+{
+    /// <summary>
+    /// Author: Kurt Single
+    /// Description: This script is used to ... when Triggered in Unity
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody), typeof(Collider))]
+    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        Transform _cachedTransform;
+        Rigidbody _cachedRigidbody;
+        Collider _cachedCollider;
+
+        [SerializeField] UnityEvent OnThisTriggerEnter;
+        [SerializeField] [TagField] string TagToCheckAgainst;
+        void Start()
+        {
+            //Cache common components
+            _cachedTransform = this.GetComponent<Transform>();
+            _cachedRigidbody = this.GetComponent<Rigidbody>();
+            _cachedCollider = this.GetComponent<Collider>();
+
+            _cachedCollider.isTrigger = true;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (TagToCheckAgainst != "")
+            {
+                if (other.CompareTag(TagToCheckAgainst))
+                {
+                    OnThisTriggerEnter?.Invoke();
+                }
+            }
+            else
+            {
+                OnThisTriggerEnter?.Invoke();
+            }
+        }
+    }
+}
