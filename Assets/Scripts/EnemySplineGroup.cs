@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Cinemachine;
 using KurtSingle;
@@ -31,6 +32,12 @@ namespace KurtSingle
         {
             autodolly = splineCart.AutomaticDolly.Method as SplineAutoDolly.FixedSpeed;
 
+            CreatePack();
+
+        }
+
+        private void CreatePack()
+        {
             for (int i = 0; i < numberOfEnemies; i++)
             {
                 GameObject newEnemy = Instantiate(enemyTypePrefab, transform.position, transform.rotation, enemyHolder);
@@ -38,25 +45,53 @@ namespace KurtSingle
                 newEnemy.GetComponent<EnemyBase>().initialOffset = Offset * (i + 1);
                 newEnemy.GetComponent<EnemyBase>().splineCart = this.splineCart;
             }
+        }
 
+        public void DoChecks()
+        {
+            DistanceFromPlayerCheck();
+            GroupStatusCheck();
         }
 
 
-        private void Update()
+        private void DistanceFromPlayerCheck()
         {
-            
             if (splineCart.SplinePosition < playerDollyCamera.CameraPosition + stopDistanceFromPlayer)
             {
                 autodolly.Speed = moveSpeed;
                 LetGroupAttack(true);
-            } else
+            }
+            else
             {
-                autodolly.Speed = -moveSpeed;
+                autodolly.Speed = -moveSpeed * 2;
             }
         }
 
 
-        public void LetGroupAttack(bool foo)
+        private void GroupStatusCheck()
+        {
+            int packCount = enemyPack.Count;
+
+            for (int i = 0; i < enemyPack.Count; i++)
+            {
+                if (enemyPack[i] == null) packCount -= 1;
+            }
+
+            if (packCount <= 0) ResetPackAndSpline();
+        }
+
+        private async void ResetPackAndSpline()
+        {
+            enemyPack.Clear();
+            splineCart.SplinePosition = playerDollyCamera.CameraPosition + 0.1f;
+
+            await Task.Delay(10);
+
+            CreatePack();
+        }
+
+
+        private void LetGroupAttack(bool foo)
         {
             for (int i = 0; i < enemyPack.Count; i++)
             {

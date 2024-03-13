@@ -14,6 +14,7 @@ namespace KurtSingle
         [Header("General")]
         [SerializeField] string enemyName = "Bat";
         [SerializeField] int points = 50;
+        [SerializeField] int lifePoints = 1;
 
         [Header("Movement")]
         [SerializeField] float moveSpeed = 30f;
@@ -25,7 +26,7 @@ namespace KurtSingle
 
         private void Start()
         {
-            Initialise(enemyName, points, moveSpeed, rotationSpeed);
+            Initialise(enemyName, points, moveSpeed, rotationSpeed, lifePoints);
         }
 
         protected override void SetProjectileMoveSpeed(ProjectileFireball fireballScript)

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6942264278036012812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3579709514051756357}
+  - component: {fileID: 2245108828426192451}
+  - component: {fileID: 4929207960491999047}
+  m_Layer: 0
+  m_Name: EnemySplineCart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3579709514051756357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6942264278036012812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.17867114, y: 0.0000069089615, z: -0.00003804638, w: 0.9839089}
+  m_LocalPosition: {x: 0, y: -4.771662, z: 123.15333}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2245108828426192451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6942264278036012812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450f466b666a79a4698f2b19a5c87c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Spline: {fileID: 0}
+  UpdateMethod: 0
+  PositionUnits: 1
+  AutomaticDolly:
+    Enabled: 1
+    Method:
+      rid: 4615698396548694018
+  TrackingTarget: {fileID: 0}
+  SplinePosition: 0.13
+  references:
+    version: 2
+    RefIds:
+    - rid: 4615698396548694018
+      type: {class: SplineAutoDolly/FixedSpeed, ns: Unity.Cinemachine, asm: Unity.Cinemachine}
+      data:
+        Speed: 0
+--- !u!114 &4929207960491999047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6942264278036012812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739d3eb7e94a51c4693b4d94654d4abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineCart: {fileID: 2245108828426192451}
+  playerDollyCamera: {fileID: 0}
+  enemyHolder: {fileID: 0}
+  stopDistanceFromPlayer: 0.02
+  moveSpeed: 0.005
+  enemyTypePrefab: {fileID: 7695458018006056624, guid: c57ec5c58afd96646a7fba856c603bf5,
+    type: 3}
+  numberOfEnemies: 5
+  Offset: {x: 2, y: 0, z: 1.5}
+  enemyPack: []

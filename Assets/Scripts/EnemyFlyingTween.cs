@@ -20,7 +20,7 @@ namespace KurtSingle
         private void Start()
         {
 			modelTransform = GetComponentInChildren<MeshRenderer>().GetComponent<Transform>();
-			modelTransform.DOShakePosition(1f, 0.2f, 1).SetLoops(-1, LoopType.Yoyo);
+			modelTransform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato).SetLoops(-1, LoopType.Yoyo);
         }
 
         private void OnDisable()

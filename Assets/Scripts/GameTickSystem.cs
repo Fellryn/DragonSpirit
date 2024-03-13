@@ -27,7 +27,9 @@ namespace KurtSingle
         public UnityEvent OnTickThreeQuarter;
         private bool onTickThreeQuarterRun = false;
 
-        public UnityEvent OnEveryTickInterval;
+        public UnityEvent OnEveryTick;
+
+        public UnityEvent OnEveryHalfTick;
 
         public UnityEvent OnRandomTick;
         private bool onRandomTickRun = false;
@@ -42,7 +44,7 @@ namespace KurtSingle
 
                 if (timer >= tickWholeInterval * 0.25f && !onTickQuarterRun)
                 {
-                    OnEveryTickInterval?.Invoke();
+                    OnEveryTick?.Invoke();
 
                     RandomTickCheck();
 
@@ -54,7 +56,8 @@ namespace KurtSingle
 
                 if (timer >= tickWholeInterval * 0.5f && !onTickHalfRun)
                 {
-                    OnEveryTickInterval?.Invoke();
+                    OnEveryTick?.Invoke();
+                    OnEveryHalfTick?.Invoke();
 
                     RandomTickCheck();
 
@@ -66,7 +69,7 @@ namespace KurtSingle
 
                 if (timer >= tickWholeInterval * 0.75f && !onTickThreeQuarterRun)
                 {
-                    OnEveryTickInterval?.Invoke();
+                    OnEveryTick?.Invoke();
 
                     RandomTickCheck();
 
@@ -76,7 +79,8 @@ namespace KurtSingle
             }
             else
             {
-                OnEveryTickInterval?.Invoke();
+                OnEveryTick?.Invoke();
+                OnEveryHalfTick?.Invoke();
 
                 RandomTickCheck();
 

@@ -14,14 +14,18 @@ namespace KurtSingle
 	public abstract class EnemyBase : MonoBehaviour
 	{
 		[Header("Base")]
-		[SerializeField] float AttackChance = .5f;
-		[SerializeField] string enemyProjectileTag = "EnemyProjectile";
+		[SerializeField]
+		float AttackChance = .5f;
+		[SerializeField]
+		string enemyProjectileTag = "EnemyProjectile";
 
 		protected string EnemyName { get; set; }
-		protected float Points { get; set; }
+		protected int Points { get; set; }
 		protected float MoveSpeed { get; set; }
 		protected float RotationSpeed { get; set; }
+		protected int LifePoints { get; set; }
         public bool CanAttack { get; set; }
+		private bool begunDeath = false;
 
 
 		public CinemachineSplineCart splineCart { get; set; }
@@ -32,6 +36,10 @@ namespace KurtSingle
 
 		private Rigidbody cachedRigidbody;
 
+		public delegate void OnKill(int scoreToAdd);
+		public static event OnKill onKill;
+
+
 		protected virtual void OnEnable()
         {
 
@@ -41,10 +49,15 @@ namespace KurtSingle
 			CanAttack = false;
         }
 
+		protected virtual void OnDisable()
+		{
+			gameTickSystem.OnRandomTick.RemoveListener(Attack);
+		}
+
 		protected virtual void FixedUpdate()
         {
-			Move();
-        }
+			if (!begunDeath) Move();
+		}
 
 
 		public virtual void Move()
@@ -58,11 +71,12 @@ namespace KurtSingle
 
 		public virtual void Attack()
         {
-			if (CanAttack)
+			if (CanAttack && !begunDeath)
             {
 				if (Random.Range(0f, 1f) > AttackChance)
                 {
 					var newProjectile = new GameObject().AddComponent<ProjectileFireball>();
+					newProjectile.transform.name = $"{transform.name} Fireball";
 					newProjectile.transform.tag = enemyProjectileTag;
 					newProjectile.cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
 					newProjectile.cachedUnitTransform = transform;
@@ -72,10 +86,7 @@ namespace KurtSingle
             }
         }
 
-		protected virtual void OnDisable()
-        {
-			gameTickSystem.OnRandomTick.RemoveListener(Attack);
-        }
+
 
 		protected virtual void SetProjectileMoveSpeed(ProjectileFireball fireballScript)
         {
@@ -83,7 +94,7 @@ namespace KurtSingle
 
 		}
 
-		protected virtual void Initialise(string enemyName, int points, float moveSpeed, float rotationSpeed)
+		protected virtual void Initialise(string enemyName, int points, float moveSpeed, float rotationSpeed, int lifePoints)
         {
 			EnemyName = enemyName;
 			Points = points;
@@ -91,5 +102,32 @@ namespace KurtSingle
 			RotationSpeed = rotationSpeed;
         }
 
+
+		public virtual void TakeDamage(int damage)
+        {
+			LifePoints -= damage;
+			CheckHealth();
+        }
+
+		private void CheckHealth()
+        {
+			if (LifePoints <= 0)
+            {
+				BeginDeath();
+            }
+        }
+
+		private void BeginDeath()
+        {
+			begunDeath = true;
+
+			transform.tag = "Untagged";
+			cachedRigidbody.useGravity = true;
+			cachedRigidbody.AddExplosionForce(150f, transform.position, 1f);
+			cachedRigidbody.isKinematic = false;
+
+			onKill?.Invoke(Points);
+			Destroy(gameObject, 3f);
+        }
 	}
 }

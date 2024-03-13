@@ -20,6 +20,7 @@ namespace KurtSingle
         private float fireballLifetime = 10f;
         public float ProjectileMoveSpeed { get; set; }
         public string HitTag { get; set; }
+        public int ProjectileDamage { get; set; }
 
         public Transform cachedPlayerCamera;
         public Transform cachedUnitTransform;
@@ -39,6 +40,11 @@ namespace KurtSingle
             if (ProjectileMoveSpeed == 0)
             {
                 ProjectileMoveSpeed = 20f;
+            }
+
+            if (ProjectileDamage == 0)
+            {
+                ProjectileDamage = 1;
             }
 
             cachedRigidbody = GetComponent<Rigidbody>();
@@ -82,8 +88,8 @@ namespace KurtSingle
         private void FixedUpdate()
         {
             colliderGameObject.transform.LookAt(cachedPlayerCamera);
-
         }
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -91,17 +97,39 @@ namespace KurtSingle
             {
                 if (other.CompareTag(playerTag))
                 {
-                    Destroy(other.gameObject);
+                    if (other.TryGetComponent<PlayerStats>(out PlayerStats playerStats))
+                    {
+                        playerStats.PlayerTakeDamage(ProjectileDamage);
+                    }
+                    else
+                    {
+                        //Destroy(other.gameObject);
+                    }
+
+                    Destroy(gameObject);
                 }
+
             }
+
 
             if (transform.CompareTag(playerTag + projectileString))
             {
                 if (other.CompareTag(enemyTag))
                 {
-                    Destroy(other.gameObject);
+                    if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
+                    {
+                        enemyBase.TakeDamage(ProjectileDamage);
+                    }
+                    else
+                    {
+                        //Destroy(other.gameObject);
+                    }
+
+                    Destroy(gameObject);
                 }
+
             }
+
 
         }
 

@@ -24,6 +24,7 @@ namespace KurtSingle
             colliderGameObject = new GameObject("Collider");
             colliderGameObject.transform.tag = transform.tag;
             colliderGameObject.transform.SetParent(transform);
+            colliderGameObject.transform.position = transform.position;
             colliderGameObject.layer = LayerMask.NameToLayer("NoCollide");
             cachedCollider = colliderGameObject.AddComponent<CapsuleCollider>();
             cachedCollider.height = capsuleHeight;
