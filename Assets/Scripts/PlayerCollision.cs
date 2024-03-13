@@ -7,7 +7,7 @@ namespace KurtSingle
 {
 	/// <summary>
 	/// Author: Kurt Single
-	/// Description: This script demonstrates how to ... in Unity
+	/// Description: This script demonstrates how to let  player collision be detected at any depth in Unity
 	/// </summary>
 	public class PlayerCollision : MonoBehaviour 
 	{
@@ -24,17 +24,18 @@ namespace KurtSingle
             colliderGameObject = new GameObject("Collider");
             colliderGameObject.transform.tag = transform.tag;
             colliderGameObject.transform.SetParent(transform);
+            colliderGameObject.layer = LayerMask.NameToLayer("NoCollide");
             cachedCollider = colliderGameObject.AddComponent<CapsuleCollider>();
             cachedCollider.height = capsuleHeight;
             cachedCollider.radius = capsuleRadius;
             cachedCollider.direction = 2;
             cachedCollider.isTrigger = true;
+            cachedCollider.excludeLayers = 1 << LayerMask.NameToLayer("NoCollide");
         }
 
         private void Update()
         {
-            colliderGameObject.transform.position = (transform.position + cachedPlayerCamera.position) / 2;
-            colliderGameObject.transform.LookAt(transform.position);
+            colliderGameObject.transform.LookAt(cachedPlayerCamera);
         }
 
     }

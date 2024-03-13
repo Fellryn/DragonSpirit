@@ -28,7 +28,10 @@ namespace KurtSingle
 
         private void Update()
         {
-            dollyCameraOffset.Offset.x = playerTransform.position.x * cameraOffsetModifier;
+            if (playerTransform != null)
+            {
+                dollyCameraOffset.Offset.x = playerTransform.position.x * cameraOffsetModifier;
+            }
         }
     }
 }

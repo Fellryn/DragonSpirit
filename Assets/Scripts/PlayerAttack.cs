@@ -16,7 +16,8 @@ namespace KurtSingle
 		[SerializeField] InputActionReference fire;
 
         [Space(10)]
-        [SerializeField] float fireballCooldown = 0.5f;
+        //[SerializeField] float fireballCooldown = 0.5f;
+        //[SerializeField] float fireballMoveSpeed = 0.03f;
         [SerializeField] string playerProjectileTag = "PlayerProjectile";
         [SerializeField] Transform cachedPlayerCamera;
 
@@ -47,10 +48,10 @@ namespace KurtSingle
 
         private void Fireball()
         {
-            var newProjectile = new GameObject().AddComponent<ProjectileFireball>();
+            var newProjectile = new GameObject("Fireball").AddComponent<ProjectileFireball>();
             newProjectile.transform.tag = playerProjectileTag;
             newProjectile.cachedPlayerCamera = cachedPlayerCamera;
-            newProjectile.cachedPlayerTransform = cachedTransform;
+            newProjectile.cachedUnitTransform = cachedTransform;
         }
     }
 }

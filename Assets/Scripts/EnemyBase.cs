@@ -13,15 +13,21 @@ namespace KurtSingle
 
 	public abstract class EnemyBase : MonoBehaviour
 	{
-		public string enemyName = "Enemy";
-		public int points = 50;
-		public float moveSpeed = 30f;
-		public float rotationSpeed = 15f;
-		public CinemachineSplineCart splineCart;
-		[SerializeField] GameTickSystem gameTickSystem;
+		[Header("Base")]
+		[SerializeField] float AttackChance = .5f;
+		[SerializeField] string enemyProjectileTag = "EnemyProjectile";
+
+		protected string EnemyName { get; set; }
+		protected float Points { get; set; }
+		protected float MoveSpeed { get; set; }
+		protected float RotationSpeed { get; set; }
+        public bool CanAttack { get; set; }
 
 
-		
+		public CinemachineSplineCart splineCart { get; set; }
+		private GameTickSystem gameTickSystem;
+
+		[HideInInspector]
 		public Vector3 initialOffset;
 
 		private Rigidbody cachedRigidbody;
@@ -31,7 +37,8 @@ namespace KurtSingle
 
 			cachedRigidbody = GetComponent<Rigidbody>();
 			gameTickSystem = FindFirstObjectByType<GameTickSystem>();
-			gameTickSystem.OnEveryTickInterval.AddListener(Move);
+			gameTickSystem.OnRandomTick.AddListener(Attack);
+			CanAttack = false;
         }
 
 		protected virtual void FixedUpdate()
@@ -42,8 +49,8 @@ namespace KurtSingle
 
 		public virtual void Move()
         {
-			Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, splineCart.transform.position + initialOffset, moveSpeed * Time.deltaTime);
-			Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, splineCart.transform.rotation, rotationSpeed * Time.deltaTime);
+			Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, splineCart.transform.position + initialOffset, MoveSpeed * Time.deltaTime);
+			Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, splineCart.transform.rotation, RotationSpeed * Time.deltaTime);
 			cachedRigidbody.MovePosition(moveTarget);
 			cachedRigidbody.MoveRotation(rotateTarget);
         }
@@ -51,12 +58,38 @@ namespace KurtSingle
 
 		public virtual void Attack()
         {
+			if (CanAttack)
+            {
+				if (Random.Range(0f, 1f) > AttackChance)
+                {
+					var newProjectile = new GameObject().AddComponent<ProjectileFireball>();
+					newProjectile.transform.tag = enemyProjectileTag;
+					newProjectile.cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+					newProjectile.cachedUnitTransform = transform;
 
+					SetProjectileMoveSpeed(newProjectile);
+				}
+            }
         }
 
 		protected virtual void OnDisable()
         {
-			gameTickSystem.OnEveryTickInterval.RemoveListener(Move);
+			gameTickSystem.OnRandomTick.RemoveListener(Attack);
         }
-    }
+
+		protected virtual void SetProjectileMoveSpeed(ProjectileFireball fireballScript)
+        {
+			fireballScript.ProjectileMoveSpeed = 0f;
+
+		}
+
+		protected virtual void Initialise(string enemyName, int points, float moveSpeed, float rotationSpeed)
+        {
+			EnemyName = enemyName;
+			Points = points;
+			MoveSpeed = moveSpeed;
+			RotationSpeed = rotationSpeed;
+        }
+
+	}
 }

@@ -17,14 +17,20 @@ namespace KurtSingle
 		[SerializeField] CinemachineSplineDolly playerDollyCamera;
         [SerializeField] Transform enemyHolder;
         [SerializeField] float stopDistanceFromPlayer = 0.05f;
+        
         public float moveSpeed = 0.01f;
         [SerializeField] GameObject enemyTypePrefab;
         [SerializeField] int numberOfEnemies;
         [SerializeField] Vector3 Offset = new Vector3(2f, -1f, 1.5f);
         [SerializeField] List<GameObject> enemyPack = new List<GameObject>();
 
+        private SplineAutoDolly.FixedSpeed autodolly;
+
+
         private void Start()
         {
+            autodolly = splineCart.AutomaticDolly.Method as SplineAutoDolly.FixedSpeed;
+
             for (int i = 0; i < numberOfEnemies; i++)
             {
                 GameObject newEnemy = Instantiate(enemyTypePrefab, transform.position, transform.rotation, enemyHolder);
@@ -32,17 +38,32 @@ namespace KurtSingle
                 newEnemy.GetComponent<EnemyBase>().initialOffset = Offset * (i + 1);
                 newEnemy.GetComponent<EnemyBase>().splineCart = this.splineCart;
             }
+
         }
+
 
         private void Update()
         {
-            var autodolly = splineCart.AutomaticDolly.Method as SplineAutoDolly.FixedSpeed;
+            
             if (splineCart.SplinePosition < playerDollyCamera.CameraPosition + stopDistanceFromPlayer)
             {
                 autodolly.Speed = moveSpeed;
+                LetGroupAttack(true);
             } else
             {
                 autodolly.Speed = -moveSpeed;
+            }
+        }
+
+
+        public void LetGroupAttack(bool foo)
+        {
+            for (int i = 0; i < enemyPack.Count; i++)
+            {
+                if (enemyPack[i] != null)
+                {
+                    enemyPack[i].GetComponent<EnemyBase>().CanAttack = true;
+                }
             }
         }
 
