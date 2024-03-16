@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4387806502088132959}
   - component: {fileID: 1454562415638092196}
   - component: {fileID: 8013235422129340833}
-  - component: {fileID: 8968942853531910931}
   m_Layer: 0
   m_Name: RightBacKLeg
   m_TagString: Untagged
@@ -331,28 +330,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83374551571098739}
-  m_Mesh: {fileID: 0}
---- !u!64 &8968942853531910931
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83374551571098739}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &1243513320659302032
 GameObject:
@@ -721,7 +698,6 @@ GameObject:
   - component: {fileID: 1693176777327091171}
   - component: {fileID: 3679339487625802078}
   - component: {fileID: 5577812862749682164}
-  - component: {fileID: 5553839682027954494}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -1039,28 +1015,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068060764612855513}
   m_Mesh: {fileID: 0}
---- !u!64 &5553839682027954494
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068060764612855513}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &2852970940645967412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1263,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1142
+  m_VersionIndex: 1148
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1781,7 +1735,6 @@ GameObject:
   - component: {fileID: 8274030177028974517}
   - component: {fileID: 3613042340309154365}
   - component: {fileID: 5493815049438065811}
-  - component: {fileID: 77536265869817759}
   m_Layer: 0
   m_Name: Dinosaur
   m_TagString: Untagged
@@ -1797,10 +1750,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3246852571448950417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.46071923, y: 0.324, z: -4.988665}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.26, y: 4.26, z: 4.26}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6668483297722032159}
   - {fileID: 5800746321589825953}
@@ -2402,28 +2355,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3246852571448950417}
   m_Mesh: {fileID: 0}
---- !u!64 &77536265869817759
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246852571448950417}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &3910924902377769094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,7 +2368,6 @@ GameObject:
   - component: {fileID: 559421674872144044}
   - component: {fileID: 4941645135432285239}
   - component: {fileID: 800799347122282220}
-  - component: {fileID: 857038011311554824}
   m_Layer: 0
   m_Name: LeftBacKLeg
   m_TagString: Untagged
@@ -2755,28 +2685,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3910924902377769094}
-  m_Mesh: {fileID: 0}
---- !u!64 &857038011311554824
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3910924902377769094}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &4470027172198501509
 GameObject:
@@ -3144,7 +3052,6 @@ GameObject:
   - component: {fileID: 4549045820546645676}
   - component: {fileID: 7900483050704992112}
   - component: {fileID: 7781798423602716322}
-  - component: {fileID: 926534421822257337}
   m_Layer: 0
   m_Name: RightFrontLeg
   m_TagString: Untagged
@@ -3463,28 +3370,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4772051712747596390}
   m_Mesh: {fileID: 0}
---- !u!64 &926534421822257337
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4772051712747596390}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &5267598765779471537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,7 +3618,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1145
+  m_VersionIndex: 1154
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4558,7 +4443,6 @@ GameObject:
   - component: {fileID: 8465241560554814201}
   - component: {fileID: 7934461970299390923}
   - component: {fileID: 3959540658058920170}
-  - component: {fileID: 8448010149538977223}
   m_Layer: 0
   m_Name: Neck
   m_TagString: Untagged
@@ -4876,28 +4760,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7795695239549942645}
   m_Mesh: {fileID: 0}
---- !u!64 &8448010149538977223
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7795695239549942645}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &8219922706230118356
 GameObject:
   m_ObjectHideFlags: 0
@@ -4911,7 +4773,6 @@ GameObject:
   - component: {fileID: 8326467792572553749}
   - component: {fileID: 6551321403834653426}
   - component: {fileID: 2529496922220688968}
-  - component: {fileID: 634845777080650495}
   m_Layer: 0
   m_Name: LeftFrontLeg
   m_TagString: Untagged
@@ -5230,28 +5091,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8219922706230118356}
   m_Mesh: {fileID: 0}
---- !u!64 &634845777080650495
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219922706230118356}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &8475942734988883746
 GameObject:
   m_ObjectHideFlags: 0
@@ -5501,7 +5340,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1136
+  m_VersionIndex: 1139
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

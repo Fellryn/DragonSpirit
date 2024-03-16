@@ -15,12 +15,14 @@ namespace KurtSingle
     {
 
 
-        private float capsuleHeight = 25f;
-        public float capsuleRadius = 0.05f;
-        private float fireballLifetime = 10f;
+        private float capsuleHeight = 50f;
+        public float capsuleRadius = 0.25f;
+        private float fireballLifetime = 5f;
         public float ProjectileMoveSpeed { get; set; }
         public string HitTag { get; set; }
         public int ProjectileDamage { get; set; }
+        public bool usingCustomRotation = false;
+        public bool usingCustomPosition = false;
 
         public Transform cachedPlayerCamera;
         public Transform cachedUnitTransform;
@@ -47,8 +49,9 @@ namespace KurtSingle
                 ProjectileDamage = 1;
             }
 
+
+
             cachedRigidbody = GetComponent<Rigidbody>();
-            //cachedCollider = GetComponent<CapsuleCollider>();
             cachedRigidbody.useGravity = false;
             cachedRigidbody.drag = 0f;
 
@@ -70,8 +73,8 @@ namespace KurtSingle
 
         private void Start()
         {
-            transform.position = cachedUnitTransform.position;
-            transform.rotation = cachedUnitTransform.rotation;
+            if (!usingCustomPosition) transform.position = cachedUnitTransform.position;
+            if (!usingCustomRotation) transform.rotation = cachedUnitTransform.rotation;
 
             if (transform.CompareTag(enemyTag + projectileString))
             {
@@ -130,12 +133,17 @@ namespace KurtSingle
 
             }
 
+            if (other.CompareTag("Background"))
+            {
+                Destroy(gameObject);
+            }
+
 
         }
 
         private void Move()
         {
-            cachedRigidbody.AddRelativeForce(Vector3.forward * ProjectileMoveSpeed, ForceMode.Impulse);
+            cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed, ForceMode.Impulse);
         }
 
 

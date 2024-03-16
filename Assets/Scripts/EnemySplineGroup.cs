@@ -14,18 +14,40 @@ namespace KurtSingle
 	/// 
 	public class EnemySplineGroup : MonoBehaviour 
 	{
+        [SerializeField] GameTickSystem gameTickSystem;
+
 		[SerializeField] CinemachineSplineCart splineCart;
 		[SerializeField] CinemachineSplineDolly playerDollyCamera;
         [SerializeField] Transform enemyHolder;
         [SerializeField] float stopDistanceFromPlayer = 0.05f;
         
-        public float moveSpeed = 0.01f;
+        public float moveSpeed = 0.005f;
         [SerializeField] GameObject enemyTypePrefab;
         [SerializeField] int numberOfEnemies;
+        [SerializeField] Vector3 wholeGroupOffsetMax;
         [SerializeField] Vector3 Offset = new Vector3(2f, -1f, 1.5f);
         [SerializeField] List<GameObject> enemyPack = new List<GameObject>();
 
+        [SerializeField] float stayTime = 15f;
+        private float currentTicks = 0f;
+
+        [SerializeField] Transform enemyRandomHolder;
+        [SerializeField] Vector3 moveOffsetMin;
+        [SerializeField] Vector3 moveOffsetMax;
+
         private SplineAutoDolly.FixedSpeed autodolly;
+
+
+        private void OnEnable()
+        {
+            gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
+        }
+
+
+        private void OnDisable()
+        {
+            gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
+        }
 
 
         private void Start()
@@ -36,21 +58,29 @@ namespace KurtSingle
 
         }
 
+
         private void CreatePack()
         {
+            currentTicks = 0;
+
+            Vector3 randomGroupOffset = new Vector3(Random.Range(0, wholeGroupOffsetMax.x), Random.Range(0, wholeGroupOffsetMax.y), Random.Range(0, wholeGroupOffsetMax.z));
+
             for (int i = 0; i < numberOfEnemies; i++)
             {
                 GameObject newEnemy = Instantiate(enemyTypePrefab, transform.position, transform.rotation, enemyHolder);
                 enemyPack.Add(newEnemy);
-                newEnemy.GetComponent<EnemyBase>().initialOffset = Offset * (i + 1);
-                newEnemy.GetComponent<EnemyBase>().splineCart = this.splineCart;
+                newEnemy.GetComponent<EnemyMobile>().initialMoveTarget = randomGroupOffset + (Offset * (i + 1));
+                newEnemy.GetComponent<EnemyMobile>().useSpline = true;
+                newEnemy.GetComponent<EnemyMobile>().splineCart = splineCart;
             }
         }
+
 
         public void DoChecks()
         {
             DistanceFromPlayerCheck();
             GroupStatusCheck();
+            TimerCheck();
         }
 
 
@@ -80,6 +110,33 @@ namespace KurtSingle
             if (packCount <= 0) ResetPackAndSpline();
         }
 
+        private void TimerCheck()
+        {
+            if (currentTicks >= stayTime * 2)
+            {
+                for (int i = 0; i < enemyPack.Count; i++)
+                {
+                    if (enemyPack[i] != null)
+                    {
+                        if (enemyPack[i].TryGetComponent<EnemyMobile>(out EnemyMobile enemyMobile))
+                        {
+                            enemyPack[i].transform.SetParent(enemyRandomHolder);
+                            enemyMobile.ChangeMoveTarget(new Vector3(Random.Range(moveOffsetMin.x, moveOffsetMax.x), Random.Range(moveOffsetMin.y, moveOffsetMax.y), Random.Range(moveOffsetMin.z, moveOffsetMax.z)));
+                            enemyMobile.useSpline = false;
+                        }
+                    }
+                }
+
+                ResetPackAndSpline();
+
+            }
+            else
+            {
+                currentTicks += 1;
+            }
+        }
+
+
         private async void ResetPackAndSpline()
         {
             enemyPack.Clear();
@@ -97,10 +154,15 @@ namespace KurtSingle
             {
                 if (enemyPack[i] != null)
                 {
-                    enemyPack[i].GetComponent<EnemyBase>().CanAttack = true;
+                    //if (LetGroupMoveSideways) enemyPack[i].GetComponent<EnemyBat>().BeginSidewaysMovement();
+                    enemyPack[i].GetComponent<EnemyRangedAttack>().canAttack = true;
                 }
             }
+
+
         }
+
+
 
 
     }

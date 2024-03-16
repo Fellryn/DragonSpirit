@@ -5,33 +5,13 @@ using KurtSingle;
 
 namespace KurtSingle
 {
-    /// <summary>
-    /// Author: Kurt Single
-    /// Description: This script demonstrates how to use a subclass for an enemy (a bat) in Unity
-    /// </summary>
-    public class EnemyBat : EnemyBase
-    {
-        [Header("General")]
-        [SerializeField] string enemyName = "Bat";
-        [SerializeField] int points = 50;
-        [SerializeField] int lifePoints = 1;
+	/// <summary>
+	/// Author: Kurt Single
+	/// Description: This script demonstrates how to create a child enemy class (a bat) in Unity
+	/// </summary>
+	public class EnemyBat : EnemyMobile 
+	{
 
-        [Header("Movement")]
-        [SerializeField] float moveSpeed = 30f;
-        [SerializeField] float rotationSpeed = 15f;
-
-        [Header("Attack")]
-        [SerializeField] float fireballMoveSpeedMin = 10f;
-        [SerializeField] float fireballMoveSpeedMax = 15f;
-
-        private void Start()
-        {
-            Initialise(enemyName, points, moveSpeed, rotationSpeed, lifePoints);
-        }
-
-        protected override void SetProjectileMoveSpeed(ProjectileFireball fireballScript)
-        {
-            fireballScript.ProjectileMoveSpeed = Random.Range(fireballMoveSpeedMin, fireballMoveSpeedMax);
-        }
-    }
+		
+	}
 }
