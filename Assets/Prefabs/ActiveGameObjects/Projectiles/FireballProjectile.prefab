@@ -74,8 +74,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsuleRadius: 0.05
+  usingCustomRotation: 0
+  usingCustomPosition: 0
   cachedPlayerCamera: {fileID: 0}
   cachedUnitTransform: {fileID: 0}
+  explosionPrefab: {fileID: 9148410779099541663, guid: 568c8ef66276f3247ba5767a1dbdc7be,
+    type: 3}
+  explosionClip: {fileID: 8300000, guid: d65713543b34a4e48a2e7dddb0bbfb16, type: 3}
 --- !u!1001 &3688522222923509704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireballPlaceholder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764289522405674731, guid: f2db251b485703a4f9c5eb78b4816122,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

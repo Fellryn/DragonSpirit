@@ -20,14 +20,18 @@ namespace KurtSingle
             SetDefaults();
         }
 
-        public void EnemySpawn(bool foo)
-        {
-			AllowEnemySpawn = foo;
-        }
 
         public void SetDefaults()
         {
             EnemySpawn(true);
         }
+
+
+        public void EnemySpawn(bool foo)
+        {
+			AllowEnemySpawn = foo;
+        }
+
+
     }
 }

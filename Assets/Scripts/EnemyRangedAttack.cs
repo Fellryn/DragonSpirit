@@ -23,11 +23,16 @@ namespace KurtSingle
 
 		public bool canAttack = false;
 
+		protected PrefabReferencesLink prefabLink;
+		protected Transform projectileHolder;
+
         protected override void OnEnable()
         {
 			base.OnEnable();
 			gameTickSystem.OnRandomTick.AddListener(Attack);
 			cachedPlayerTransform = FindAnyObjectByType<PlayerMovement>().GetComponent<Transform>();
+			prefabLink = FindAnyObjectByType<PrefabReferencesLink>();
+			projectileHolder = GameObject.FindWithTag("ProjectileHolder").GetComponent<Transform>();
 		}
 
 		protected virtual void OnDisable()
@@ -39,21 +44,24 @@ namespace KurtSingle
         {
 			if (canAttack && Random.Range(0f,1f) < attackChance)
             {
-				var newProjectile = new GameObject().AddComponent<ProjectileFireball>();
+				var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
+
+				//var newProjectile = new GameObject().AddComponent<ProjectileFireball>();
+
 				newProjectile.transform.name = $"{transform.name} Projectile";
 				newProjectile.transform.tag = enemyProjectileTag;
-				newProjectile.cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
-				newProjectile.ProjectileDamage = damage;
-				newProjectile.cachedUnitTransform = transform;
+				newProjectile.GetComponent<ProjectileFireball>().cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+				newProjectile.GetComponent<ProjectileFireball>().ProjectileDamage = damage;
+				newProjectile.GetComponent<ProjectileFireball>().cachedUnitTransform = transform;
 
 				if (aimAtPlayer)
                 {
-					newProjectile.usingCustomRotation = true;
+					newProjectile.GetComponent<ProjectileFireball>().usingCustomRotation = true;
 					newProjectile.transform.rotation = Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position);
 
 				}
 
-				SetProjectileMoveSpeed(newProjectile);
+				SetProjectileMoveSpeed(newProjectile.GetComponent<ProjectileFireball>());
 			}
         }
 

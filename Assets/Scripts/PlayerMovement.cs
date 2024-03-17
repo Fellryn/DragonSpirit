@@ -102,14 +102,16 @@ namespace KurtSingle
 
         private void CameraMovePlayer()
         {
-            if (playerMatchCameraMovement || skippedFirstFrame)
+            if (playerMatchCameraMovement && skippedFirstFrame)
             {
-                if (lastPosition == dollyCamera.transform.position) return;
+                if (lastPosition == usedCamera.transform.position) return;
 
-                Vector3 forceToAdd = (dollyCamera.transform.position - lastPosition) * moveSpeed * cameraMoveModifier;
+                Vector3 forceToAdd = (usedCamera.transform.position - lastPosition) * moveSpeed * cameraMoveModifier;
+                forceToAdd.y = 0;
+                forceToAdd.x = 0;
 
-                cachedRigidbody.AddForce(forceToAdd);
-                lastPosition = dollyCamera.transform.position;
+                cachedRigidbody.AddRelativeForce(forceToAdd);
+                lastPosition = usedCamera.transform.position;
             }
 
             skippedFirstFrame = true;
@@ -202,6 +204,13 @@ namespace KurtSingle
             {
                 cachedRigidbody.AddRelativeForce(0, 0, correctingForce);
             }
+        }
+
+        public void CheatSkipToBoss()
+        {
+            skippedFirstFrame = false;
+            dollyCamera.CameraPosition = 1f;
+            cachedRigidbody.position = new Vector3(0f, -25f, 900f);
         }
     }
 }

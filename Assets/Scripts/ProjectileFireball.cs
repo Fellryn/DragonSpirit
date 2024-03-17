@@ -31,6 +31,11 @@ namespace KurtSingle
         private string playerTag = "Player";
         private string projectileString = "Projectile";
 
+        [SerializeField] GameObject explosionPrefab;
+        [SerializeField] AudioClip explosionClip;
+        private AudioSource soundEffectsAudioSource;
+
+
         GameObject colliderGameObject;
         CapsuleCollider cachedCollider;
         Rigidbody cachedRigidbody;
@@ -68,7 +73,7 @@ namespace KurtSingle
             cachedCollider.excludeLayers = 1 << LayerMask.NameToLayer("NoCollide");
 
 
-            cachedModel = Instantiate(FindAnyObjectByType<PrefabReferencesLink>().prefabReferences.fireballPrefab, transform.position, Quaternion.identity, transform);
+            //cachedModel = Instantiate(FindAnyObjectByType<PrefabReferencesLink>().prefabReferences.fireballPrefab, transform.position, Quaternion.identity, transform);
         }
 
         private void Start()
@@ -110,6 +115,7 @@ namespace KurtSingle
                     }
 
                     Destroy(gameObject);
+                    PlayEffects(other.transform);
                 }
 
             }
@@ -129,6 +135,7 @@ namespace KurtSingle
                     }
 
                     Destroy(gameObject);
+                    PlayEffects(other.transform);
                 }
 
             }
@@ -136,6 +143,7 @@ namespace KurtSingle
             if (other.CompareTag("Background"))
             {
                 Destroy(gameObject);
+                PlayEffects(this.transform);
             }
 
 
@@ -144,6 +152,15 @@ namespace KurtSingle
         private void Move()
         {
             cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed, ForceMode.Impulse);
+        }
+
+        private void PlayEffects(Transform targetTransform)
+        {
+            var explosionEffect = Instantiate(explosionPrefab, targetTransform.position, Quaternion.identity);
+            explosionEffect.hideFlags = HideFlags.HideInInspector;
+
+            soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();
+            soundEffectsAudioSource.PlayOneShot(explosionClip);
         }
 
 

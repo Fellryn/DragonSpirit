@@ -8,6 +8,8 @@ TagManager:
   - EnemyProjectile
   - Enemy
   - Background
+  - ProjectileHolder
+  - SoundEffects
   layers:
   - Default
   - TransparentFX

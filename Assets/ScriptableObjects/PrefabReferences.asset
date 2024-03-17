@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f725e0d8fb2c5b41a53fdfab3d5dffc, type: 3}
   m_Name: PrefabReferences
   m_EditorClassIdentifier: 
-  fireballPrefab: {fileID: 7512010012984396842, guid: f2db251b485703a4f9c5eb78b4816122,
+  fireballPrefab: {fileID: 8035965160312022369, guid: 49304de86028dd2408e1a84ff0147344,
     type: 3}

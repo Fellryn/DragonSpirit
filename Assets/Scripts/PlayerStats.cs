@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using KurtSingle;
 using TMPro;
 
@@ -50,6 +51,7 @@ namespace KurtSingle
         {
             PlayerLife -= damage;
             UpdateLivesText();
+            CheckLifeStatus();
         }
 
         private void UpdateScoreText()
@@ -60,6 +62,14 @@ namespace KurtSingle
         private void UpdateLivesText()
         {
             livesText.text = $"Lives: {PlayerLife.ToString()}";
+        }
+
+        private void CheckLifeStatus()
+        {
+            if (PlayerLife <= 0)
+            {
+                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+            }
         }
 
     }

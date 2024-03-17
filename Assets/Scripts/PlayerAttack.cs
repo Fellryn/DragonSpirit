@@ -21,6 +21,9 @@ namespace KurtSingle
         [SerializeField] string playerProjectileTag = "PlayerProjectile";
         [SerializeField] Transform cachedPlayerCamera;
 
+        [SerializeField] GameObject fireballPrefab;
+        [SerializeField] Transform projectilesHolder;
+
         private Transform cachedTransform;
 
         private void Start()
@@ -44,14 +47,17 @@ namespace KurtSingle
         private void PlayerAttacking(InputAction.CallbackContext obj)
         {
             Fireball();
+
         }
 
         private void Fireball()
         {
-            var newProjectile = new GameObject("Fireball").AddComponent<ProjectileFireball>();
+            var newProjectile = Instantiate(fireballPrefab, projectilesHolder);
+            //var newProjectile = new GameObject("Fireball").AddComponent<ProjectileFireball>();
             newProjectile.transform.tag = playerProjectileTag;
-            newProjectile.cachedPlayerCamera = cachedPlayerCamera;
-            newProjectile.cachedUnitTransform = cachedTransform;
+            newProjectile.GetComponent<ProjectileFireball>().cachedPlayerCamera = cachedPlayerCamera;
+            newProjectile.GetComponent<ProjectileFireball>().cachedUnitTransform = cachedTransform;
+
         }
     }
 }

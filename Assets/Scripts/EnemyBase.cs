@@ -50,7 +50,7 @@ namespace KurtSingle
         }
 
 
-		protected virtual void BeginDeath()
+		public virtual void BeginDeath()
         {
 			deathBegun = true;
 			onKill?.Invoke(score);

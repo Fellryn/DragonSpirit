@@ -14,20 +14,27 @@ namespace KurtSingle
 	/// 
 	public class EnemySplineGroup : MonoBehaviour 
 	{
+        [SerializeField] GameVars gameVars;
+
         [SerializeField] GameTickSystem gameTickSystem;
 
 		[SerializeField] CinemachineSplineCart splineCart;
 		[SerializeField] CinemachineSplineDolly playerDollyCamera;
         [SerializeField] Transform enemyHolder;
+
+
+        [Header("Setup")]
         [SerializeField] float stopDistanceFromPlayer = 0.05f;
-        
         public float moveSpeed = 0.005f;
         [SerializeField] GameObject enemyTypePrefab;
         [SerializeField] int numberOfEnemies;
         [SerializeField] Vector3 wholeGroupOffsetMax;
-        [SerializeField] Vector3 Offset = new Vector3(2f, -1f, 1.5f);
+        [SerializeField] Vector3 offsetMin = new Vector3(2f, -1f, 1f);
+        [SerializeField] Vector3 offsetMax = new Vector3(4f, -3f, 3f);
         [SerializeField] List<GameObject> enemyPack = new List<GameObject>();
 
+
+        [Header("Detaching")]
         [SerializeField] float stayTime = 15f;
         private float currentTicks = 0f;
 
@@ -61,15 +68,18 @@ namespace KurtSingle
 
         private void CreatePack()
         {
+            if (!gameVars.AllowEnemySpawn) return;
+
             currentTicks = 0;
 
             Vector3 randomGroupOffset = new Vector3(Random.Range(0, wholeGroupOffsetMax.x), Random.Range(0, wholeGroupOffsetMax.y), Random.Range(0, wholeGroupOffsetMax.z));
+            Vector3 randomUnitOffset = new Vector3(Random.Range(offsetMin.x, offsetMax.x), Random.Range(offsetMin.y, offsetMax.y), Random.Range(offsetMin.z, offsetMax.z));
 
             for (int i = 0; i < numberOfEnemies; i++)
             {
                 GameObject newEnemy = Instantiate(enemyTypePrefab, transform.position, transform.rotation, enemyHolder);
                 enemyPack.Add(newEnemy);
-                newEnemy.GetComponent<EnemyMobile>().initialMoveTarget = randomGroupOffset + (Offset * (i + 1));
+                newEnemy.GetComponent<EnemyMobile>().initialMoveTarget = randomGroupOffset + (randomUnitOffset * (i + 1));
                 newEnemy.GetComponent<EnemyMobile>().useSpline = true;
                 newEnemy.GetComponent<EnemyMobile>().splineCart = splineCart;
             }
