@@ -18,10 +18,15 @@ namespace KurtSingle
 	{
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
+        public bool GodmodeActive { get; set; }
+        public int maxLives = 10;
         [SerializeField]
         TextMeshProUGUI scoreText;
         [SerializeField]
         TextMeshProUGUI livesText;
+
+
+
 
         private void OnEnable()
         {
@@ -50,9 +55,18 @@ namespace KurtSingle
         public void PlayerTakeDamage(int damage)
         {
             PlayerLife -= damage;
+            PlayerLife = Mathf.Clamp(PlayerLife, 0, maxLives);
             UpdateLivesText();
             CheckLifeStatus();
         }
+
+        public void PlayerHeal(int amount)
+        {
+            PlayerLife += amount;
+            PlayerLife = Mathf.Clamp(PlayerLife, 0, maxLives);
+            UpdateLivesText();
+        }
+
 
         private void UpdateScoreText()
         {
@@ -66,11 +80,18 @@ namespace KurtSingle
 
         private void CheckLifeStatus()
         {
-            if (PlayerLife <= 0)
+            if (PlayerLife <= 0 && !GodmodeActive)
             {
                 SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
             }
         }
+
+        public void ToggleGodmode()
+        {
+            GodmodeActive = !GodmodeActive;
+            if (!GodmodeActive) PlayerHeal(100);
+        }
+
 
     }
 }

@@ -17,8 +17,12 @@ namespace KurtSingle
 		[SerializeField] Transform enemiesHolder;
 		[SerializeField] Transform randomEnemiesHolder;
 		[SerializeField] Transform projectileHolder;
+		[SerializeField] Transform staticEnemiesHolder;
 
 		[SerializeField] GameVars gameVars;
+
+		[SerializeField] Button godmodeButton;
+		[SerializeField] PlayerStats playerStatsScript;
 		
 		public void ToggleCheatsMenu()
         {
@@ -41,11 +45,27 @@ namespace KurtSingle
 			{
 				Destroy(projectileHolder.GetChild(i).gameObject);
 			}
+
+			for (int i = 0; i < staticEnemiesHolder.childCount; i++)
+			{
+				Destroy(projectileHolder.GetChild(i).gameObject);
+			}
 		}
 
 		public void ToggleEnemySpawns()
         {
 			gameVars.EnemySpawn(!gameVars.AllowEnemySpawn);
+        }
+
+		public void DisplayGodMode()
+        {
+			if (playerStatsScript.GodmodeActive)
+            {
+				godmodeButton.GetComponent<Image>().color = Color.red;
+            } else
+            {
+				godmodeButton.GetComponent<Image>().color = Color.white;
+			}
         }
 	}
 }

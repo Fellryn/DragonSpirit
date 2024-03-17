@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KurtSingle.EnemyBase" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEAAAAAAIAAAAAAAAIAAAAAAQAAAAAAAACwAAQCAg=</HashCode>
+      <FileName>Assets\Scripts\EnemyBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyBat" Collapsed="true">
+    <Position X="4.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyBat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyBoss" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyBoss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyDinosaur" Collapsed="true">
+    <Position X="6.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyDinosaur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyFlyingTween" Collapsed="true">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAABBCAIIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyFlyingTween.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyMeleeAttack" Collapsed="true">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAEoASFAAAAACEACBQAKAAAADKAABAAQBACAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyMeleeAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyMobile" Collapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEogCBEAAAAAAAABQAAAAAADIAABAAABACAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyMobile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyRangedAttack" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAIAAAAAAEgAAgAAAAACAAAIAAAAAKQAIACAAACAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyRangedAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemySeaMonster" Collapsed="true">
+    <Position X="8.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemySeaMonster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemySpawnRandomFlying" Collapsed="true">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQQQAABAUAAAAAAAAAAAAAKQCACCABACCA=</HashCode>
+      <FileName>Assets\Scripts\EnemySpawnRandomFlying.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemySplineGroup" Collapsed="true">
+    <Position X="17" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAFCQkQOABBAiEKAAAAIAIAACIQAACAAEQCBA=</HashCode>
+      <FileName>Assets\Scripts\EnemySplineGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemySplineGroupCreater" Collapsed="true">
+    <Position X="18.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemySplineGroupCreater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemyStatic" Collapsed="true">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAYAAAEAAAAAAAAEAAIAABAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\EnemyStatic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.EnemySugarGlider" Collapsed="true">
+    <Position X="2" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EnemySugarGlider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.GameTickSystem" Collapsed="true">
+    <Position X="13.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAAAgAAAIAAAAAACAAAABIIQIAAAgIABAEAAA=</HashCode>
+      <FileName>Assets\Scripts\GameTickSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PlayerAttack" Collapsed="true">
+    <Position X="15.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAAAAAAAAAAQABAAAAACAAIBAAQAQAACAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PlayerCollision" Collapsed="true">
+    <Position X="17" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAAAAgCAAAAAAAAAAAACAAAAAAAAQAACAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PlayerMovement" Collapsed="true">
+    <Position X="18.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gGAhgBAAEqAEAIBAgAEBAAAAAEAAAUCAAAICQAAgAEA=</HashCode>
+      <FileName>Assets\Scripts\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PlayerPause" Collapsed="true">
+    <Position X="13.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAAAAAAAAAAAEAAABAAAAAAAAAGAAAEA=</HashCode>
+      <FileName>Assets\Scripts\PlayerPause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PlayerStats" Collapsed="true">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAAQACAAAQAAAAAAAAAAAQAAAAAJAAABAAAAGIA=</HashCode>
+      <FileName>Assets\Scripts\PlayerStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.PrefabReferencesLink" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrefabReferencesLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.ProjectileFireball" Collapsed="true">
+    <Position X="18.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgIIAAIqAAIAgGkQABAAEAAAQACAAAQAAgQYAACAA=</HashCode>
+      <FileName>Assets\Scripts\ProjectileFireball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KurtSingle.SceneChanger" Collapsed="true">
+    <Position X="13.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\SceneChanger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

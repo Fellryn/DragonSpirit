@@ -98,6 +98,7 @@ MonoBehaviour:
   enemyName: Enemy
   health: 1
   score: 1
+  cachedModel: {fileID: 5065204061467325168}
   deathBegun: 0
   damage: 1
   attackChance: 0.5

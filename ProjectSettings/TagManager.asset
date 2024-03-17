@@ -10,6 +10,7 @@ TagManager:
   - Background
   - ProjectileHolder
   - SoundEffects
+  - EnemyHolder
   layers:
   - Default
   - TransparentFX

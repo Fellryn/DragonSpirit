@@ -11,7 +11,7 @@ namespace KurtSingle
 	/// </summary>
 	public class EnemyBoss : EnemyStatic 
 	{
-
+		
 		
 	}
 }

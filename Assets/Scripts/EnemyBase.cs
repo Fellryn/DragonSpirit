@@ -18,6 +18,7 @@ namespace KurtSingle
 		[SerializeField] string enemyName = "Enemy";
 		[SerializeField] int health = 1;
 		[SerializeField] int score = 1;
+		public Transform cachedModel;
 
 		public bool deathBegun = false;
 

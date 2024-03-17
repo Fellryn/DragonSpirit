@@ -99,6 +99,7 @@ MonoBehaviour:
   enemyName: SugarGlider
   health: 1
   score: 1
+  cachedModel: {fileID: 4439983880229156125}
   deathBegun: 0
   ticksBeforeAttack: 4
   moveSpeed: 10
