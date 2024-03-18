@@ -50,9 +50,10 @@ MonoBehaviour:
   enemyName: Boss
   health: 10
   score: 1
+  cachedModel: {fileID: 0}
   deathBegun: 0
   damage: 2
-  attackChance: 0.5
+  attackChance: 0.75
   projectileMoveSpeedMin: 10
   projectileMoveSpeedMax: 15
   enemyProjectileTag: EnemyProjectile
@@ -60,6 +61,8 @@ MonoBehaviour:
   canAttack: 0
   rotationSpeed: 30
   mainCamera: {fileID: 0}
+  canRotate: 1
+  sceneNavigation: {fileID: 0}
 --- !u!54 &1772557417409563623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -121,27 +124,27 @@ PrefabInstance:
     - target: {fileID: 1106416371031712446, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1275
+      value: 1290
       objectReference: {fileID: 0}
     - target: {fileID: 1902657627447288370, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1293
+      value: 1308
       objectReference: {fileID: 0}
     - target: {fileID: 1964519003814135159, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 4403
+      value: 4418
       objectReference: {fileID: 0}
     - target: {fileID: 2624015951651238950, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1290
+      value: 1305
       objectReference: {fileID: 0}
     - target: {fileID: 4749698273433830881, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1287
+      value: 1302
       objectReference: {fileID: 0}
     - target: {fileID: 5914383191757173534, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
@@ -206,22 +209,22 @@ PrefabInstance:
     - target: {fileID: 5998763908490030581, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1278
+      value: 1293
       objectReference: {fileID: 0}
     - target: {fileID: 6419041078221132105, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1290
+      value: 1305
       objectReference: {fileID: 0}
     - target: {fileID: 6652799155373435192, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1284
+      value: 1299
       objectReference: {fileID: 0}
     - target: {fileID: 7413944935169264928, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1281
+      value: 1296
       objectReference: {fileID: 0}
     - target: {fileID: 7657649501409003974, guid: 1448c1eb85b550547a256b5682486cc8,
         type: 3}

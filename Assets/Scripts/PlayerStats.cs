@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using KurtSingle;
+using UlianaKutsenko;
 using TMPro;
 
 namespace KurtSingle
@@ -24,6 +24,9 @@ namespace KurtSingle
         TextMeshProUGUI scoreText;
         [SerializeField]
         TextMeshProUGUI livesText;
+
+        [SerializeField] SceneNavigation sceneNavigation;
+        [SerializeField] string gameOverSceneName = "GameOver";
 
 
 
@@ -82,7 +85,7 @@ namespace KurtSingle
         {
             if (PlayerLife <= 0 && !GodmodeActive)
             {
-                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                sceneNavigation.ChangeScene(gameOverSceneName);
             }
         }
 

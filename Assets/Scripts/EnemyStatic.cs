@@ -14,6 +14,7 @@ namespace KurtSingle
 		[Header("Movement")]
 		[SerializeField] float rotationSpeed = 30f;
 		[SerializeField] Camera mainCamera;
+		[SerializeField] bool canRotate = true;
 
 		protected override void OnEnable()
 		{
@@ -41,7 +42,7 @@ namespace KurtSingle
 
 		private void RotateTowardPlayer()
 		{
-			if (canAttack)
+			if (canAttack && canRotate)
 			{
 				Vector3 rigidbody = new Vector3(cachedRigidbody.position.x, 0, cachedRigidbody.position.z);
 				Vector3 player = new Vector3(cachedPlayerTransform.position.x, 0, cachedPlayerTransform.position.z);

@@ -23,6 +23,8 @@ namespace KurtSingle
 
 		[SerializeField] Button godmodeButton;
 		[SerializeField] PlayerStats playerStatsScript;
+
+		public bool timeScaleToggled = false;
 		
 		public void ToggleCheatsMenu()
         {
@@ -66,6 +68,19 @@ namespace KurtSingle
             {
 				godmodeButton.GetComponent<Image>().color = Color.white;
 			}
+        }
+
+		public void ToggleTimeScale()
+        {
+			timeScaleToggled = !timeScaleToggled;
+
+			if (timeScaleToggled)
+            {
+				Time.timeScale = 5f;
+            } else
+            {
+				Time.timeScale = 1f;
+            }
         }
 	}
 }

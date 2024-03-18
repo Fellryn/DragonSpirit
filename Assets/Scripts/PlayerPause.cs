@@ -20,23 +20,34 @@ namespace KurtSingle
         private void Awake()
         {
 			GameManager.OnGameStateChanged += OnGameManagerStateChanged;
-            menuKeyPlayer.action.performed += MenuKeyPressed;
-            menuKeyUI.action.performed += MenuKeyPressed;
+            menuKeyPlayer.action.performed += HardwareMenuKeyPressed;
+            menuKeyUI.action.performed += HardwareMenuKeyPressed;
         }
 
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameManagerStateChanged;
-            menuKeyPlayer.action.performed -= MenuKeyPressed;
-            menuKeyUI.action.performed -= MenuKeyPressed;
+            menuKeyPlayer.action.performed -= HardwareMenuKeyPressed;
+            menuKeyUI.action.performed -= HardwareMenuKeyPressed;
         }
 
-        private void MenuKeyPressed(InputAction.CallbackContext obj)
+        private void HardwareMenuKeyPressed(InputAction.CallbackContext obj)
+        {
+            MenuKeyPressed();
+        }
+
+        public void SoftwareMenuKeyPressed()
+        {
+            MenuKeyPressed();
+        }
+
+        private void MenuKeyPressed()
         {
             if (GameManager.Instance.State == GameManager.GameStates.Paused)
             {
                 GameManager.Instance.ChangeGameState(GameManager.GameStates.Running);
-            } else
+            }
+            else
             {
                 GameManager.Instance.ChangeGameState(GameManager.GameStates.Paused);
             }

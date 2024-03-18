@@ -61,6 +61,8 @@ namespace KurtSingle
         {
             autodolly = splineCart.AutomaticDolly.Method as SplineAutoDolly.FixedSpeed;
 
+            gameVars.EnemySpawn(true);
+
             CreatePack();
 
         }

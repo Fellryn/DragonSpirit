@@ -14,7 +14,7 @@ namespace KurtSingle
     public class ProjectileTrackingFireball : MonoBehaviour
     {
 
-
+        [SerializeField] 
         private float capsuleHeight = 50f;
         public float capsuleRadius = 0.25f;
         private float fireballLifetime = 5f;
@@ -32,7 +32,7 @@ namespace KurtSingle
         private GameTickSystem gameTickSystem;
 
         private string enemyTag = "Enemy";
-        private string playerTag = "Player";
+        //private string playerTag = "Player";
         private string projectileString = "Projectile";
 
         [SerializeField] GameObject explosionPrefab;
@@ -43,6 +43,9 @@ namespace KurtSingle
         GameObject colliderGameObject;
         CapsuleCollider cachedCollider;
         Rigidbody cachedRigidbody;
+
+        private int rechecksAllowed = 5;
+        private int rechecksDone = 0;
 
 
         private void OnEnable()
@@ -151,17 +154,25 @@ namespace KurtSingle
 
             for (int i = 0; i < enemyHolders[randomIndex].transform.childCount; i++)
             {
+                if (FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Renderer>().isVisible)
+                {
+                    randomEnemyToFollow = FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Transform>();
+                    break;
+                }
+
                 if (enemyHolders[randomIndex].transform.childCount == 0)
                 {
                     AimAtRandomEnemy();
                     break;
                 }
 
+
                 if (Random.Range(0f, 1f) < 0.25f)
                 {
                     randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
                     break;
                 }
+
 
                 if (i == enemyHolders[randomIndex].transform.childCount)
                 {
@@ -170,12 +181,20 @@ namespace KurtSingle
                 }
             }
 
+            if (rechecksDone >= rechecksAllowed)
+            {
+                return;
+            }
+
+
             if (randomEnemyToFollow == null)
             {
                 AimAtRandomEnemy();
+                rechecksAllowed++;
             } else
             {
                 if (!randomEnemyToFollow.GetComponent<EnemyBase>().cachedModel.GetComponent<Renderer>().isVisible) AimAtRandomEnemy();
+                rechecksAllowed++;
             }
 
             //if (randomEnemyToFollow != null)
@@ -208,18 +227,25 @@ namespace KurtSingle
                 //Quaternion moveTarget = Quaternion.SetLookRotation(transform.position - randomEnemyToFollow.position);
                 //cachedRigidbody.MoveRotation(moveTarget);
                 //transform.rotation = Quaternion.LookRotation(cachedRigidbody.position - randomEnemyToFollow.position);
+
+                Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, randomEnemyToFollow.position, ProjectileMoveSpeed * Time.deltaTime);
+                cachedRigidbody.MovePosition(moveTarget);
+            } else
+            {
+                cachedRigidbody.AddForce(Vector3.forward * ProjectileMoveSpeed);
             }
             
-            Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, randomEnemyToFollow.position, ProjectileMoveSpeed * Time.deltaTime);
+
+
 
             //Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position), rotationSpeed * Time.deltaTime);
-            cachedRigidbody.MovePosition(moveTarget);
+
 
 
             //cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed * 0.02f, ForceMode.Impulse);
-           // cachedRigidbody.maxLinearVelocity = 10f;
+            // cachedRigidbody.maxLinearVelocity = 10f;
 
-           // Debug.Log(cachedRigidbody.velocity);
+            // Debug.Log(cachedRigidbody.velocity);
         }
 
         private void PlayEffects(Transform targetTransform)

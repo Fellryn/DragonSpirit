@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KurtSingle;
+using UlianaKutsenko;
 
 namespace KurtSingle
 {
@@ -11,7 +12,15 @@ namespace KurtSingle
 	/// </summary>
 	public class EnemyBoss : EnemyStatic 
 	{
-		
-		
-	}
+		[SerializeField] SceneNavigation sceneNavigation;
+ 
+        private void OnDestroy()
+        {
+			if (!gameObject.scene.isLoaded) return;
+
+			sceneNavigation.ChangeScene("GameOver");
+        }
+
+
+    }
 }

@@ -14,7 +14,7 @@ namespace KurtSingle
     public class ProjectileFireball : MonoBehaviour
     {
 
-
+        [SerializeField]
         private float capsuleHeight = 50f;
         public float capsuleRadius = 0.25f;
         private float fireballLifetime = 5f;

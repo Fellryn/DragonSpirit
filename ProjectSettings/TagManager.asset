@@ -11,6 +11,7 @@ TagManager:
   - ProjectileHolder
   - SoundEffects
   - EnemyHolder
+  - Music
   layers:
   - Default
   - TransparentFX

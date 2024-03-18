@@ -128,6 +128,67 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 945520507718353403, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945520507718353403, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945520507718353403, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945520507718353403, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2027518455843275412, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+        type: 3}
+    - target: {fileID: 2027518455843275412, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779890490}
+    - target: {fileID: 2027518455843275412, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2027518455843275412, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UlianaKutsenko.SceneNavigation, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789986812505420064, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789986812505420064, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789986812505420064, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789986812505420064, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3341605396190959086, guid: d2fb57eb3be8d4aca9ac21464007b149,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -167,6 +228,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028982448792683936, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+        type: 3}
+    - target: {fileID: 5028982448792683936, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779890490}
+    - target: {fileID: 5028982448792683936, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028982448792683936, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UlianaKutsenko.SceneNavigation, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5420203175496776884, guid: d2fb57eb3be8d4aca9ac21464007b149,
         type: 3}
@@ -197,6 +279,48 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054722882845299471, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+        type: 3}
+    - target: {fileID: 8054722882845299471, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779890490}
+    - target: {fileID: 8054722882845299471, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitApplication
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054722882845299471, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UlianaKutsenko.SceneNavigation, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418462630429989255, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+        type: 3}
+    - target: {fileID: 8418462630429989255, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779890490}
+    - target: {fileID: 8418462630429989255, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418462630429989255, guid: d2fb57eb3be8d4aca9ac21464007b149,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UlianaKutsenko.SceneNavigation, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8803162917850767717, guid: d2fb57eb3be8d4aca9ac21464007b149,
         type: 3}
@@ -323,6 +447,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2fb57eb3be8d4aca9ac21464007b149, type: 3}
+--- !u!1 &261992292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6327979542871386913, guid: d2fb57eb3be8d4aca9ac21464007b149,
+    type: 3}
+  m_PrefabInstance: {fileID: 261992291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +717,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 779890489}
+  - component: {fileID: 779890490}
+  - component: {fileID: 779890491}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -609,6 +741,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &779890490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779890487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda660683f27e8e469e8b8c23980f302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneChangeDelay: 0.15
+--- !u!114 &779890491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779890487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef952f8560a46c843986ae3f9fd55edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseMoved: {fileID: -6533693614422029266, guid: e2908dcd10e331140a803e1fd5d71b8a,
+    type: 3}
+  uiNavigate: {fileID: 6841694812698169671, guid: e2908dcd10e331140a803e1fd5d71b8a,
+    type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +830,7 @@ GameObject:
   - component: {fileID: 965889814}
   - component: {fileID: 965889813}
   - component: {fileID: 965889815}
+  - component: {fileID: 965889816}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -688,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 261992292}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &965889814
@@ -722,31 +884,62 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_PointAction: {fileID: -6533693614422029266, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MoveAction: {fileID: 6841694812698169671, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_SubmitAction: {fileID: 984718828636246158, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_CancelAction: {fileID: -1664744841405162401, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_LeftClickAction: {fileID: 8303279962966992643, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MiddleClickAction: {fileID: -8843115375874038313, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_RightClickAction: {fileID: -2235773632195754518, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ScrollWheelAction: {fileID: 6673326561214394657, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDevicePositionAction: {fileID: -8735913301145634312, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDeviceOrientationAction: {fileID: -3926735811105309921, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &965889816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965889811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e2908dcd10e331140a803e1fd5d71b8a,
+    type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
