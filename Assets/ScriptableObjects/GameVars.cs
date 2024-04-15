@@ -14,6 +14,7 @@ namespace KurtSingle
 	public class GameVars : ScriptableObject 
 	{
         public bool AllowEnemySpawn { get; private set; }
+        public bool wonLastLevel { get; private set; }
 
         private void OnEnable()
         {
@@ -30,6 +31,11 @@ namespace KurtSingle
         public void EnemySpawn(bool foo)
         {
 			AllowEnemySpawn = foo;
+        }
+
+        public void WonLevel(bool foo)
+        {
+            wonLastLevel = foo;
         }
 
 

@@ -12,14 +12,16 @@ namespace KurtSingle
 	/// </summary>
 	public class EnemyFlyingTween : MonoBehaviour 
 	{
-		private Transform modelTransform;
+		[SerializeField]
+		Transform modelTransform;
 		[SerializeField] float shakeDuration = 1f;
 		[SerializeField] float shakeStrength = 0.2f;
 		[SerializeField] int shakeVibrato = 1;
 
         private void Start()
         {
-			modelTransform = GetComponentInChildren<MeshRenderer>().GetComponent<Transform>();
+			if (modelTransform == null) modelTransform = GetComponentInChildren<MeshRenderer>().GetComponent<Transform>();
+
 			modelTransform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato).SetLoops(-1, LoopType.Yoyo);
         }
 

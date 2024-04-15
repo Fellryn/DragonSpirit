@@ -33,11 +33,13 @@ namespace KurtSingle
 
         }
 
+
         protected override void OnDisable()
         {
             base.OnDisable();
             gameTickSystem.OnEveryHalfTick.RemoveListener(DoPositionCheck);
         }
+
 
         protected virtual void FixedUpdate()
         {
@@ -51,22 +53,34 @@ namespace KurtSingle
             }
         }
 
+
         protected virtual void SplineMove()
         {
             Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, splineCart.transform.position + initialMoveTarget, moveSpeed * Time.deltaTime);
             Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, splineCart.transform.rotation, rotationSpeed * Time.deltaTime);
+
+
             cachedRigidbody.MovePosition(moveTarget);
             cachedRigidbody.MoveRotation(rotateTarget);
         }
+
 
         protected virtual void Move()
         {
             Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, cachedPlayerTransform.position + initialMoveTarget, moveSpeed * Time.deltaTime);
 
-            Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position), rotationSpeed * Time.deltaTime);
+            Vector3 modifiedPosition = cachedRigidbody.position;
+            modifiedPosition.y = 0;
+            Vector3 modifiedPlayerPosition = cachedPlayerTransform.position;
+            modifiedPlayerPosition.y = 0;
+
+            Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, Quaternion.LookRotation(modifiedPosition - modifiedPlayerPosition), rotationSpeed * Time.deltaTime);
+
             cachedRigidbody.MovePosition(moveTarget);
             cachedRigidbody.MoveRotation(rotateTarget);
+            //cachedRigidbody.rotation = Quaternion.Euler(0f, cachedRigidbody.rotation.y, cachedRigidbody.rotation.z);
         }
+
 
         private void DoPositionCheck()
         {
@@ -85,6 +99,7 @@ namespace KurtSingle
                 }
             }
         }
+
 
         public void ChangeMoveTarget(Vector3 target)
         {

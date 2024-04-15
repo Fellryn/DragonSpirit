@@ -18,6 +18,7 @@ namespace KurtSingle
 		[SerializeField] Transform randomEnemiesHolder;
 		[SerializeField] Transform projectileHolder;
 		[SerializeField] Transform staticEnemiesHolder;
+		[SerializeField] PlayerMovement playerMovement;
 
 		[SerializeField] GameVars gameVars;
 
@@ -38,20 +39,25 @@ namespace KurtSingle
 				enemiesHolder.GetChild(i).GetComponent<EnemyBase>().BeginDeath();
             }
 
-			for (int i = 0; i < randomEnemiesHolder.childCount; i++)
+			for (int j = 0; j < randomEnemiesHolder.childCount; j++)
 			{
-				randomEnemiesHolder.GetChild(i).GetComponent<EnemyBase>().BeginDeath();
+				randomEnemiesHolder.GetChild(j).GetComponent<EnemyBase>().BeginDeath();
 			}
 
-			for (int i = 0; i < projectileHolder.childCount; i++)
-			{
-				Destroy(projectileHolder.GetChild(i).gameObject);
+            for (int k = 0; k < staticEnemiesHolder.childCount; k++)
+            {
+				staticEnemiesHolder.GetChild(k).GetComponent<EnemyBase>().BeginDeath();
 			}
 
-			for (int i = 0; i < staticEnemiesHolder.childCount; i++)
-			{
-				Destroy(projectileHolder.GetChild(i).gameObject);
-			}
+			//for (int k = 0; k < projectileHolder.childCount; k++)
+			//{
+			//	Destroy(projectileHolder.GetChild(k).gameObject);
+			//}
+
+			//for (int l = 0; l < staticEnemiesHolder.childCount; l++)
+			//{
+			//	Destroy(projectileHolder.GetChild(l).gameObject);
+			//}
 		}
 
 		public void ToggleEnemySpawns()
@@ -81,6 +87,13 @@ namespace KurtSingle
             {
 				Time.timeScale = 1f;
             }
+        }
+
+		public void SkipToBoss()
+        {
+			playerStatsScript.powerupAttackTracking = false;
+			WipeAllEnemies();
+			playerMovement.CheatSkipToBoss();
         }
 	}
 }

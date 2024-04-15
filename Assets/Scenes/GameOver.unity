@@ -970,6 +970,7 @@ GameObject:
   - component: {fileID: 538005386}
   - component: {fileID: 538005387}
   - component: {fileID: 538005388}
+  - component: {fileID: 538005389}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -1021,6 +1022,24 @@ MonoBehaviour:
     type: 3}
   uiNavigate: {fileID: 6841694812698169671, guid: e2908dcd10e331140a803e1fd5d71b8a,
     type: 3}
+--- !u!114 &538005389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538005384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894dfd786ae54b6418678670146352b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameVars: {fileID: 11400000, guid: a7d380d682b0bfa45a69f2791cfd9bde, type: 2}
+  winLoseText: {fileID: 286479126}
+  winText: You Won!
+  winColour: {r: 0, g: 1, b: 0, a: 1}
+  loseText: You Lost! Bad Luck!
+  loseColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &895266580
 GameObject:
   m_ObjectHideFlags: 0

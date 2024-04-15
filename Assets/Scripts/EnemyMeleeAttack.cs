@@ -154,5 +154,7 @@ namespace KurtSingle
         {
             storedMoveTarget = target;
         }
+
+
     }
 }

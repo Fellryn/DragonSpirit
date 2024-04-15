@@ -24,6 +24,8 @@ namespace KurtSingle
         [SerializeField] float bossSplinePosition = 1f;
         [SerializeField] float stopEnemySpawnSplinePosition = 0.9f;
 
+        public bool atBoss = false;
+
 
         private void OnEnable()
         {
@@ -51,6 +53,7 @@ namespace KurtSingle
             if (dollyCamera.CameraPosition >= bossSplinePosition)
             {
                 if (bossCamera.gameObject.activeSelf == false) bossCamera.gameObject.SetActive(true);
+                atBoss = true;
             }
         }
 

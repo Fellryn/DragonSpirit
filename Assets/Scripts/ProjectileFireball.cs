@@ -18,6 +18,7 @@ namespace KurtSingle
         private float capsuleHeight = 50f;
         public float capsuleRadius = 0.25f;
         private float fireballLifetime = 5f;
+        public float maxHeight = 7;
         public float ProjectileMoveSpeed { get; set; }
         public string HitTag { get; set; }
         public int ProjectileDamage { get; set; }
@@ -30,6 +31,7 @@ namespace KurtSingle
         private string enemyTag = "Enemy";
         private string playerTag = "Player";
         private string projectileString = "Projectile";
+        private string powerupEggTag = "PowerUpEgg";
 
         [SerializeField] GameObject explosionPrefab;
         [SerializeField] AudioClip explosionClip;
@@ -41,6 +43,13 @@ namespace KurtSingle
         Rigidbody cachedRigidbody;
 
         GameObject cachedModel;
+
+        [SerializeField]
+        ParticleSystem particleSystemStart;
+        [SerializeField]
+        ParticleSystem particleSystemContinue;
+        [SerializeField]
+        Material playerMaterial;
 
         private void OnEnable()
         {
@@ -89,13 +98,21 @@ namespace KurtSingle
             Destroy(gameObject, fireballLifetime);
 
             Move();
- 
+
+            RotateSprite();
         }
 
 
         private void FixedUpdate()
         {
             colliderGameObject.transform.LookAt(cachedPlayerCamera);
+
+
+            if (transform.position.y > maxHeight)
+            {
+                Destroy(gameObject);
+            }
+
         }
 
 
@@ -138,6 +155,11 @@ namespace KurtSingle
                     PlayEffects(other.transform);
                 }
 
+                if (other.CompareTag(powerupEggTag))
+                {
+                    Destroy(other.gameObject);
+                }
+
             }
 
             if (other.CompareTag("Background"))
@@ -154,9 +176,30 @@ namespace KurtSingle
             cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed, ForceMode.Impulse);
         }
 
+
+        private void RotateSprite()
+        {
+
+            ParticleSystem.MainModule mainContinue = particleSystemContinue.main;
+            mainContinue.startRotation = transform.eulerAngles.y * Mathf.Deg2Rad;
+
+            ParticleSystem.MainModule mainStart = particleSystemStart.main;
+            mainStart.startRotation = transform.eulerAngles.y * Mathf.Deg2Rad;
+
+            if (transform.CompareTag(playerTag + projectileString))
+            {
+                mainContinue.startRotation = 180f * Mathf.Deg2Rad;
+                mainStart.startRotation = 180f * Mathf.Deg2Rad;
+
+                particleSystemStart.GetComponent<ParticleSystemRenderer>().material = playerMaterial;
+                particleSystemContinue.GetComponent<ParticleSystemRenderer>().material = playerMaterial;
+            }
+        }
+
+
         private void PlayEffects(Transform targetTransform)
         {
-            var explosionEffect = Instantiate(explosionPrefab, targetTransform.position, Quaternion.identity);
+            var explosionEffect = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             explosionEffect.hideFlags = HideFlags.HideInInspector;
 
             soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();

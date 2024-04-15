@@ -48,6 +48,7 @@ namespace KurtSingle
         private int rechecksDone = 0;
 
 
+
         private void OnEnable()
         {
             if (ProjectileMoveSpeed == 0)
@@ -88,6 +89,7 @@ namespace KurtSingle
 
         private void Start()
         {
+
             enemyHolders = GameObject.FindGameObjectsWithTag("EnemyHolder");
 
             if (!usingCustomPosition) transform.position = cachedUnitTransform.position;
@@ -132,16 +134,16 @@ namespace KurtSingle
                     //Destroy(other.gameObject);
                 }
 
-                Destroy(gameObject);
                 PlayEffects(other.transform);
+                Destroy(gameObject);
             }
 
             //}
 
             if (other.CompareTag("Background"))
             {
-                Destroy(gameObject);
                 PlayEffects(this.transform);
+                Destroy(gameObject);
             }
 
 
@@ -153,7 +155,7 @@ namespace KurtSingle
 
 
             for (int i = 0; i < enemyHolders[randomIndex].transform.childCount; i++)
-            {
+            { 
                 if (FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Renderer>().isVisible)
                 {
                     randomEnemyToFollow = FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Transform>();
@@ -180,6 +182,7 @@ namespace KurtSingle
                     break;
                 }
             }
+
 
             if (rechecksDone >= rechecksAllowed)
             {
@@ -210,7 +213,16 @@ namespace KurtSingle
 
         private void CheckIfTargetDead()
         {
-            if (randomEnemyToFollow == null || randomEnemyToFollow.GetComponent<EnemyBase>().deathBegun) AimAtRandomEnemy();
+            if (randomEnemyToFollow == null)
+            {              
+                AimAtRandomEnemy();
+            } else if (randomEnemyToFollow.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
+            {
+                if (enemyBase.deathBegun)
+                {
+                    AimAtRandomEnemy();
+                }
+            }
         }
 
         private void StartMove()
@@ -250,7 +262,7 @@ namespace KurtSingle
 
         private void PlayEffects(Transform targetTransform)
         {
-            var explosionEffect = Instantiate(explosionPrefab, targetTransform.position, Quaternion.identity);
+            var explosionEffect = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             explosionEffect.hideFlags = HideFlags.HideInInspector;
 
             soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();

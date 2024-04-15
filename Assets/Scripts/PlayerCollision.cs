@@ -11,13 +11,19 @@ namespace KurtSingle
 	/// </summary>
 	public class PlayerCollision : MonoBehaviour 
 	{
-        [SerializeField] Transform cachedPlayerCamera;
+        [SerializeField]
+        PlayerStats playerStats;
+        [SerializeField]
+        Transform cachedPlayerCamera;
 
         private float capsuleHeight = 50f;
         public float capsuleRadius = 0.5f;
 
         GameObject colliderGameObject;
         CapsuleCollider cachedCollider;
+
+        [SerializeField]
+        string enemyTag = "Enemy";
 
         private void OnEnable()
         {
@@ -37,6 +43,20 @@ namespace KurtSingle
         private void Update()
         {
             colliderGameObject.transform.LookAt(cachedPlayerCamera);
+        }
+
+        protected void OnTriggerEnter(Collider colliderHit)
+        {
+            if (colliderHit.CompareTag(enemyTag))
+            {
+                colliderHit.TryGetComponent<EnemyBase>(out EnemyBase enemyBase);
+                if (enemyBase != null)
+                {
+                    playerStats.PlayerTakeDamage(enemyBase.health);
+                    enemyBase.TakeDamage(enemyBase.health);
+                    enemyBase.BeginDeath();
+                }
+            }
         }
 
     }

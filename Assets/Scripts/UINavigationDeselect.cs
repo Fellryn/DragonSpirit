@@ -21,12 +21,15 @@ namespace KurtSingle
         [SerializeField]
         InputActionReference uiNavigate;
 
+
+
         private void OnEnable()
         {
             eventSystem = EventSystem.current;
             mouseMoved.action.performed += MouseMoved;
             uiNavigate.action.performed += NavigateCheck;
         }
+
 
         //private void Start()
         //{
@@ -49,13 +52,22 @@ namespace KurtSingle
 
         //}
 
+
         private void MouseMoved(InputAction.CallbackContext obj)
         {
             eventSystem.SetSelectedGameObject(null);
         }
 
+
         private void NavigateCheck(InputAction.CallbackContext obj)
         {
+            //Debug.Log(GameManager.Instance.State);
+            //if (GameManager.Instance.State == GameManager.GameStates.Running)
+            //{
+            //    eventSystem.SetSelectedGameObject(null);
+            //    return;
+            //}
+
             if (eventSystem.currentSelectedGameObject != null) return;
             eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
         }

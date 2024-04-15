@@ -33,6 +33,8 @@ namespace KurtSingle
 
 		private Rigidbody cachedRigidbody;
 
+        private bool cameraMoveOverride = false;
+
 
 
 
@@ -97,11 +99,17 @@ namespace KurtSingle
             Vector3 rotationTarget = splineContainer.EvaluateTangent(0, dollyCamera.CameraPosition);
 
             transform.rotation = Quaternion.LookRotation(rotationTarget);
+
+
         }
 
 
         private void CameraMovePlayer()
         {
+            if (cameraMoveOverride)
+            {
+                return;
+            }
             if (playerMatchCameraMovement && skippedFirstFrame)
             {
                 if (lastPosition == usedCamera.transform.position) return;
@@ -208,9 +216,10 @@ namespace KurtSingle
 
         public void CheatSkipToBoss()
         {
+            cameraMoveOverride = true;
             skippedFirstFrame = false;
             dollyCamera.CameraPosition = 1f;
-            cachedRigidbody.position = new Vector3(0f, -25f, 900f);
+            cachedRigidbody.position = new Vector3(0f, 0f, 900f);
         }
     }
 }

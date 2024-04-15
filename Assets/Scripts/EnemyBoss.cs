@@ -12,12 +12,14 @@ namespace KurtSingle
 	/// </summary>
 	public class EnemyBoss : EnemyStatic 
 	{
+		[SerializeField] GameVars gameVars;
 		[SerializeField] SceneNavigation sceneNavigation;
  
         private void OnDestroy()
         {
 			if (!gameObject.scene.isLoaded) return;
 
+			gameVars.WonLevel(true);
 			sceneNavigation.ChangeScene("GameOver");
         }
 

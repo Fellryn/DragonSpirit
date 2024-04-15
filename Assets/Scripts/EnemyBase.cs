@@ -16,11 +16,18 @@ namespace KurtSingle
 
 		[Header("Base")]
 		[SerializeField] string enemyName = "Enemy";
-		[SerializeField] int health = 1;
+		public int health = 1;
 		[SerializeField] int score = 1;
 		public Transform cachedModel;
+		protected Collider cachedCollider;
+		[SerializeField]
+		string playerTag = "Player";
 
 		public bool deathBegun = false;
+		[SerializeField]
+		bool ragdollOnDeath = false;
+		[SerializeField]
+		Transform ragdollObject;
 
 		public delegate void OnKill(int scoreToAdd);
 		public static event OnKill onKill;
@@ -31,6 +38,7 @@ namespace KurtSingle
         {
 			gameTickSystem = FindFirstObjectByType<GameTickSystem>();
 			cachedRigidbody = GetComponent<Rigidbody>();
+			cachedCollider = GetComponent<Collider>();
 			transform.name = enemyName;
 		}
 
@@ -51,6 +59,7 @@ namespace KurtSingle
         }
 
 
+
 		public virtual void BeginDeath()
         {
 			deathBegun = true;
@@ -60,10 +69,27 @@ namespace KurtSingle
 			cachedRigidbody.useGravity = true;
 			cachedRigidbody.AddExplosionForce(150f, transform.position, 1f);
 			cachedRigidbody.isKinematic = false;
+			cachedCollider.isTrigger = false;
+
+			if (ragdollOnDeath)
+            {
+				cachedModel.gameObject.SetActive(false);
+				ragdollObject.gameObject.SetActive(true);
+            }
+
+			if (TryGetComponent<EnemyShaderController>(out EnemyShaderController enemyShaderController)){
+				enemyShaderController.BeginDissolveAnimation();
+            }
+
+			if (TryGetComponent<EnemyAnimation>(out EnemyAnimation enemyAnimation))
+            {
+				enemyAnimation.OnDeath();
+            }
 
 			Destroy(gameObject, 3f);
 
 			enabled = false;
 		}
-	}
+
+    }
 }

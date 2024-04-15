@@ -13,6 +13,8 @@ namespace KurtSingle
 	/// </summary>
 	public class PlayerAttack : MonoBehaviour 
 	{
+        [SerializeField] PlayerStats playerStats;
+
 		[SerializeField] InputActionReference fire;
         [SerializeField] InputActionReference altFire;
 
@@ -25,6 +27,8 @@ namespace KurtSingle
         [SerializeField] GameObject fireballPrefab;
         [SerializeField] GameObject trackingFireballPrefab;
         [SerializeField] Transform projectilesHolder;
+
+        bool powerupOneActive = false;
 
         private Transform cachedTransform;
 
@@ -50,29 +54,41 @@ namespace KurtSingle
 
         private void PlayerAttacking(InputAction.CallbackContext obj)
         {
-            Fireball();
-            
+            if (playerStats.powerupAttackTracking)
+            {
+                TrackingFireball();
+                playerStats.RemoveScore(2);
+            } else
+            {
+                Fireball();
+            }
         }
 
         private void PlayerAltAttacking(InputAction.CallbackContext obj)
         {
-            TrackingFireball();
+            //TrackingFireball();
         }
+
 
         private void Fireball()
         {
+
+
             var newProjectile = Instantiate(fireballPrefab, projectilesHolder);
             newProjectile.transform.tag = playerProjectileTag;
             newProjectile.GetComponent<ProjectileFireball>().cachedPlayerCamera = cachedPlayerCamera;
             newProjectile.GetComponent<ProjectileFireball>().cachedUnitTransform = cachedTransform;
 
+
         }
+
+        
 
         private void TrackingFireball()
         {
             var newProjectile = Instantiate(trackingFireballPrefab, projectilesHolder);
             newProjectile.transform.tag = playerProjectileTag;
-            newProjectile.GetComponent<ProjectileTrackingFireball>().ProjectileMoveSpeed = 10f;
+            newProjectile.GetComponent<ProjectileTrackingFireball>().ProjectileMoveSpeed = 12.5f;
             newProjectile.GetComponent<ProjectileTrackingFireball>().cachedPlayerCamera = cachedPlayerCamera;
             newProjectile.GetComponent<ProjectileTrackingFireball>().cachedUnitTransform = cachedTransform;
         }
