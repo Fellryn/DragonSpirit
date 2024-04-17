@@ -77,14 +77,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsuleHeight: 100
   capsuleRadius: 0.25
+  maxHeight: 7
+  defaultMoveSpeed: 20
+  moveSpeedVariation: 3
   usingCustomRotation: 0
   usingCustomPosition: 0
   cachedPlayerCamera: {fileID: 0}
   cachedUnitTransform: {fileID: 0}
-  randomEnemyToFollow: {fileID: 0}
   explosionPrefab: {fileID: 9148410779099541663, guid: 568c8ef66276f3247ba5767a1dbdc7be,
     type: 3}
   explosionClip: {fileID: 8300000, guid: d65713543b34a4e48a2e7dddb0bbfb16, type: 3}
+  particleSystemStart: {fileID: 1163083307922447360}
+  particleSystemContinue: {fileID: 455900269643847990}
+  playerMaterial: {fileID: 0}
+  randomEnemyToFollow: {fileID: 0}
 --- !u!1001 &3688522222923509704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -412,6 +418,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa3663a27d789144a2a768a8c8187ce, type: 3}
+--- !u!198 &455900269643847990 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5622054649816036496, guid: 8aa3663a27d789144a2a768a8c8187ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 5212391053650193830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3452718524450723170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7475033373110810820, guid: 8aa3663a27d789144a2a768a8c8187ce,
@@ -516,6 +528,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bfdf29398f354742af367c629ae52ef, type: 3}
+--- !u!198 &1163083307922447360 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5571552628817553336, guid: 0bfdf29398f354742af367c629ae52ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6734635728970922936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5087535276516146513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2012183118075938537, guid: 0bfdf29398f354742af367c629ae52ef,

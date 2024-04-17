@@ -19,8 +19,8 @@ namespace KurtSingle
         [SerializeField] InputActionReference altFire;
 
         [Space(10)]
-        //[SerializeField] float fireballCooldown = 0.5f;
-        //[SerializeField] float fireballMoveSpeed = 0.03f;
+        [SerializeField] float fireballMovespeed = 15f;
+        [SerializeField] float trackingFireballMovespeed = 17f;
         [SerializeField] string playerProjectileTag = "PlayerProjectile";
         [SerializeField] Transform cachedPlayerCamera;
 
@@ -75,9 +75,18 @@ namespace KurtSingle
 
 
             var newProjectile = Instantiate(fireballPrefab, projectilesHolder);
-            newProjectile.transform.tag = playerProjectileTag;
-            newProjectile.GetComponent<ProjectileFireball>().cachedPlayerCamera = cachedPlayerCamera;
-            newProjectile.GetComponent<ProjectileFireball>().cachedUnitTransform = cachedTransform;
+
+            //newProjectile.GetComponent<ProjectileFireball>().cachedPlayerCamera = cachedPlayerCamera;
+            //newProjectile.GetComponent<ProjectileFireball>().cachedUnitTransform = cachedTransform;
+
+            if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
+            {
+                projectileBase.Initalise(
+                    playerTransform: transform,
+                    firingUnitTransform: transform,
+                    mainCameraTransform: cachedPlayerCamera,
+                    projectileMoveSpeed: fireballMovespeed);
+            }
 
 
         }
@@ -87,10 +96,20 @@ namespace KurtSingle
         private void TrackingFireball()
         {
             var newProjectile = Instantiate(trackingFireballPrefab, projectilesHolder);
-            newProjectile.transform.tag = playerProjectileTag;
-            newProjectile.GetComponent<ProjectileTrackingFireball>().ProjectileMoveSpeed = 12.5f;
-            newProjectile.GetComponent<ProjectileTrackingFireball>().cachedPlayerCamera = cachedPlayerCamera;
-            newProjectile.GetComponent<ProjectileTrackingFireball>().cachedUnitTransform = cachedTransform;
+            //newProjectile.transform.tag = playerProjectileTag;
+            //newProjectile.GetComponent<ProjectileTrackingFireball>().ProjectileMoveSpeed = 12.5f;
+            //newProjectile.GetComponent<ProjectileTrackingFireball>().cachedPlayerCamera = cachedPlayerCamera;
+            //newProjectile.GetComponent<ProjectileTrackingFireball>().cachedUnitTransform = cachedTransform;
+
+            if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
+            {
+                projectileBase.Initalise(
+                    playerTransform: transform,
+                    firingUnitTransform: transform,
+                    mainCameraTransform: cachedPlayerCamera,
+                    projectileMoveSpeed: trackingFireballMovespeed,
+                    useRandomProjectileSpeed: false);
+            }
         }
     }
 }

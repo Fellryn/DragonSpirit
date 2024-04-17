@@ -11,118 +11,47 @@ namespace KurtSingle
     /// </summary>
 
     [RequireComponent(typeof(Rigidbody))]
-    public class ProjectileTrackingFireball : MonoBehaviour
+    public class ProjectileTrackingFireball : ProjectileBase
     {
-
-        [SerializeField] 
-        private float capsuleHeight = 50f;
-        public float capsuleRadius = 0.25f;
-        private float fireballLifetime = 5f;
-        public float ProjectileMoveSpeed { get; set; }
-        public string HitTag { get; set; }
-        public int ProjectileDamage { get; set; }
-        public bool usingCustomRotation = false;
-        public bool usingCustomPosition = false;
-
-        public Transform cachedPlayerCamera;
-        public Transform cachedUnitTransform;
 
         private GameObject[] enemyHolders;
         public Transform randomEnemyToFollow;
         private GameTickSystem gameTickSystem;
 
-        private string enemyTag = "Enemy";
-        //private string playerTag = "Player";
-        private string projectileString = "Projectile";
-
-        [SerializeField] GameObject explosionPrefab;
-        [SerializeField] AudioClip explosionClip;
-        private AudioSource soundEffectsAudioSource;
 
 
-        GameObject colliderGameObject;
-        CapsuleCollider cachedCollider;
-        Rigidbody cachedRigidbody;
+
+
+
 
         private int rechecksAllowed = 5;
         private int rechecksDone = 0;
 
 
-
-        private void OnEnable()
+        protected override void Start()
         {
-            if (ProjectileMoveSpeed == 0)
-            {
-                ProjectileMoveSpeed = 20f;
-            }
-
-            if (ProjectileDamage == 0)
-            {
-                ProjectileDamage = 1;
-            }
-
-            cachedRigidbody = GetComponent<Rigidbody>();
-            cachedRigidbody.useGravity = false;
-            cachedRigidbody.drag = 0f;
-
-
-            colliderGameObject = new GameObject("Collider");
-            colliderGameObject.transform.tag = transform.tag;
-            colliderGameObject.transform.SetParent(transform);
-            colliderGameObject.layer = LayerMask.NameToLayer("NoCollide");
-            cachedCollider = colliderGameObject.AddComponent<CapsuleCollider>();
-            cachedCollider.height = capsuleHeight;
-            cachedCollider.radius = capsuleRadius;
-            cachedCollider.direction = 2;
-            cachedCollider.isTrigger = true;
-            cachedCollider.excludeLayers = 1 << LayerMask.NameToLayer("NoCollide");
-
-            //gameTickSystem = FindAnyObjectByType<GameTickSystem>().GetComponent<GameTickSystem>();
-            //gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
-            //cachedModel = Instantiate(FindAnyObjectByType<PrefabReferencesLink>().prefabReferences.fireballPrefab, transform.position, Quaternion.identity, transform);
-        }
-
-        private void OnDestroy()
-        {
-            //gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
-        }
-
-        private void Start()
-        {
+            base.Start();
 
             enemyHolders = GameObject.FindGameObjectsWithTag("EnemyHolder");
-
-            if (!usingCustomPosition) transform.position = cachedUnitTransform.position;
-            if (!usingCustomRotation) transform.rotation = cachedUnitTransform.rotation;
-
-            if (transform.CompareTag(enemyTag + projectileString))
-            {
-                ProjectileMoveSpeed *= -1;
-            }
 
             StartMove();
 
             AimAtRandomEnemy();
-
-            Destroy(gameObject, fireballLifetime);
-
-            //Move();
-
         }
 
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             colliderGameObject.transform.LookAt(cachedPlayerCamera);
+
             CheckIfTargetDead();
             Move();
         }
 
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            //if (transform.CompareTag(playerTag + projectileString))
-            //{
+
             if (other.CompareTag(enemyTag))
             {
                 if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
@@ -138,7 +67,6 @@ namespace KurtSingle
                 Destroy(gameObject);
             }
 
-            //}
 
             if (other.CompareTag("Background"))
             {
@@ -196,7 +124,14 @@ namespace KurtSingle
                 rechecksAllowed++;
             } else
             {
-                if (!randomEnemyToFollow.GetComponent<EnemyBase>().cachedModel.GetComponent<Renderer>().isVisible) AimAtRandomEnemy();
+                if (randomEnemyToFollow.TryGetComponent(out EnemyBase enemyBase))
+                {
+                    if (enemyBase.cachedModel.TryGetComponent(out Renderer renderer))
+                    {
+                        if (!renderer.isVisible) AimAtRandomEnemy();
+                    }
+                }
+                //if (!randomEnemyToFollow.GetComponent<EnemyBase>().cachedModel.GetComponent<Renderer>().isVisible) AimAtRandomEnemy();
                 rechecksAllowed++;
             }
 
@@ -230,7 +165,7 @@ namespace KurtSingle
             cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed, ForceMode.Impulse);
         }
 
-        private void Move()
+        protected override void Move()
         {
             if (randomEnemyToFollow != null)
             {
@@ -260,16 +195,10 @@ namespace KurtSingle
             // Debug.Log(cachedRigidbody.velocity);
         }
 
-        private void PlayEffects(Transform targetTransform)
+        protected override void RotateSprite()
         {
-            var explosionEffect = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            explosionEffect.hideFlags = HideFlags.HideInInspector;
-
-            soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();
-            soundEffectsAudioSource.PlayOneShot(explosionClip);
+            
         }
-
-
 
     }
 }

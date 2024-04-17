@@ -75,6 +75,7 @@ namespace KurtSingle
             {
 				cachedModel.gameObject.SetActive(false);
 				ragdollObject.gameObject.SetActive(true);
+				cachedCollider.isTrigger = true;
             }
 
 			if (TryGetComponent<EnemyShaderController>(out EnemyShaderController enemyShaderController)){

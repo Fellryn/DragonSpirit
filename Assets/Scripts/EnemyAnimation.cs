@@ -14,7 +14,7 @@ namespace KurtSingle
 		private Animator animator;
 
 		/// <summary>
-		/// Make sure to name either: Bat, Dinosaur, Plant, Sugarglider, Seamonster or Boss
+		/// Make sure to name either: Bat, Dinosaur, Plant, Sugarglider, SeaMonster or Boss
 		/// </summary>
 		[SerializeField]
 		string enemyName;
@@ -38,6 +38,9 @@ namespace KurtSingle
 				case "Dinosaur":
 					DinosaurAnimation();
 					break;
+				case "SeaMonster":
+					DinosaurAnimation();
+					break;
 				default:
 
 					break;
@@ -47,7 +50,7 @@ namespace KurtSingle
 
         private void Update()
         {
-            if (enemyName == "Dinosaur")
+            if (enemyName == "Dinosaur" || enemyName == "SeaMonster")
             {
 				DinosaurAnimation();
             }

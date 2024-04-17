@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1730404487633648101}
   - component: {fileID: 2873655830114982125}
-  - component: {fileID: 2087177194061191580}
+  - component: {fileID: 462955633201184462}
   m_Layer: 0
   m_Name: FireballProjectile
   m_TagString: Untagged
@@ -63,7 +63,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2087177194061191580
+--- !u!114 &462955633201184462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,12 +72,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8035965160312022369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3635ceeafc9062a40950ec7002ab527a, type: 3}
+  m_Script: {fileID: 11500000, guid: 954b031241595be46ab6eb442d5bb5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   capsuleHeight: 100
-  capsuleRadius: 0.5
+  capsuleRadius: 0.25
   maxHeight: 7
+  defaultMoveSpeed: 20
+  moveSpeedVariation: 3
   usingCustomRotation: 0
   usingCustomPosition: 0
   cachedPlayerCamera: {fileID: 0}
@@ -185,6 +187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: UVModule.fps
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622054649816036496, guid: aa7b8be29c60aea40b093d1cc87ab044,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7475033373110810820, guid: aa7b8be29c60aea40b093d1cc87ab044,
         type: 3}

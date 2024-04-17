@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plant_Dissolve_Material
+  m_Name: SeaMonster_Dissolve_Material 1
   m_Shader: {fileID: -6465566751694194690, guid: 0e225d4acf4f25546bd1eeb414d0633f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -42,11 +42,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: d81f86ded034afb40969491dc764481d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5c8cf028cee7af847abd5a2233260965, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5a3eb44f3ebf516408ce45f44e0adee7, type: 3}
+        m_Texture: {fileID: 2800000, guid: f10478a9777cde741a09a97e10489db7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessMap:
-        m_Texture: {fileID: 2800000, guid: b9e0687f483424647ac15744ce6b6b50, type: 3}
+        m_Texture: {fileID: 2800000, guid: 18774992e0e3d2f49909c2f5fad50cbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -114,7 +114,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
-    - _Cutoff: 2
+    - _Cutoff: 6.02
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
