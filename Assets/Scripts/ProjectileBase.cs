@@ -17,7 +17,8 @@ namespace KurtSingle
         [SerializeField]
         protected float capsuleHeight = 100f;
         public float capsuleRadius = 0.25f;
-        protected float fireballLifetime = 5f;
+        [SerializeField]
+        protected float ProjectileLifetime = 5f;
         public float maxHeight = 7;
         [SerializeField]
         protected float defaultMoveSpeed = 20f;
@@ -95,19 +96,6 @@ namespace KurtSingle
 
         protected virtual void Start()
         {
-            if (!usingCustomPosition) transform.position = cachedUnitTransform.position;
-            if (!usingCustomRotation) transform.rotation = cachedUnitTransform.rotation;
-
-            if (transform.CompareTag(enemyTag + projectileString))
-            {
-                ProjectileMoveSpeed *= -1;
-            }
-
-            // temporary until rotation fixed
-            transform.Translate(0f, 0.2f, 0f);
-
-            Destroy(gameObject, fireballLifetime);
-
             Move();
 
             RotateSprite();
@@ -173,16 +161,16 @@ namespace KurtSingle
 
             }
 
-            if (other.CompareTag("Background"))
-            {
-                Destroy(gameObject);
-                PlayEffects(this.transform);
-            }
+            //if (other.CompareTag("Background"))
+            //{
+            //    Destroy(gameObject);
+            //    PlayEffects(this.transform);
+            //}
 
 
         }
 
-        public virtual void Initalise(Transform playerTransform, Transform firingUnitTransform, Transform mainCameraTransform, int projectileDamage = 1, float projectileMoveSpeed = 12f, bool useRandomProjectileSpeed = true, bool isEnemy = false, bool aimAtPlayer = false)
+        public virtual void Initalise(Transform playerTransform, Transform firingUnitTransform, Transform mainCameraTransform, int projectileDamage = 1, float projectileMoveSpeed = 12f, bool useRandomProjectileSpeed = true, bool isEnemy = false, bool aimAtPlayer = false, float customRotationY = 0f)
         {
             cachedPlayerTransform = playerTransform;
             cachedUnitTransform = firingUnitTransform;
@@ -209,6 +197,27 @@ namespace KurtSingle
                 transform.LookAt(cachedPlayerTransform);
             }
 
+            if (customRotationY != 0f)
+            {
+                transform.rotation = Quaternion.Euler(cachedUnitTransform.rotation.eulerAngles + new Vector3(0, customRotationY, 0));
+            } else
+            {
+                transform.rotation = cachedUnitTransform.rotation;
+            }
+
+            if (!usingCustomPosition) transform.position = cachedUnitTransform.position;
+
+            if (transform.CompareTag(enemyTag + projectileString))
+            {
+                ProjectileMoveSpeed *= -1;
+            }
+
+            // temporary until rotation fixed
+            transform.Translate(0f, 0.2f, 0f);
+
+            Destroy(gameObject, ProjectileLifetime);
+
+
         }
 
         protected virtual void Move()
@@ -228,8 +237,8 @@ namespace KurtSingle
 
             if (transform.CompareTag(playerTag + projectileString))
             {
-                mainContinue.startRotation = 180f * Mathf.Deg2Rad;
-                mainStart.startRotation = 180f * Mathf.Deg2Rad;
+                mainContinue.startRotation = (transform.eulerAngles.y + 180f) * Mathf.Deg2Rad;
+                mainStart.startRotation = (transform.eulerAngles.y + 180f) * Mathf.Deg2Rad;
 
                 particleSystemStart.GetComponent<ParticleSystemRenderer>().material = playerMaterial;
                 particleSystemContinue.GetComponent<ParticleSystemRenderer>().material = playerMaterial;

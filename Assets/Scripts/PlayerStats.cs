@@ -18,18 +18,29 @@ namespace KurtSingle
 	public class PlayerStats : MonoBehaviour 
 	{
         [SerializeField] GameVars gameVars;
+        [SerializeField] GameTickSystem gameTickSystem;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
         public bool GodmodeActive { get; set; }
+        public float PlayerMana { get; set; }
+        [SerializeField]
+        float maxMana = 10f;
         public int maxLives = 10;
-
-        public bool powerupAttackTracking = false;
 
         [SerializeField]
         TextMeshProUGUI scoreText;
         [SerializeField]
         TextMeshProUGUI livesText;
+        [SerializeField]
+        TextMeshProUGUI manaText;
+        [SerializeField]
+        RectTransform healthMask;
+
+        private Vector2 healthMaskOriginalPositions;
+        private Vector2 healthMaskOriginalDimensions;
+
+
 
         [SerializeField]
         SceneNavigation sceneNavigation;
@@ -45,12 +56,17 @@ namespace KurtSingle
         private void OnEnable()
         {
             EnemyBase.onKill += AddScore;
+            gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
+
+            healthMaskOriginalPositions = healthMask.anchoredPosition;
+            healthMaskOriginalDimensions = healthMask.sizeDelta;
         }
 
 
         private void OnDisable()
         {
             EnemyBase.onKill -= AddScore;
+            gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
         }
 
         private void Start()
@@ -63,30 +79,17 @@ namespace KurtSingle
         public void AddScore(int score)
         {
 			PlayerScore += score;
-            DoScoreChecks();
             UpdateScoreText();
+            UpdateManaText();
         }
 
         
         public void RemoveScore(int score)
         {
             PlayerScore -= score;
-            DoScoreChecks();
             UpdateScoreText();
         }
 
-        private void DoScoreChecks()
-        {
-            if (PlayerScore >= 10)
-            {
-                powerupAttackTracking = true;
-            }
-
-            if (PlayerScore <= 0)
-            {
-                powerupAttackTracking = false;
-            }
-        }
 
         public void PlayerTakeDamage(int damage)
         {
@@ -117,6 +120,9 @@ namespace KurtSingle
         private void UpdateLivesText()
         {
             livesText.text = $"Lives: {PlayerLife.ToString()}";
+
+            healthMask.anchoredPosition = new Vector2(healthMaskOriginalPositions.x, (healthMaskOriginalPositions.y) * (PlayerLife / maxLives));
+            //healthMask.sizeDelta = new Vector2(healthMaskOriginalDimensions.x, ((healthMaskOriginalDimensions.y) * (PlayerLife / maxLives)) * 2f);
         }
 
 
@@ -142,6 +148,32 @@ namespace KurtSingle
             DOTween.Complete(100);
             cachedModel.DOPunchScale(Vector3.one * 0.8f, 0.3f, 1, 0.3f).SetId(100);
 
+        }
+
+        public void PlayerGainMana(float amount)
+        {
+            PlayerMana += amount;
+            PlayerMana = Mathf.Clamp(PlayerMana, 0f, maxMana);
+            UpdateManaText();
+        }
+
+        public bool PlayerUseMana(float amount)
+        {
+            if (amount <= PlayerMana)
+            {
+                PlayerMana -= amount;
+                UpdateManaText();
+                return true;
+            } else
+            {
+                // Do effect for no mana
+                return false;
+            }
+        }
+
+        private void UpdateManaText()
+        {
+            manaText.text = PlayerMana.ToString();
         }
 
 

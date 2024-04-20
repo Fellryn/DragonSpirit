@@ -32,6 +32,8 @@ namespace KurtSingle
         [SerializeField] float correctingForce = 10f;
 
 		private Rigidbody cachedRigidbody;
+        [SerializeField]
+        Transform cachedPlayerModel;
 
         private bool cameraMoveOverride = false;
 
@@ -78,6 +80,7 @@ namespace KurtSingle
             screenPosition = usedCamera.WorldToViewportPoint(transform.position);
 
             Move();
+            Roll();
             CameraMovePlayer();
             MatchSplineHeight();
             EnforceBounds();
@@ -101,6 +104,11 @@ namespace KurtSingle
             transform.rotation = Quaternion.LookRotation(rotationTarget);
 
 
+        }
+
+        private void Roll()
+        {
+            cachedPlayerModel.rotation = Quaternion.Euler(cachedRigidbody.velocity.z * 0.5f, cachedRigidbody.velocity.x * 0.5f, -cachedRigidbody.velocity.x);
         }
 
 

@@ -15,17 +15,25 @@ namespace KurtSingle
     {
 
         private GameObject[] enemyHolders;
+
         public Transform randomEnemyToFollow;
         private GameTickSystem gameTickSystem;
 
+        [SerializeField] float startMoveSpeedMod = 0.3f;
+
+        [SerializeField]
+        float maxVelocity = 25f;
+
+        private EnemyBoss enemyBoss;
 
 
 
 
 
-
-        private int rechecksAllowed = 5;
+        private int rechecksAllowed = 25;
+        [SerializeField]
         private int rechecksDone = 0;
+        private bool followingPlayer = false;
 
 
         protected override void Start()
@@ -36,16 +44,53 @@ namespace KurtSingle
 
             StartMove();
 
+            enemyBoss = FindAnyObjectByType<EnemyBoss>();
+
             AimAtRandomEnemy();
+
+            cachedRigidbody.maxLinearVelocity = maxVelocity;
+
+            gameTickSystem = FindAnyObjectByType<GameTickSystem>();
+
+            gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
         }
 
+        protected virtual void OnDestroy()
+        {
+            gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
+        }
+
+        protected virtual void DoChecks()
+        {
+            if (rechecksDone <= rechecksAllowed)
+            {
+                CheckIfTargetDead();
+            }
+            else if (!followingPlayer)
+            {
+                followingPlayer = true;
+                randomEnemyToFollow = cachedUnitTransform;
+            }
+
+            if (followingPlayer)
+            {
+                if (Vector3.Distance(transform.position, cachedUnitTransform.position) <= 7f)
+                {
+                    followingPlayer = false;
+                    rechecksDone = 0;
+                    AimAtRandomEnemy();
+                }
+            }
+        }
 
         protected override void FixedUpdate()
         {
             colliderGameObject.transform.LookAt(cachedPlayerCamera);
+            transform.LookAt(randomEnemyToFollow);
 
-            CheckIfTargetDead();
+            
             Move();
+            //CheckPosition();
         }
 
 
@@ -81,77 +126,70 @@ namespace KurtSingle
         {
             int randomIndex = Random.Range(0, enemyHolders.Length);
 
-
-            for (int i = 0; i < enemyHolders[randomIndex].transform.childCount; i++)
-            { 
-                if (FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Renderer>().isVisible)
-                {
-                    randomEnemyToFollow = FindAnyObjectByType<EnemyBoss>().cachedModel.GetComponent<Transform>();
-                    break;
-                }
-
-                if (enemyHolders[randomIndex].transform.childCount == 0)
-                {
-                    AimAtRandomEnemy();
-                    break;
-                }
-
-
-                if (Random.Range(0f, 1f) < 0.25f)
-                {
-                    randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
-                    break;
-                }
-
-
-                if (i == enemyHolders[randomIndex].transform.childCount)
-                {
-                    randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
-                    break;
-                }
-            }
-
-
             if (rechecksDone >= rechecksAllowed)
             {
+                randomEnemyToFollow = cachedUnitTransform;
+                followingPlayer = true;
                 return;
             }
-
-
-            if (randomEnemyToFollow == null)
+            else
             {
-                AimAtRandomEnemy();
-                rechecksAllowed++;
-            } else
-            {
-                if (randomEnemyToFollow.TryGetComponent(out EnemyBase enemyBase))
+                if (enemyBoss.canAttack == true)
                 {
-                    if (enemyBase.cachedModel.TryGetComponent(out Renderer renderer))
+                    randomEnemyToFollow = enemyBoss.cachedModel.GetComponent<Transform>();
+                }
+
+                if (randomEnemyToFollow != enemyBoss.cachedModel.GetComponent<Transform>())
+                {
+                    for (int i = 0; i < enemyHolders[randomIndex].transform.childCount; i++)
                     {
-                        if (!renderer.isVisible) AimAtRandomEnemy();
+
+
+                        if (enemyHolders[randomIndex].transform.childCount == 0)
+                        {
+                            AimAtRandomEnemy();
+                            break;
+                        }
+
+
+                        if (Random.Range(0f, 1f) < 0.25f)
+                        {
+                            randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
+                            break;
+                        }
+
+
+                        if (i == enemyHolders[randomIndex].transform.childCount)
+                        {
+                            randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
+                            break;
+                        }
                     }
                 }
-                //if (!randomEnemyToFollow.GetComponent<EnemyBase>().cachedModel.GetComponent<Renderer>().isVisible) AimAtRandomEnemy();
-                rechecksAllowed++;
+
+                if (randomEnemyToFollow == null)
+                {
+                    rechecksDone++;
+                    AimAtRandomEnemy();
+                }
+                else
+                {
+                    if (randomEnemyToFollow.TryGetComponent(out EnemyBase enemyBase))
+                    {
+                        rechecksDone++;
+                        if (enemyBase.canAttack == false) AimAtRandomEnemy();
+                    }
+                    
+                }
             }
-
-            //if (randomEnemyToFollow != null)
-            //{
-            //    usingCustomRotation = true;
-            //}
         }
-
-        //private void DoChecks()
-        //{
-        //    CheckIfTargetDead();
-        //}
 
         private void CheckIfTargetDead()
         {
             if (randomEnemyToFollow == null)
             {              
                 AimAtRandomEnemy();
-            } else if (randomEnemyToFollow.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
+            } else if (randomEnemyToFollow.TryGetComponent(out EnemyBase enemyBase))
             {
                 if (enemyBase.deathBegun)
                 {
@@ -162,43 +200,35 @@ namespace KurtSingle
 
         private void StartMove()
         {
-            cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed, ForceMode.Impulse);
+            cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed * startMoveSpeedMod, ForceMode.Impulse);
         }
 
         protected override void Move()
         {
             if (randomEnemyToFollow != null)
             {
-                cachedRigidbody.MoveRotation(Quaternion.LookRotation(transform.position - randomEnemyToFollow.position));
-                //transform.LookAt(randomEnemyToFollow.position);
-                //Quaternion moveTarget = Quaternion.SetLookRotation(transform.position - randomEnemyToFollow.position);
-                //cachedRigidbody.MoveRotation(moveTarget);
-                //transform.rotation = Quaternion.LookRotation(cachedRigidbody.position - randomEnemyToFollow.position);
+                //cachedRigidbody.MoveRotation(Quaternion.LookRotation(transform.position - randomEnemyToFollow.position));
 
-                Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, randomEnemyToFollow.position, ProjectileMoveSpeed * Time.deltaTime);
-                cachedRigidbody.MovePosition(moveTarget);
+                //Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, randomEnemyToFollow.position, ProjectileMoveSpeed * Time.deltaTime);
+                //cachedRigidbody.MovePosition(moveTarget);
+                cachedRigidbody.AddForce(transform.forward * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
+
             } else
             {
-                cachedRigidbody.AddForce(Vector3.forward * ProjectileMoveSpeed);
+                cachedRigidbody.AddForce(transform.forward * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
             }
             
-
-
-
-            //Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position), rotationSpeed * Time.deltaTime);
-
-
-
-            //cachedRigidbody.AddRelativeForce(transform.forward * ProjectileMoveSpeed * 0.02f, ForceMode.Impulse);
-            // cachedRigidbody.maxLinearVelocity = 10f;
-
-            // Debug.Log(cachedRigidbody.velocity);
+            if (cachedRigidbody.position.y <= -4)
+            {
+                cachedRigidbody.AddForce(Vector3.up * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
+            }
         }
+
+
 
         protected override void RotateSprite()
         {
             
         }
-
     }
 }

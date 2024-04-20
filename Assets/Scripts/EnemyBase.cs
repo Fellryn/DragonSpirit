@@ -6,91 +6,95 @@ using KurtSingle;
 
 namespace KurtSingle
 {
-	/// <summary>
-	/// Author: Kurt Single
-	/// Description: This script demonstrates how to create an enemy base super class in Unity
-	/// </summary>
-	public abstract class EnemyBase : MonoBehaviour 
-	{
-		protected GameTickSystem gameTickSystem;
+    /// <summary>
+    /// Author: Kurt Single
+    /// Description: This script demonstrates how to create an enemy base super class in Unity
+    /// </summary>
+    public abstract class EnemyBase : MonoBehaviour
+    {
+        protected GameTickSystem gameTickSystem;
 
-		[Header("Base")]
-		[SerializeField] string enemyName = "Enemy";
-		public int health = 1;
-		[SerializeField] int score = 1;
-		public Transform cachedModel;
-		protected Collider cachedCollider;
-		[SerializeField]
-		string playerTag = "Player";
+        [Header("Base")]
+        [SerializeField] string enemyName = "Enemy";
+        public int health = 1;
+        public int score = 1;
+        public Transform cachedModel;
+        protected Collider cachedCollider;
+        public bool canAttack = false;
+        public bool isInvincible = false;
 
-		public bool deathBegun = false;
-		[SerializeField]
-		bool ragdollOnDeath = false;
-		[SerializeField]
-		Transform ragdollObject;
+        public bool deathBegun = false;
+        [SerializeField]
+        bool ragdollOnDeath = false;
+        [SerializeField]
+        Transform ragdollObject;
 
-		public delegate void OnKill(int scoreToAdd);
-		public static event OnKill onKill;
+        public delegate void OnKill(int scoreToAdd);
+        public static event OnKill onKill;
 
-		protected Rigidbody cachedRigidbody;
+        protected Rigidbody cachedRigidbody;
 
-		protected virtual void OnEnable()
+        protected virtual void OnEnable()
         {
-			gameTickSystem = FindFirstObjectByType<GameTickSystem>();
-			cachedRigidbody = GetComponent<Rigidbody>();
-			cachedCollider = GetComponent<Collider>();
-			transform.name = enemyName;
-		}
-
-
-		public void TakeDamage(int damageAmount)
-        {
-			health -= damageAmount;
-			HealthCheck();
+            gameTickSystem = FindFirstObjectByType<GameTickSystem>();
+            cachedRigidbody = GetComponent<Rigidbody>();
+            cachedCollider = GetComponent<Collider>();
+            transform.name = enemyName;
         }
 
 
-		private void HealthCheck()
+        public void TakeDamage(int damageAmount)
         {
-			if (health <= 0)
+            if (!isInvincible)
             {
-				BeginDeath();
+                health -= damageAmount;
+                HealthCheck();
             }
         }
 
 
-
-		public virtual void BeginDeath()
+        private void HealthCheck()
         {
-			deathBegun = true;
-			onKill?.Invoke(score);
-
-			transform.tag = "Untagged";
-			cachedRigidbody.useGravity = true;
-			cachedRigidbody.AddExplosionForce(150f, transform.position, 1f);
-			cachedRigidbody.isKinematic = false;
-			cachedCollider.isTrigger = false;
-
-			if (ragdollOnDeath)
+            if (health <= 0)
             {
-				cachedModel.gameObject.SetActive(false);
-				ragdollObject.gameObject.SetActive(true);
-				cachedCollider.isTrigger = true;
+                BeginDeath();
             }
+        }
 
-			if (TryGetComponent<EnemyShaderController>(out EnemyShaderController enemyShaderController)){
-				enemyShaderController.BeginDissolveAnimation();
-            }
 
-			if (TryGetComponent<EnemyAnimation>(out EnemyAnimation enemyAnimation))
+
+        public virtual void BeginDeath()
+        {
+            deathBegun = true;
+            onKill?.Invoke(score);
+
+            transform.tag = "Untagged";
+            cachedRigidbody.useGravity = true;
+            cachedRigidbody.AddExplosionForce(150f, transform.position, 1f);
+            cachedRigidbody.isKinematic = false;
+            cachedCollider.isTrigger = false;
+
+            if (ragdollOnDeath)
             {
-				enemyAnimation.OnDeath();
+                cachedModel.gameObject.SetActive(false);
+                ragdollObject.gameObject.SetActive(true);
+                cachedCollider.isTrigger = true;
             }
 
-			Destroy(gameObject, 3f);
+            if (TryGetComponent<EnemyShaderController>(out EnemyShaderController enemyShaderController))
+            {
+                enemyShaderController.BeginDissolveAnimation();
+            }
 
-			enabled = false;
-		}
+            if (TryGetComponent<EnemyAnimation>(out EnemyAnimation enemyAnimation))
+            {
+                enemyAnimation.OnDeath();
+            }
+
+            Destroy(gameObject, 3f);
+
+            enabled = false;
+        }
 
     }
 }

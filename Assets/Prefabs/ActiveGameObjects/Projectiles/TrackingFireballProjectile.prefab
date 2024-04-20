@@ -77,6 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsuleHeight: 100
   capsuleRadius: 0.25
+  ProjectileLifetime: 15
   maxHeight: 7
   defaultMoveSpeed: 20
   moveSpeedVariation: 3
@@ -91,6 +92,9 @@ MonoBehaviour:
   particleSystemContinue: {fileID: 455900269643847990}
   playerMaterial: {fileID: 0}
   randomEnemyToFollow: {fileID: 0}
+  startMoveSpeedMod: 0.3
+  maxVelocity: 25
+  rechecksDone: 0
 --- !u!1001 &3688522222923509704
 PrefabInstance:
   m_ObjectHideFlags: 0

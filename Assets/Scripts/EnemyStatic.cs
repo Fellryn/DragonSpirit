@@ -15,6 +15,8 @@ namespace KurtSingle
 		[SerializeField] float rotationSpeed = 30f;
 		[SerializeField] Camera mainCamera;
 		[SerializeField] bool canRotate = true;
+		[SerializeField] float yScreenspaceActivate = 1.1f;
+		[SerializeField] float yScreenspaceDestroy = -0.2f;
 
 		protected override void OnEnable()
 		{
@@ -55,12 +57,13 @@ namespace KurtSingle
 		
 		private void IsOnscreenCheck()
         {
-			if (mainCamera.WorldToViewportPoint(transform.position).y < 1.2f)
+			if (!canAttack && mainCamera.WorldToViewportPoint(transform.position).y < yScreenspaceActivate)
             {
+				isInvincible = false;
 				canAttack = true;
             }
 
-			if (mainCamera.WorldToViewportPoint(transform.position).y < -0.2f)
+			if (canAttack && mainCamera.WorldToViewportPoint(transform.position).y < yScreenspaceDestroy )
             {
 				canAttack = false;
 				Destroy(gameObject);

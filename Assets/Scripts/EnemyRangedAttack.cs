@@ -23,8 +23,6 @@ namespace KurtSingle
 
         protected Transform cachedPlayerTransform;
 
-        public bool canAttack = false;
-
         protected PrefabReferencesLink prefabLink;
         protected Transform projectileHolder;
         protected Transform mainCameraTransform;
@@ -53,6 +51,7 @@ namespace KurtSingle
             if (TryGetComponent(out EnemyAnimation enemyAnimationScript))
             {
                 enemyAnimationScript.AttackCompleted();
+                canAttack = true;
             }
         }
 
@@ -63,6 +62,8 @@ namespace KurtSingle
             // When tick occurs, further random chance to shoot or not shoot
             if (canAttack && Random.Range(0f, 1f) < attackChance)
             {
+                canAttack = false;
+
                 if (TryGetComponent(out EnemyAnimation enemyAnimationScript))
                 {
                     enemyAnimationScript.AttackBegun();
@@ -70,7 +71,9 @@ namespace KurtSingle
 
                 // Instantiate the fireball
                 var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
-                if (newProjectile.TryGetComponent<ProjectileBase>(out ProjectileBase projectileBase))
+
+                // Try get projectile base and initialise
+                if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
                 {
                     projectileBase.Initalise(
                         playerTransform: cachedPlayerTransform,
@@ -83,43 +86,6 @@ namespace KurtSingle
                 }
 
             }
-
-
-            //	ProjectileFireball cachedProjectileScript = newProjectile.GetComponent<ProjectileFireball>();
-
-
-
-
-            //	newProjectile.transform.name = $"{transform.name} Projectile";
-            //	newProjectile.transform.tag = enemyProjectileTag;
-
-            //	////cachedProjectileScript.cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
-            //	cachedProjectileScript.ProjectileDamage = damage;
-            //	cachedProjectileScript.cachedUnitTransform = transform;
-
-
-            //	// Change rotation of projectile to face player if enemy doesn't just shoot "forward"
-            //	if (aimAtPlayer)
-            //             {
-            //		cachedProjectileScript.usingCustomRotation = true;
-            //		newProjectile.transform.rotation = Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position);
-
-            //	}
-
-            //	SetProjectileMoveSpeed(cachedProjectileScript);
-            //}
         }
     }
 }
-
-
-
-
-
-// Set speed of projectile (leave 0 in inspector if want default speed)
-//private void SetProjectileMoveSpeed(ProjectileFireball fireballScript)
-//      {
-//	fireballScript.ProjectileMoveSpeed = Random.Range(projectileMoveSpeedMin, projectileMoveSpeedMax);
-//}
-
-

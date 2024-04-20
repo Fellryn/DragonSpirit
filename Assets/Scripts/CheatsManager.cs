@@ -36,16 +36,19 @@ namespace KurtSingle
         {
             for (int i = 0; i < enemiesHolder.childCount; i++)
             {
+				enemiesHolder.GetChild(i).GetComponent<EnemyBase>().score = 0;
 				enemiesHolder.GetChild(i).GetComponent<EnemyBase>().BeginDeath();
-            }
+			}
 
 			for (int j = 0; j < randomEnemiesHolder.childCount; j++)
 			{
+				randomEnemiesHolder.GetChild(j).GetComponent<EnemyBase>().score = 0;
 				randomEnemiesHolder.GetChild(j).GetComponent<EnemyBase>().BeginDeath();
 			}
 
             for (int k = 0; k < staticEnemiesHolder.childCount; k++)
             {
+				staticEnemiesHolder.GetChild(k).GetComponent<EnemyBase>().score = 0;
 				staticEnemiesHolder.GetChild(k).GetComponent<EnemyBase>().BeginDeath();
 			}
 
@@ -91,7 +94,7 @@ namespace KurtSingle
 
 		public void SkipToBoss()
         {
-			playerStatsScript.powerupAttackTracking = false;
+			//playerStatsScript.powerupAttackTracking = false;
 			WipeAllEnemies();
 			playerMovement.CheatSkipToBoss();
         }

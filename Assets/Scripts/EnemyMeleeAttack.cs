@@ -33,7 +33,6 @@ namespace KurtSingle
         private Vector3 storedMoveTarget;
         private float storedMoveSpeed;
 
-        public bool canAttack = false;
 
 
         protected override void OnEnable()

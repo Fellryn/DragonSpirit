@@ -16,7 +16,6 @@ namespace KurtSingle
 		private Transform cachedPlayerTransform;
 		private Rigidbody cachedRigidbody;
 
-		[SerializeField] string powerupName = "Powerup";
 		[SerializeField] GameObject powerupVisualEffect;
 		[SerializeField] float moveSpeed = 15f;
 		[SerializeField] float moveAcceleration = 0.15f;
