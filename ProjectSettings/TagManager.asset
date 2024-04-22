@@ -12,9 +12,8 @@ TagManager:
   - SoundEffects
   - EnemyHolder
   - Music
-  - PowerupLife
-  - PowerupAttack
   - PowerUpEgg
+  - PowerUp
   layers:
   - Default
   - TransparentFX

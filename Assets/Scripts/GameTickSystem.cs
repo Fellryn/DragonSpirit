@@ -89,8 +89,8 @@ namespace KurtSingle
                 onTickHalfRun = false;
                 onTickThreeQuarterRun = false;
                 onRandomTickRun = false;
-                timer = 0f;
 
+                timer = 0f;
             }
         }
 

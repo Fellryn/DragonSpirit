@@ -21,7 +21,7 @@ namespace KurtSingle
         public Transform cachedModel;
         protected Collider cachedCollider;
         public bool canAttack = false;
-        public bool isInvincible = false;
+        public bool isInvincible = true;
 
         public bool deathBegun = false;
         [SerializeField]

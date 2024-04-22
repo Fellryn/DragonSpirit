@@ -26,12 +26,35 @@ namespace KurtSingle
 
         public bool atBoss = false;
 
+        private Vector2 originalCameraFovOffset;
+
 
         private void OnEnable()
         {
 			dollyCamera.CameraPosition = 0;
 
             dollyCameraOffset = dollyCamera.GetComponent<CinemachineCameraOffset>();
+
+            float aspectRatio = (float)Screen.width / Screen.height;
+
+            originalCameraFovOffset.x = dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView;
+            originalCameraFovOffset.y = dollyCamera.SplineOffset.y;
+
+            if (aspectRatio >= 5f)
+            {
+                dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 22;
+                dollyCamera.SplineOffset.y = 40;
+            } else
+            {
+                dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 60;
+                dollyCamera.SplineOffset.y = 22;
+            }
+        }
+
+        private void OnDisable()
+        {
+            dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = originalCameraFovOffset.x;
+            dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
         }
 
         private void Update()

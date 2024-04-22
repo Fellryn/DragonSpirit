@@ -536,12 +536,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8987221143713693224}
-  - component: {fileID: 5620828758672990640}
   - component: {fileID: 8375972573465673852}
   - component: {fileID: 5052870857309098836}
+  - component: {fileID: -7489084744037797055}
   m_Layer: 0
-  m_Name: LifePowerupPickup
-  m_TagString: PowerupLife
+  m_Name: LifePowerUpPickup
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -564,25 +564,6 @@ Transform:
   - {fileID: 490521236826352172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5620828758672990640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4341402413370552031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f9bfb8ae44c424cb940dffc19b63e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupName: PowerupLife
-  powerupVisualEffect: {fileID: 9148410779099541663, guid: 7a7720b2f135bad4ea0fba12cedc3e73,
-    type: 3}
-  moveSpeed: 15
-  moveAcceleration: 0.15
-  chanceToChangePosition: 0.02
-  timeBeforeMoveFromScreen: 15
 --- !u!54 &8375972573465673852
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -592,7 +573,7 @@ Rigidbody:
   m_GameObject: {fileID: 4341402413370552031}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2.45
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -631,6 +612,26 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7489084744037797055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341402413370552031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f9bfb8ae44c424cb940dffc19b63e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpName: LifePowerUp
+  powerupVisualEffect: {fileID: 9148410779099541663, guid: 7a7720b2f135bad4ea0fba12cedc3e73,
+    type: 3}
+  moveSpeed: 15
+  chanceToChangePosition: 0.25
+  timeBeforeMoveFromScreen: 15
+  timeBeforeAllowedChangePosition: 3
+  timeBeforeMustChangePosition: 6
 --- !u!1 &5681026979741792661
 GameObject:
   m_ObjectHideFlags: 0
@@ -5469,6 +5470,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8987221143713693224}
     m_Modifications:
+    - target: {fileID: 2870630959370731669, guid: 180cc08eb7b00774b865e362ca50fbaa,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5184123369218100297, guid: 180cc08eb7b00774b865e362ca50fbaa,
         type: 3}
       propertyPath: m_LocalPosition.x

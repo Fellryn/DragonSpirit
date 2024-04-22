@@ -114,10 +114,8 @@ namespace KurtSingle
 
         private void CameraMovePlayer()
         {
-            if (cameraMoveOverride)
-            {
-                return;
-            }
+            if (cameraMoveOverride) return;
+            
             if (playerMatchCameraMovement && skippedFirstFrame)
             {
                 if (lastPosition == usedCamera.transform.position) return;
@@ -125,6 +123,8 @@ namespace KurtSingle
                 Vector3 forceToAdd = (usedCamera.transform.position - lastPosition) * moveSpeed * cameraMoveModifier;
                 forceToAdd.y = 0;
                 forceToAdd.x = 0;
+
+                
 
                 cachedRigidbody.AddRelativeForce(forceToAdd);
                 lastPosition = usedCamera.transform.position;

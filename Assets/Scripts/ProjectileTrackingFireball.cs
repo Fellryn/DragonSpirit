@@ -218,7 +218,7 @@ namespace KurtSingle
                 cachedRigidbody.AddForce(transform.forward * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
             }
             
-            if (cachedRigidbody.position.y <= -4)
+            if (cachedRigidbody.position.y <= -8.5)
             {
                 cachedRigidbody.AddForce(Vector3.up * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
             }

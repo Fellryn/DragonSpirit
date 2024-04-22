@@ -118,17 +118,17 @@ MonoBehaviour:
   health: 1
   score: 1
   cachedModel: {fileID: 6028377269135645396}
-  playerTag: Player
+  canAttack: 0
+  isInvincible: 0
   deathBegun: 0
   ragdollOnDeath: 0
   ragdollObject: {fileID: 0}
   damage: 1
   attackChance: 0.5
-  projectileMoveSpeedMin: 10
-  projectileMoveSpeedMax: 15
-  enemyProjectileTag: EnemyProjectile
+  projectileMoveSpeed: 12
   aimAtPlayer: 0
-  canAttack: 0
+  useCustomProjectileOrigin: 0
+  projectileOrigin: {fileID: 0}
   moveSpeed: 8
   rotationSpeed: 30
   useSpline: 0

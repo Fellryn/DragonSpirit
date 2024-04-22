@@ -24,6 +24,8 @@ namespace KurtSingle
         public int PlayerLife { get; set; }
         public bool GodmodeActive { get; set; }
         public float PlayerMana { get; set; }
+
+
         [SerializeField]
         float maxMana = 10f;
         public int maxLives = 10;
@@ -31,16 +33,9 @@ namespace KurtSingle
         [SerializeField]
         TextMeshProUGUI scoreText;
         [SerializeField]
-        TextMeshProUGUI livesText;
-        [SerializeField]
-        TextMeshProUGUI manaText;
-        [SerializeField]
         RectTransform healthMask;
-
-        private Vector2 healthMaskOriginalPositions;
-        private Vector2 healthMaskOriginalDimensions;
-
-
+        [SerializeField]
+        RectTransform manaMask;
 
         [SerializeField]
         SceneNavigation sceneNavigation;
@@ -49,6 +44,12 @@ namespace KurtSingle
 
         [SerializeField]
         Transform cachedModel;
+
+        private Vector2 healthMaskOriginalPositions;
+        private Vector2 healthMaskOriginalDimensions;
+
+        private Vector2 manaMaskOriginalPositions;
+        private Vector2 manaMaskOriginalDimensions;
 
 
 
@@ -60,6 +61,9 @@ namespace KurtSingle
 
             healthMaskOriginalPositions = healthMask.anchoredPosition;
             healthMaskOriginalDimensions = healthMask.sizeDelta;
+
+            manaMaskOriginalPositions = manaMask.anchoredPosition;
+            manaMaskOriginalDimensions = manaMask.sizeDelta;
         }
 
 
@@ -73,6 +77,7 @@ namespace KurtSingle
         {
             PlayerLife = 10;
             UpdateLivesText();
+            UpdateManaText();
         }
 
 
@@ -119,10 +124,18 @@ namespace KurtSingle
 
         private void UpdateLivesText()
         {
-            livesText.text = $"Lives: {PlayerLife.ToString()}";
+            //livesText.text = $"Lives: {PlayerLife.ToString()}";
 
-            healthMask.anchoredPosition = new Vector2(healthMaskOriginalPositions.x, (healthMaskOriginalPositions.y) * (PlayerLife / maxLives));
-            //healthMask.sizeDelta = new Vector2(healthMaskOriginalDimensions.x, ((healthMaskOriginalDimensions.y) * (PlayerLife / maxLives)) * 2f);
+            float newHealthYPosition = (healthMaskOriginalPositions.y * ((float)PlayerLife / maxLives)) + (11f - (11f * ((float)PlayerLife / maxLives)));
+            Vector2 newHealthSizeDelta = new Vector2(healthMaskOriginalDimensions.x, healthMaskOriginalDimensions.y * ((float)PlayerLife / maxLives));
+
+            DOTween.Complete(0);
+            DOTween.Complete(1);
+            healthMask.DOAnchorPosY(newHealthYPosition, 0.2f).SetId(0);
+            healthMask.DOSizeDelta(newHealthSizeDelta, 0.2f).SetId(1);
+
+            //healthMask.anchoredPosition = new Vector2(healthMaskOriginalPositions.x, healthMaskOriginalPositions.y * ((float)PlayerLife / maxLives));
+            //healthMask.sizeDelta = new Vector2(healthMaskOriginalDimensions.x, healthMaskOriginalDimensions.y * ((float)PlayerLife / maxLives));
         }
 
 
@@ -173,7 +186,17 @@ namespace KurtSingle
 
         private void UpdateManaText()
         {
-            manaText.text = PlayerMana.ToString();
+            //manaText.text = PlayerMana.ToString();
+            float newManaYPosition = (manaMaskOriginalPositions.y * (PlayerMana / maxMana)) + (11f - (11f * (PlayerMana / maxMana)));
+            Vector2 newManaSizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));
+
+            DOTween.Complete(2);
+            DOTween.Complete(3);
+            manaMask.DOAnchorPosY(newManaYPosition, 0.2f).SetId(2);
+            manaMask.DOSizeDelta(newManaSizeDelta, 0.2f).SetId(3);
+
+            //manaMask.anchoredPosition = new Vector2(manaMaskOriginalPositions.x, manaMaskOriginalPositions.y * (PlayerMana / maxMana));
+            //manaMask.sizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));
         }
 
 

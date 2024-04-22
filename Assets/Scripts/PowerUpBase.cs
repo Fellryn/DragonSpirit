@@ -6,142 +6,151 @@ using DG.Tweening;
 
 namespace KurtSingle
 {
-	/// <summary>
-	/// Author: Kurt Single
-	/// Description: This script demonstrates how to create a parent powerup class in Unity
-	/// </summary>
-	public class PowerUpBase : MonoBehaviour 
-	{
-		private Camera cachedPlayerCamera;
-		private Transform cachedPlayerTransform;
-		private Rigidbody cachedRigidbody;
+    /// <summary>
+    /// Author: Kurt Single
+    /// Description: This script demonstrates how to create a powerup pickup in Unity
+    /// When a powerup is spawned, it finds a target position in front of the player
+    /// It maintains this position until a variable time, and then floats down off-screen
+    /// The player pickup code is found in PlayerPowerups.cs, which is on the player object
+    /// </summary>
+    public class PowerUpBase : MonoBehaviour
+    {
+        private Camera cachedPlayerCamera;
+        private Transform cachedPlayerTransform;
+        private Rigidbody cachedRigidbody;
+        private GameTickSystem gameTickSystem;
 
-		[SerializeField] GameObject powerupVisualEffect;
-		[SerializeField] float moveSpeed = 15f;
-		[SerializeField] float moveAcceleration = 0.15f;
-		private float originaMoveSpeed;
-		[SerializeField] float chanceToChangePosition = 0.01f;
-		[SerializeField] float timeBeforeMoveFromScreen = 10f;
-		[SerializeField] float timeBeforeChangePosition = 3f;
-		bool movingFromScreen = false;
-		float timer = 0f;
-		float timerSinceLastMove = 0f;
-		Vector3 screenPosition;
-
-		private Vector3 randomMoveTarget;
+        /// <summary>
+        /// Must be exact certain names: "LifePowerUp", "MultiShotPowerUp", "TrackingPowerUp"
+        /// </summary>
+        [Tooltip("Must be exact certain names: LifePowerUp, MultiShotPowerUp, TrackingPowerUp")]
+        public string powerUpName = "LifePowerUp";
+        [SerializeField] GameObject powerupVisualEffect;
+        [SerializeField] float moveSpeed = 15f;
+        
+        [Header("Timings")]
+        [SerializeField] float chanceToChangePosition = 0.25f;
+        [SerializeField] float timeBeforeMoveFromScreen = 15f;
+        [SerializeField] float timeBeforeAllowedChangePosition = 3f;
+        [SerializeField] float timeBeforeMustChangePosition = 6f;
+        bool movingFromScreen = false;
+        float timer = 0f;
+        float timerSinceLastMove = 0f;
+        
+        Vector3 screenPosition;
+        Vector3 offsetMoveTarget;
 
 
 
         private void OnEnable()
         {
 
-			cachedRigidbody = GetComponent<Rigidbody>();
+            cachedRigidbody = GetComponent<Rigidbody>();
             cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-			cachedPlayerTransform = FindAnyObjectByType<PlayerStats>().GetComponent<Transform>();
+            cachedPlayerTransform = FindAnyObjectByType<PlayerStats>().GetComponent<Transform>();
+            gameTickSystem = FindAnyObjectByType<GameTickSystem>();
 
-            randomMoveTarget = cachedPlayerCamera.ViewportToWorldPoint(new Vector3(Random.Range(0.2f, 0.8f), Random.Range(0.5f, 1f), 30f));
-			originaMoveSpeed = moveSpeed;
+            ChangePosition();
 
-			transform.DORotate(new Vector3(Random.Range(0, 360f), Random.Range(0, 360f), Random.Range(0, 360f)), 1f).SetEase(Ease.Linear).SetRelative().SetLoops(-1, LoopType.Incremental);
+            transform.DORotate(new Vector3(Random.Range(0, 360f), Random.Range(0, 360f), Random.Range(0, 360f)), 1f).SetEase(Ease.Linear).SetRelative().SetLoops(-1, LoopType.Incremental);
+            cachedRigidbody.maxLinearVelocity = 15f;
+
+            gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
         }
 
+        private void OnDisable()
+        {
+            gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
+        }
 
 
         private void FixedUpdate()
         {
+            
+            Move();
+        }
+
+
+        private void OnDestroy()
+        {
+            DOTween.Kill(transform);
+
+            if (!gameObject.scene.isLoaded) return;
+
+            Instantiate(powerupVisualEffect, transform.position, Quaternion.identity);
+        }
+
+        private void DoChecks()
+        {
             screenPosition = cachedPlayerCamera.WorldToViewportPoint(transform.position);
 
-            ChangePositionCheck();
+            if (!movingFromScreen) ChangePositionCheck();
 
-            Move();
-
-            CheckBounds();
+            if (movingFromScreen) CheckBounds();
         }
+
 
         private void Move()
         {
-            float distanceFromMoveTarget = Vector3.Distance(transform.position, randomMoveTarget);
-            if (distanceFromMoveTarget < 5)
-            {
-                moveSpeed = originaMoveSpeed * distanceFromMoveTarget / 5;
-            }
-            else
-            {
-                moveSpeed += moveAcceleration;
-                moveSpeed = Mathf.Clamp(moveSpeed, 0, originaMoveSpeed);
-            }
+            Vector3 finalMoveTarget = new Vector3(offsetMoveTarget.x, offsetMoveTarget.y, cachedPlayerCamera.transform.position.z + offsetMoveTarget.z);
+            finalMoveTarget.y = 0;
 
-            Vector3 moveTarget = Vector3.MoveTowards(transform.position, randomMoveTarget, moveSpeed * Time.deltaTime);
-            ////moveTarget.y = cachedPlayerTransform.position.y;
+            if (movingFromScreen) finalMoveTarget.z = transform.position.z;
 
-
-
-            //Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, Quaternion.LookRotation(cachedRigidbody.position - cachedPlayerTransform.position), rotationSpeed * Time.deltaTime);
-            cachedRigidbody.MovePosition(moveTarget);
-            //cachedRigidbody.MoveRotation(rotateTarget);
-
-
-
+            transform.LookAt(finalMoveTarget);
+            cachedRigidbody.AddForce(transform.forward * moveSpeed * 0.1f, ForceMode.Impulse);
         }
 
         private void ChangePositionCheck()
         {
-            if (!movingFromScreen)
+            if (timer < timeBeforeMoveFromScreen)
             {
+                timer += 0.5f;
+                timerSinceLastMove += 0.5f;
 
-                if (timer < timeBeforeMoveFromScreen)
+                if ((Random.Range(0f, 1f) < chanceToChangePosition && timerSinceLastMove > timeBeforeAllowedChangePosition) || timerSinceLastMove > timeBeforeMustChangePosition)
                 {
-                    timer += Time.deltaTime;
-                    timerSinceLastMove += Time.deltaTime;
-
-                    if (Random.Range(0f, 1f) < chanceToChangePosition && timerSinceLastMove > timeBeforeChangePosition)
-                    {
-                        ChangePosition();
-                    }
-
-                }
-                else
-                {
-                    //randomMoveTarget = cachedPlayerCamera.ViewportToWorldPoint(new Vector3(Random.Range(0.2f, 0.8f), Random.Range(-1f, -0.5f), cachedPlayerCamera.transform.position.y - cachedPlayerTransform.position.y));
-                    movingFromScreen = true;
+                    ChangePosition();
                 }
 
             }
+            else
+            {
+                movingFromScreen = true;
+            }
+
         }
 
         private void ChangePosition()
         {
-            randomMoveTarget = cachedPlayerCamera.ViewportToWorldPoint(new Vector3(Random.Range(0.2f, 0.8f), Random.Range(0.7f, 1.5f), cachedPlayerCamera.transform.position.y - cachedPlayerTransform.position.y));
+            Vector3 randomMoveTarget = cachedPlayerCamera.ViewportToWorldPoint(new Vector3(Random.Range(0.2f, 0.8f), Random.Range(0.5f, 1f), cachedPlayerCamera.transform.position.y - cachedPlayerTransform.position.y));
             randomMoveTarget.y = cachedPlayerTransform.position.y;
+
+            offsetMoveTarget = randomMoveTarget - cachedPlayerCamera.transform.position;
+            //storeTargetPosition = randomMoveTarget - cachedPlayerCamera.transform.position;
+
             timerSinceLastMove = 0f;
         }
 
 
         private void CheckBounds()
-		{
-			if (timer < timeBeforeMoveFromScreen / 2) return;
+        {
 
-            if (screenPosition.y < 0.05f)
+
+            //if (screenPosition.y < 0.05f)
+            //{
+            //    ChangePosition();
+            //}
+
+            if (screenPosition.y < -0.1f)
             {
-                ChangePosition();
+
+                Destroy(gameObject);
             }
-
-			if (screenPosition.y < -0.1f)
-			{
-
-				Destroy(gameObject);
-			}
-		}
+        }
 
 
-		private void OnDestroy()
-		{
-			DOTween.Kill(transform);
 
-			if (!gameObject.scene.isLoaded) return;
 
-			Instantiate(powerupVisualEffect, transform.position, Quaternion.identity);
-		}
-
-	}
+    }
 }

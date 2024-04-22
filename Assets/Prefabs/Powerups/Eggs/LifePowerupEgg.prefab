@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6410188582508733403}
   - component: {fileID: 4644209916326476188}
   m_Layer: 0
-  m_Name: LifePowerupEgg
+  m_Name: LifePowerUpEgg
   m_TagString: PowerUpEgg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

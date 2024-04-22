@@ -15,6 +15,7 @@ namespace KurtSingle
     {
         [Header("Attack References")]
         [SerializeField] PlayerStats playerStats;
+        [SerializeField] PlayerPowerups playerPowerUps;
         [SerializeField] Transform cachedPlayerCamera;
         [SerializeField] Transform projectilesHolder;
         [SerializeField] InputActionReference fire;
@@ -32,9 +33,14 @@ namespace KurtSingle
 
         [Header("Multi Fireball")]
         [SerializeField] float maxAngleOffset = 30f;
-        public int multiFireballCount = 5;
+
+        [Header("General")]
+        [SerializeField] float cooldownBetweenNormalAttack = 0.1f;
+        [SerializeField] bool canNormalAttack = true;
+        float timer = 0f;
 
         private Transform cachedTransform;
+
 
 
         private void Start()
@@ -56,11 +62,35 @@ namespace KurtSingle
             altFire.action.performed -= PlayerAltAttacking;
         }
 
+        private void Update()
+        {
+            if (timer >= cooldownBetweenNormalAttack && !canNormalAttack)
+            {
+                canNormalAttack = true;
+                timer = 0;
+            } else if (!canNormalAttack)
+            {
+                timer += Time.deltaTime;
+            }
+        }
+
 
         private void PlayerAttacking(InputAction.CallbackContext obj)
         {
+            if (canNormalAttack)
+            {
+                canNormalAttack = false;
 
-            MultiFireball();
+                if (playerPowerUps.MultiShotActive)
+                {
+                    MultiFireball(playerPowerUps.UseMultiShot());
+                } else
+                {
+                    Fireball();
+                }
+                
+            }
+            
         }
 
         private void PlayerAltAttacking(InputAction.CallbackContext obj)
@@ -88,12 +118,12 @@ namespace KurtSingle
         }
 
 
-        private void MultiFireball()
+        private void MultiFireball(int count)
         {
-            float degreesBetweenFireball = (maxAngleOffset * 2f) / (multiFireballCount - 1f);
+            float degreesBetweenFireball = (maxAngleOffset * 2f) / (count - 1f);
             float currentFireballDegrees = -maxAngleOffset;
 
-            for (int i = 0; i < multiFireballCount; i++)
+            for (int i = 0; i < count; i++)
             {
 
 
