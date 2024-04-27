@@ -19,6 +19,7 @@ namespace KurtSingle
 	{
         [SerializeField] GameVars gameVars;
         [SerializeField] GameTickSystem gameTickSystem;
+        [SerializeField] PlayerShaderController playerShaderController;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
@@ -57,7 +58,7 @@ namespace KurtSingle
         private void OnEnable()
         {
             EnemyBase.onKill += AddScore;
-            gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
+            //gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
 
             healthMaskOriginalPositions = healthMask.anchoredPosition;
             healthMaskOriginalDimensions = healthMask.sizeDelta;
@@ -70,7 +71,7 @@ namespace KurtSingle
         private void OnDisable()
         {
             EnemyBase.onKill -= AddScore;
-            gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
+            //gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
         }
 
         private void Start()
@@ -184,6 +185,19 @@ namespace KurtSingle
             }
         }
 
+        public float GetManaPercentage()
+        {
+            if (PlayerMana <= 0f)
+            {
+                return 0f;
+            } else
+            {
+                return PlayerMana / maxMana;
+            }
+            
+        }
+
+
         private void UpdateManaText()
         {
             //manaText.text = PlayerMana.ToString();
@@ -194,6 +208,8 @@ namespace KurtSingle
             DOTween.Complete(3);
             manaMask.DOAnchorPosY(newManaYPosition, 0.2f).SetId(2);
             manaMask.DOSizeDelta(newManaSizeDelta, 0.2f).SetId(3);
+
+            playerShaderController.TweenEmissionFromMana();
 
             //manaMask.anchoredPosition = new Vector2(manaMaskOriginalPositions.x, manaMaskOriginalPositions.y * (PlayerMana / maxMana));
             //manaMask.sizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));

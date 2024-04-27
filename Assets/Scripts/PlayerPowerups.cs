@@ -11,23 +11,41 @@ namespace KurtSingle
 	/// </summary>
 	public class PlayerPowerups : MonoBehaviour 
 	{
+        [Header("References")]
         [SerializeField] PlayerStats playerStats;
         [SerializeField] GameTickSystem gameTickSystem;
-
-        //[SerializeField] CapsuleCollider cachedCollider;
-
+        [SerializeField] PlayerAttack playerAttack;
+        [SerializeField] PlayerShaderController playerShaderController;
 		[SerializeField] string powerUpTag = "PowerUp";
-		[SerializeField] const string lifePowerUpName = "LifePowerUp";
-		[SerializeField] const string multiShotPowerUpName = "MultiShotPowerUp";
-		public int healPerPickup = 1;
 
-        public bool MultiShotActive { get; set; }
+        
+        
+        [Header("Life PowerUp")]
+        [SerializeField]
+        GameObject lifePowerUpPlayerEffect;
+        [SerializeField]
+        const string lifePowerUpName = "LifePowerUp";
+        public int healPerPickup = 5;
+
+        [Header("MultiShot PowerUp")]
+        [SerializeField]
+        GameObject multiShotPowerUpPlayerEffect;
         [SerializeField]
         float multiShotActiveTime = 5f;
         [SerializeField]
+        const string multiShotPowerUpName = "MultiShotPowerUp";
+        [SerializeField]
         bool additiveTimePerPickup = true;
         public int CurrentMultiShotLevel { get; set; }
+        public bool MultiShotActive { get; set; }
         private float multiShotTimer;
+
+        [Header("Tracking PowerUp")]
+        [SerializeField] GameObject trackingPowerUpPlayerEffect;
+        const string trackingPowerUpName = "TrackingPowerUp";
+        public bool TrackingPowerUpActive { get; set; }
+
+
 
 
         private void OnEnable()
@@ -36,10 +54,45 @@ namespace KurtSingle
             gameTickSystem.OnEveryHalfTick.AddListener(PowerUpTimingChecks);
         }
 
+
         private void OnDisable()
         {
             gameTickSystem.OnEveryHalfTick.RemoveListener(PowerUpTimingChecks);
         }
+
+
+        private void OnTriggerEnter(Collider otherColliderHit)
+        {
+            if (otherColliderHit.CompareTag(powerUpTag))
+            {
+                if (otherColliderHit.TryGetComponent(out PowerUpBase powerUpBase))
+                {
+                    switch (powerUpBase.powerUpName)
+                    {
+                        case lifePowerUpName:
+                            playerStats.PlayerHeal(healPerPickup);
+                            Instantiate(lifePowerUpPlayerEffect, transform);
+                            break;
+                        case multiShotPowerUpName:
+                            ChangeMultiShotLevel(1);
+                            Instantiate(multiShotPowerUpPlayerEffect, transform);
+                            break;
+                        case trackingPowerUpName:
+                            ActivateTrackingAbility();
+                            Instantiate(trackingPowerUpPlayerEffect, transform);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    powerUpBase.BeginDestruction();
+                }
+
+                //Destroy(otherColliderHit.gameObject);
+
+            }
+        }
+
 
         private void PowerUpTimingChecks()
         {
@@ -91,29 +144,34 @@ namespace KurtSingle
         }
 
 
-
-        private void OnTriggerEnter(Collider otherColliderHit)
+        private void ActivateTrackingAbility()
         {
-            if (otherColliderHit.CompareTag(powerUpTag))
-            {
-                if (otherColliderHit.TryGetComponent(out PowerUpBase powerUpBase))
-                {
-                    switch (powerUpBase.powerUpName)
-                    {
-                        case lifePowerUpName:
-                            playerStats.PlayerHeal(healPerPickup);
-                            break;
-                        case multiShotPowerUpName:
-                            ChangeMultiShotLevel(1);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+            DeactivateAllAbilites();
 
-                Destroy(otherColliderHit.gameObject);
-
-            }
+            TrackingPowerUpActive = true;
+            playerStats.PlayerGainMana(100f);
+            //playerShaderController.TweenEmissionFromMana();
         }
+
+        public bool UseTrackingAbility()
+        {
+            if (playerStats.PlayerUseMana(playerAttack.trackingFireballManaCost))
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+            
+        }
+
+
+        private void DeactivateAllAbilites()
+        {
+            playerStats.PlayerMana = 0f;
+            TrackingPowerUpActive = false;
+
+        }
+
     }
 }

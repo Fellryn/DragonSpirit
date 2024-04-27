@@ -29,7 +29,7 @@ namespace KurtSingle
         [Header("Tracking Fireball")]
         [SerializeField] float trackingFireballMovespeed = 17f;
         [SerializeField] GameObject trackingFireballPrefab;
-        [SerializeField] float trackingFireballManaCost = 0.5f;
+        public float trackingFireballManaCost = 1f;
 
         [Header("Multi Fireball")]
         [SerializeField] float maxAngleOffset = 30f;
@@ -95,10 +95,14 @@ namespace KurtSingle
 
         private void PlayerAltAttacking(InputAction.CallbackContext obj)
         {
-                if (playerStats.PlayerUseMana(trackingFireballManaCost))
-                {
-                    TrackingFireball();
-                }
+            if (playerPowerUps.TrackingPowerUpActive && playerPowerUps.UseTrackingAbility())
+            {
+                TrackingFireball();
+            }
+
+
+
+
         }
 
 

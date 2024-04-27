@@ -15,6 +15,7 @@ namespace KurtSingle
 		[SerializeField]
 		Renderer cachedRenderer;
 
+		[Header("Dissolve Animation")]
 		[SerializeField]
 		bool useDissolveAnimation = false;
 		public bool BegunDissolveAnimation { get; private set; }
@@ -29,8 +30,19 @@ namespace KurtSingle
 		float timeMod = 0.33f;
 
 
+		[Header("Glow Cycle")]
+		[SerializeField] bool useGlowCycleAnimation = false;
+		[SerializeField] float maxGlowMultiplier = 4f;
+		[SerializeField] float minGlowMultiplier = 1f;
+		[SerializeField] float glowTime = 3f;
 
-        public void BeginDissolveAnimation()
+		private float glowTimer;
+		private float glowTarget;
+		private bool glowDecreasing = false;
+
+
+
+		public void BeginDissolveAnimation()
         {
 			if (useDissolveAnimation)
 			{
@@ -46,6 +58,29 @@ namespace KurtSingle
 				timer += Time.deltaTime * timeMod;
 				cachedRenderer.material.SetFloat("_Cutoff", Mathf.Lerp(maxAlphaCutoff, minumumAlphaCutoff, timer));
 			}
+
+			if (useGlowCycleAnimation)
+            {
+				float incrementBy = ((maxGlowMultiplier - minGlowMultiplier) / glowTime) * 0.01f;
+
+				if (glowDecreasing)
+                {
+					glowTarget -= incrementBy;
+                } else
+                {
+					glowTarget += incrementBy;
+                }
+
+				if (glowTarget > maxGlowMultiplier && !glowDecreasing)
+                {
+					glowDecreasing = true;
+                } else if (glowTarget <= minGlowMultiplier)
+                {
+					glowDecreasing = false;
+                }
+
+				cachedRenderer.sharedMaterial.SetFloat("_EmissionMultiplier", glowTarget);
+            }
 
         }
 

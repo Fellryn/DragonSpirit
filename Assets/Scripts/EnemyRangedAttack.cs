@@ -14,12 +14,12 @@ namespace KurtSingle
     public abstract class EnemyRangedAttack : EnemyBase
     {
         [Header("Attack")]
-        [SerializeField] int damage = 1;
-        [SerializeField] float attackChance = 0.5f;
-        [SerializeField] float projectileMoveSpeed = 12f;
-        [SerializeField] bool aimAtPlayer = false;
-        [SerializeField] bool useCustomProjectileOrigin = false;
-        [SerializeField] Transform projectileOrigin;
+        [SerializeField] protected int damage = 1;
+        [SerializeField] protected float attackChance = 0.5f;
+        [SerializeField] protected float projectileMoveSpeed = 12f;
+        [SerializeField] protected bool aimAtPlayer = false;
+        [SerializeField] protected bool useCustomProjectileOrigin = false;
+        public Transform projectileOrigin;
 
         protected Transform cachedPlayerTransform;
 
@@ -46,6 +46,7 @@ namespace KurtSingle
             gameTickSystem.OnRandomTick.RemoveListener(Attack);
         }
 
+        // Called from animation event passer that is on animator child
         protected virtual void AttackCompleted()
         {
             if (TryGetComponent(out EnemyAnimation enemyAnimationScript))
@@ -57,7 +58,7 @@ namespace KurtSingle
 
 
 
-        private void Attack()
+        protected virtual void Attack()
         {
             // When tick occurs, further random chance to shoot or not shoot
             if (canAttack && Random.Range(0f, 1f) < attackChance)

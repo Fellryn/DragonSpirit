@@ -11,9 +11,31 @@ namespace KurtSingle
 	/// </summary>
 	public class AnimationEventPasser : MonoBehaviour 
 	{
-		public void AttackCompleted()
+		private EnemyAnimation enemyAnimation;
+		private EnemyBossAnimation enemyBossAnimation;
+
+        private void Start()
         {
-			transform.parent.GetComponent<EnemyAnimation>().AttackCompleted();
+            if (transform.parent.TryGetComponent(out EnemyAnimation enemyAnimationRef))
+            {
+                enemyAnimation = enemyAnimationRef;
+            }
+
+            if (transform.parent.TryGetComponent(out EnemyBossAnimation enemyBossAnimationRef))
+            {
+                enemyBossAnimation = enemyBossAnimationRef;
+            }
+        }
+
+        public void AttackCompleted()
+        {            
+            if (enemyAnimation != null) enemyAnimation.AttackCompleted();
+            if (enemyBossAnimation != null) enemyBossAnimation.AttackCompleted();
+        }
+
+		public void BossHeadMovementCompleted()
+        {
+            enemyBossAnimation.BossHeadMovementCompleted();
         }
 
     }

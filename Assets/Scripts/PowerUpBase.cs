@@ -27,6 +27,8 @@ namespace KurtSingle
         public string powerUpName = "LifePowerUp";
         [SerializeField] GameObject powerupVisualEffect;
         [SerializeField] float moveSpeed = 15f;
+        [SerializeField] Renderer cachedRenderer;
+        [SerializeField] Renderer cachedRendererSub;
         
         [Header("Timings")]
         [SerializeField] float chanceToChangePosition = 0.25f;
@@ -44,18 +46,21 @@ namespace KurtSingle
 
         private void OnEnable()
         {
-
+            
             cachedRigidbody = GetComponent<Rigidbody>();
             cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             cachedPlayerTransform = FindAnyObjectByType<PlayerStats>().GetComponent<Transform>();
             gameTickSystem = FindAnyObjectByType<GameTickSystem>();
 
             ChangePosition();
+            
 
-            transform.DORotate(new Vector3(Random.Range(0, 360f), Random.Range(0, 360f), Random.Range(0, 360f)), 1f).SetEase(Ease.Linear).SetRelative().SetLoops(-1, LoopType.Incremental);
+            //transform.DORotate(new Vector3(Random.Range(0, 360f), Random.Range(0, 360f), Random.Range(0, 360f)), 1f).SetEase(Ease.Linear).SetRelative().SetLoops(-1, LoopType.Incremental);
             cachedRigidbody.maxLinearVelocity = 15f;
+            cachedRigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
 
             gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
+
         }
 
         private void OnDisable()
@@ -71,13 +76,36 @@ namespace KurtSingle
         }
 
 
+        public void BeginDestruction()
+        {
+            transform.tag = "Untagged";
+
+            cachedRigidbody.isKinematic = true;
+            transform.DOMove(cachedPlayerTransform.position, 0.1f);
+            cachedRenderer.material.DOFade(0, 0.5f).OnComplete(() => Destroy(gameObject));
+            cachedRendererSub.material.DOFade(0, 0.5f);
+        }
+
+
+        //private void Destroy()
+        //{
+        //    Destroy(gameObject);
+        //}
+
+
         private void OnDestroy()
         {
             DOTween.Kill(transform);
+            DOTween.Kill(cachedRenderer.material);
+            DOTween.Kill(cachedRendererSub.material);
 
             if (!gameObject.scene.isLoaded) return;
 
-            Instantiate(powerupVisualEffect, transform.position, Quaternion.identity);
+            if (powerupVisualEffect != null)
+            {
+                Instantiate(powerupVisualEffect, transform.position, Quaternion.identity);
+            }
+
         }
 
         private void DoChecks()

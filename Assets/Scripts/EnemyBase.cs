@@ -19,6 +19,7 @@ namespace KurtSingle
         public int health = 1;
         public int score = 1;
         public Transform cachedModel;
+        public Transform cachedProjectileTrackingPoint;
         protected Collider cachedCollider;
         public bool canAttack = false;
         public bool isInvincible = true;
@@ -28,6 +29,7 @@ namespace KurtSingle
         bool ragdollOnDeath = false;
         [SerializeField]
         Transform ragdollObject;
+        
 
         public delegate void OnKill(int scoreToAdd);
         public static event OnKill onKill;
@@ -38,7 +40,19 @@ namespace KurtSingle
         {
             gameTickSystem = FindFirstObjectByType<GameTickSystem>();
             cachedRigidbody = GetComponent<Rigidbody>();
+
             cachedCollider = GetComponent<Collider>();
+
+            if (transform.TryGetComponent(out Collider collider))
+            {
+                cachedCollider = collider;
+            } else
+            {
+                cachedCollider = transform.GetComponentInChildren<Collider>();
+            }
+
+            
+
             transform.name = enemyName;
         }
 
@@ -53,7 +67,7 @@ namespace KurtSingle
         }
 
 
-        private void HealthCheck()
+        protected virtual void HealthCheck()
         {
             if (health <= 0)
             {
@@ -70,9 +84,10 @@ namespace KurtSingle
 
             transform.tag = "Untagged";
             cachedRigidbody.useGravity = true;
-            cachedRigidbody.AddExplosionForce(150f, transform.position, 1f);
             cachedRigidbody.isKinematic = false;
+            cachedRigidbody.AddExplosionForce(4f, transform.position, 10f, 0f, ForceMode.Impulse);
             cachedCollider.isTrigger = false;
+            
 
             if (ragdollOnDeath)
             {

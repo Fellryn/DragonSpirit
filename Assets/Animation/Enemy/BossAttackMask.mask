@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BossAttackMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: SeaBossMesh
+    m_Weight: 1
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:Fin_Back_Left_Base_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:Fin_Back_Left_Base_Jnt/SeaMonsterRigging:Fin_Back_Left_Tip_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:Fin_Back_Right_Base_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:Fin_Back_Right_Base_Jnt/SeaMonsterRigging:Fin_Back_Right_Tip_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:TailBase_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:TailBase_Jnt/SeaMonsterRigging:Tail1_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:TailBase_Jnt/SeaMonsterRigging:Tail1_Jnt/SeaMonsterRigging:Tail2_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyBack1Jnt/SeaMonsterRigging:BodyBack2_Jnt/SeaMonsterRigging:TailBase_Jnt/SeaMonsterRigging:Tail1_Jnt/SeaMonsterRigging:Tail2_Jnt/SeaMonsterRigging:TailTip_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt/SeaMonsterRigging:Neck6_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt/SeaMonsterRigging:Neck6_Jnt/SeaMonsterRigging:Neck7_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt/SeaMonsterRigging:Neck6_Jnt/SeaMonsterRigging:Neck7_Jnt/SeaMonsterRigging:Head_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt/SeaMonsterRigging:Neck6_Jnt/SeaMonsterRigging:Neck7_Jnt/SeaMonsterRigging:Head_Jnt/SeaMonsterRigging:MouthBottom_Jnt
+    m_Weight: 1
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:BodyFront_Jnt/SeaMonsterRigging:NeckBase_Jnt/SeaMonsterRigging:Neck1_Jnt/SeaMonsterRigging:Neck2_Jnt/SeaMonsterRigging:Neck3_Jnt/SeaMonsterRigging:Neck4_Jnt/SeaMonsterRigging:Neck5_Jnt/SeaMonsterRigging:Neck6_Jnt/SeaMonsterRigging:Neck7_Jnt/SeaMonsterRigging:Head_Jnt/SeaMonsterRigging:MouthTop_Jnt
+    m_Weight: 1
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:Fin_Front_Left_Base_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:Fin_Front_Left_Base_Jnt/SeaMonsterRigging:Fin_Front_Left_Tip_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:Fin_Front_Right_Base_Jnt
+    m_Weight: 0
+  - m_Path: SeaMonsterRigging:BodyCenter_Jnt/SeaMonsterRigging:Fin_Front_Right_Base_Jnt/SeaMonsterRigging:Fin_Front_Right_Tip_Jnt
+    m_Weight: 0

@@ -100,16 +100,19 @@ MonoBehaviour:
   health: 1
   score: 1
   cachedModel: {fileID: 4439983880229156125}
-  playerTag: Player
+  cachedProjectileTrackingPoint: {fileID: 0}
+  canAttack: 0
+  isInvincible: 0
   deathBegun: 0
-  ticksBeforeAttack: 4
+  ragdollOnDeath: 0
+  ragdollObject: {fileID: 0}
+  ticksBeforeAttack: 0
   moveSpeed: 10
   rotationSpeed: 15
   useSpline: 0
   distanceThresholdToAttack: 5
   attackSpeed: 2.17
   initialMoveTarget: {x: 5.73, y: -3.7, z: 15.09}
-  canAttack: 0
 --- !u!114 &4152960580208556478
 MonoBehaviour:
   m_ObjectHideFlags: 0

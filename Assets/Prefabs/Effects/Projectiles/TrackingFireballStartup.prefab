@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7724864222075582690}
   serializedVersion: 8
-  lengthInSec: 0.3
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 2
   cullingMode: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1429,7 +1429,7 @@ ParticleSystem:
     enabled: 1
     mode: 0
     timeMode: 2
-    fps: 20
+    fps: 15
     frameOverTime:
       serializedVersion: 2
       minMaxState: 1
@@ -1537,9 +1537,9 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 100, y: 200}
-    tilesX: 8
-    tilesY: 2
-    animationType: 1
+    tilesX: 4
+    tilesY: 4
+    animationType: 0
     rowIndex: 0
     cycles: 10
     uvChannelMask: -1

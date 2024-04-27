@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.Events;
+using UnityEditor;
 using KurtSingle;
+
 namespace KurtSingle
 {
     /// <summary>
@@ -15,8 +18,10 @@ namespace KurtSingle
 
 		[SerializeField] CinemachineSplineDolly dollyCamera;
 		[SerializeField] CinemachineCameraOffset dollyCameraOffset;
+        private CinemachineCamera dollyCinemachineCamera;
 
         [SerializeField] CinemachineCamera bossCamera;
+        [SerializeField] CinemachineCamera bossCameraWidescreen;
 
         [SerializeField] Transform playerTransform;
 
@@ -24,38 +29,62 @@ namespace KurtSingle
         [SerializeField] float bossSplinePosition = 1f;
         [SerializeField] float stopEnemySpawnSplinePosition = 0.9f;
 
+        [SerializeField] Vector2 standardCameraSettings = new Vector2(60, 22);
+        [SerializeField] Vector2 widescreenCameraSettings = new Vector2(22, 40);
+
         public bool atBoss = false;
+        public UnityEvent AtBossEvent;
 
         private Vector2 originalCameraFovOffset;
-
+        private bool useWidescreenBossCamera;
 
         private void OnEnable()
         {
 			dollyCamera.CameraPosition = 0;
 
             dollyCameraOffset = dollyCamera.GetComponent<CinemachineCameraOffset>();
+            dollyCinemachineCamera = dollyCamera.GetComponent<CinemachineCamera>();
 
             float aspectRatio = (float)Screen.width / Screen.height;
 
-            originalCameraFovOffset.x = dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView;
-            originalCameraFovOffset.y = dollyCamera.SplineOffset.y;
-
             if (aspectRatio >= 5f)
             {
-                dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 22;
-                dollyCamera.SplineOffset.y = 40;
+                useWidescreenBossCamera = true;
+                dollyCinemachineCamera.Lens.FieldOfView = widescreenCameraSettings.x;
+                dollyCamera.SplineOffset.y = widescreenCameraSettings.y;
             } else
             {
-                dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 60;
-                dollyCamera.SplineOffset.y = 22;
+                dollyCinemachineCamera.Lens.FieldOfView = standardCameraSettings.x;
+                dollyCamera.SplineOffset.y = standardCameraSettings.y;
             }
+
+            originalCameraFovOffset.x = dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView;
+            originalCameraFovOffset.y = dollyCamera.SplineOffset.y;
         }
 
         private void OnDisable()
         {
-            dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = originalCameraFovOffset.x;
-            dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
+            //dollyCinemachineCamera.Lens.FieldOfView = originalCameraFovOffset.x;
+            //dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
         }
+
+
+        private void OnApplicationQuit()
+        {
+            //dollyCinemachineCamera.Lens.FieldOfView = originalCameraFovOffset.x;
+            //dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
+            dollyCamera.AutomaticDolly.Enabled = false;
+            dollyCamera.CameraPosition = 0.01f;
+        }
+
+        //private void LateUpdate()
+        //{
+        //    if (resetCameraPosition)
+        //    {
+        //        dollyCamera.CameraPosition = 0.01f;
+        //    }
+        //}
+
 
         private void Update()
         {
@@ -73,18 +102,26 @@ namespace KurtSingle
 
         private void AtBossCheck()
         {
-            if (dollyCamera.CameraPosition >= bossSplinePosition)
+            if (dollyCamera.CameraPosition >= bossSplinePosition && !atBoss)
             {
-                if (bossCamera.gameObject.activeSelf == false) bossCamera.gameObject.SetActive(true);
+                if (useWidescreenBossCamera)
+                {
+                    bossCameraWidescreen.gameObject.SetActive(true);
+                } else
+                {
+                    bossCamera.gameObject.SetActive(true);
+                }
+                
                 atBoss = true;
+                AtBossEvent?.Invoke();
             }
         }
 
         private void AllowEnemySpawnCheck()
         {
-            if (dollyCamera.CameraPosition >= stopEnemySpawnSplinePosition)
+            if (dollyCamera.CameraPosition >= stopEnemySpawnSplinePosition && gameVars.AllowEnemySpawn)
             {
-                if (gameVars.AllowEnemySpawn) gameVars.EnemySpawn(false);
+                gameVars.EnemySpawn(false);
             }
         }
     }

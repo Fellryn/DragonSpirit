@@ -147,27 +147,45 @@ namespace KurtSingle
                     }
                     else
                     {
-                        //Destroy(other.gameObject);
+                        other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage);
                     }
 
+                    //if (other.TryGetComponent(out EnemyRangedAttack enemyRangedAttack))
+                    //{
+                    //    if (enemyRangedAttack.projectileOrigin != null)
+                    //    {
+                    //        PlayEffects(enemyRangedAttack.projectileOrigin);
+                    //    }
+                    //    else
+                    //    {
+                    PlayEffects(transform);
+                    //}
+
                     Destroy(gameObject);
-                    PlayEffects(other.transform);
+
+                    //}
                 }
 
                 if (other.CompareTag(powerupEggTag))
                 {
-                    Destroy(other.gameObject);
+                    if (other.TryGetComponent(out PowerupEgg powerUpEgg))
+                    {
+                        powerUpEgg.BreakEgg();
+                    }
+                    Destroy(gameObject);
+                    PlayEffects(transform);
                 }
 
+
+
+                //if (other.CompareTag("Background"))
+                //{
+                //    Destroy(gameObject);
+                //    PlayEffects(this.transform);
+                //}
+
+
             }
-
-            //if (other.CompareTag("Background"))
-            //{
-            //    Destroy(gameObject);
-            //    PlayEffects(this.transform);
-            //}
-
-
         }
 
         public virtual void Initalise(Transform playerTransform, Transform firingUnitTransform, Transform mainCameraTransform, int projectileDamage = 1, float projectileMoveSpeed = 12f, bool useRandomProjectileSpeed = true, bool isEnemy = false, bool aimAtPlayer = false, float customRotationY = 0f)
@@ -200,7 +218,8 @@ namespace KurtSingle
             if (customRotationY != 0f)
             {
                 transform.rotation = Quaternion.Euler(cachedUnitTransform.rotation.eulerAngles + new Vector3(0, customRotationY, 0));
-            } else
+            }
+            else
             {
                 transform.rotation = cachedUnitTransform.rotation;
             }
@@ -248,7 +267,7 @@ namespace KurtSingle
 
         protected virtual void PlayEffects(Transform targetTransform)
         {
-            var explosionEffect = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            var explosionEffect = Instantiate(explosionPrefab, targetTransform.position, Quaternion.identity);
             explosionEffect.hideFlags = HideFlags.HideInInspector;
 
             soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();

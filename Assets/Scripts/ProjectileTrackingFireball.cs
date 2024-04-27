@@ -15,26 +15,23 @@ namespace KurtSingle
     {
 
         private GameObject[] enemyHolders;
-
+        private EnemyBoss enemyBoss;
         public Transform randomEnemyToFollow;
         private GameTickSystem gameTickSystem;
 
-        [SerializeField] float startMoveSpeedMod = 0.3f;
-
+        [SerializeField] 
+        float startMoveSpeedMod = 0.3f;
         [SerializeField]
         float maxVelocity = 25f;
-
-        private EnemyBoss enemyBoss;
-
-
-
-
+        [SerializeField]
+        float minYHeight = -18.5f;
 
         private int rechecksAllowed = 25;
         [SerializeField]
         private int rechecksDone = 0;
         private bool followingPlayer = false;
-
+        [SerializeField]
+        float distancePlayerCheck = 10f;
 
         protected override void Start()
         {
@@ -72,9 +69,9 @@ namespace KurtSingle
                 randomEnemyToFollow = cachedUnitTransform;
             }
 
-            if (followingPlayer)
+            if (followingPlayer || randomEnemyToFollow == cachedUnitTransform)
             {
-                if (Vector3.Distance(transform.position, cachedUnitTransform.position) <= 7f)
+                if (Vector3.Distance(transform.position, cachedUnitTransform.position) <= distancePlayerCheck)
                 {
                     followingPlayer = false;
                     rechecksDone = 0;
@@ -105,7 +102,7 @@ namespace KurtSingle
                 }
                 else
                 {
-                    //Destroy(other.gameObject);
+                    other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage);
                 }
 
                 PlayEffects(other.transform);
@@ -136,10 +133,10 @@ namespace KurtSingle
             {
                 if (enemyBoss.canAttack == true)
                 {
-                    randomEnemyToFollow = enemyBoss.cachedModel.GetComponent<Transform>();
+                    randomEnemyToFollow = enemyBoss.cachedProjectileTrackingPoint;
                 }
 
-                if (randomEnemyToFollow != enemyBoss.cachedModel.GetComponent<Transform>())
+                if (randomEnemyToFollow != enemyBoss.cachedProjectileTrackingPoint)
                 {
                     for (int i = 0; i < enemyHolders[randomIndex].transform.childCount; i++)
                     {
@@ -218,7 +215,7 @@ namespace KurtSingle
                 cachedRigidbody.AddForce(transform.forward * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
             }
             
-            if (cachedRigidbody.position.y <= -8.5)
+            if (cachedRigidbody.position.y <= minYHeight)
             {
                 cachedRigidbody.AddForce(Vector3.up * ProjectileMoveSpeed * 0.1f, ForceMode.Impulse);
             }
