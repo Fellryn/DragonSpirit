@@ -16,6 +16,7 @@ namespace KurtSingle
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerAttack playerAttack;
         [SerializeField] PlayerShaderController playerShaderController;
+        [SerializeField] RectTransform powerUpDisplay;
 		[SerializeField] string powerUpTag = "PowerUp";
 
         
@@ -148,6 +149,7 @@ namespace KurtSingle
         {
             DeactivateAllAbilites();
 
+            powerUpDisplay.gameObject.SetActive(true);
             TrackingPowerUpActive = true;
             playerStats.PlayerGainMana(100f);
             //playerShaderController.TweenEmissionFromMana();
@@ -166,8 +168,9 @@ namespace KurtSingle
         }
 
 
-        private void DeactivateAllAbilites()
+        public void DeactivateAllAbilites()
         {
+            powerUpDisplay.gameObject.SetActive(false);
             playerStats.PlayerMana = 0f;
             TrackingPowerUpActive = false;
 

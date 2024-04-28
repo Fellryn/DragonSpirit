@@ -626,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpName: MultiShotPowerUp
   powerupVisualEffect: {fileID: 0}
-  moveSpeed: 10
+  moveSpeed: 5
   cachedRenderer: {fileID: 1026269308873994685}
   cachedRendererSub: {fileID: 2713432683591964660}
   chanceToChangePosition: 0.25

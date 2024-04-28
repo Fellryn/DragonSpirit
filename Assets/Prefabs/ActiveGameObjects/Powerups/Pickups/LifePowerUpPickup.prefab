@@ -626,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpName: LifePowerUp
   powerupVisualEffect: {fileID: 0}
-  moveSpeed: 10
+  moveSpeed: 5
   cachedRenderer: {fileID: 319163508173692412}
   cachedRendererSub: {fileID: 4352739628976354964}
   chanceToChangePosition: 0.25

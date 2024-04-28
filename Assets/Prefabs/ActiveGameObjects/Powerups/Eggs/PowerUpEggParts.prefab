@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6454263146702693047}
+  - component: {fileID: 5327616433080167844}
   m_Layer: 0
   m_Name: PowerUpEggParts
   m_TagString: Untagged
@@ -32,6 +33,31 @@ Transform:
   - {fileID: 4765250383471405995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5327616433080167844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779849915899981397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29796c067e03cb5499d19c23934e4fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggShellParts:
+  - {fileID: 1523014150594634623}
+  - {fileID: 8424701529935325984}
+  - {fileID: 5617975649591476236}
+  - {fileID: 2742942898379751105}
+  - {fileID: 8998437572801319291}
+  - {fileID: 6145262144590601154}
+  - {fileID: 8150063357285761568}
+  - {fileID: 6698861150941632174}
+  - {fileID: 2489567218811297090}
+  - {fileID: 2032049389511065641}
+  - {fileID: 923576931148113606}
+  - {fileID: 5886271137880204414}
 --- !u!1001 &3851199400752604918
 PrefabInstance:
   m_ObjectHideFlags: 0

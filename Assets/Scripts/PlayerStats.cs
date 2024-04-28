@@ -20,6 +20,7 @@ namespace KurtSingle
         [SerializeField] GameVars gameVars;
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerShaderController playerShaderController;
+        [SerializeField] PlayerPowerups playerPowerUps;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
@@ -74,6 +75,14 @@ namespace KurtSingle
             //gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
         }
 
+
+        private void OnDestroy()
+        {
+            DOTween.Kill(healthMask);
+            DOTween.Kill(manaMask);
+        }
+
+
         private void Start()
         {
             PlayerLife = 10;
@@ -127,7 +136,7 @@ namespace KurtSingle
         {
             //livesText.text = $"Lives: {PlayerLife.ToString()}";
 
-            float newHealthYPosition = (healthMaskOriginalPositions.y * ((float)PlayerLife / maxLives)) + (11f - (11f * ((float)PlayerLife / maxLives)));
+            float newHealthYPosition = (healthMaskOriginalPositions.y * ((float)PlayerLife / maxLives)) + (20f - (20f * ((float)PlayerLife / maxLives)));
             Vector2 newHealthSizeDelta = new Vector2(healthMaskOriginalDimensions.x, healthMaskOriginalDimensions.y * ((float)PlayerLife / maxLives));
 
             DOTween.Complete(0);
@@ -160,8 +169,7 @@ namespace KurtSingle
         private void DamageVisualEffect()
         {
             DOTween.Complete(100);
-            cachedModel.DOPunchScale(Vector3.one * 0.8f, 0.3f, 1, 0.3f).SetId(100);
-
+            cachedModel.DOPunchScale(Vector3.one * 0.8f, 0.3f, 1, 0.3f).SetId(100); 
         }
 
         public void PlayerGainMana(float amount)
@@ -200,8 +208,13 @@ namespace KurtSingle
 
         private void UpdateManaText()
         {
+            if (PlayerMana <= 0)
+            {
+                playerPowerUps.DeactivateAllAbilites();
+            }
+
             //manaText.text = PlayerMana.ToString();
-            float newManaYPosition = (manaMaskOriginalPositions.y * (PlayerMana / maxMana)) + (11f - (11f * (PlayerMana / maxMana)));
+            float newManaYPosition = (manaMaskOriginalPositions.y * (PlayerMana / maxMana)) + (20f - (20f * (PlayerMana / maxMana)));
             Vector2 newManaSizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));
 
             DOTween.Complete(2);
@@ -214,6 +227,7 @@ namespace KurtSingle
             //manaMask.anchoredPosition = new Vector2(manaMaskOriginalPositions.x, manaMaskOriginalPositions.y * (PlayerMana / maxMana));
             //manaMask.sizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));
         }
+
 
 
     }

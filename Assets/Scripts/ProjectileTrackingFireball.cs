@@ -105,7 +105,7 @@ namespace KurtSingle
                     other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage);
                 }
 
-                PlayEffects(other.transform);
+                PlayEffects(transform);
                 Destroy(gameObject);
             }
 
@@ -149,7 +149,7 @@ namespace KurtSingle
                         }
 
 
-                        if (Random.Range(0f, 1f) < 0.25f)
+                        if (Random.Range(0f, 1f) < 0.33f)
                         {
                             randomEnemyToFollow = enemyHolders[randomIndex].transform.GetChild(i).GetComponent<Transform>();
                             break;

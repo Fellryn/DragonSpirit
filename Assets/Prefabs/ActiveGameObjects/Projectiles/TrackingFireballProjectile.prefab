@@ -94,7 +94,7 @@ MonoBehaviour:
   randomEnemyToFollow: {fileID: 0}
   startMoveSpeedMod: 0.3
   maxVelocity: 25
-  minYHeight: -12
+  minYHeight: -16
   rechecksDone: 0
   distancePlayerCheck: 10
 --- !u!1001 &3688522222923509704
@@ -193,6 +193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrackingFireballContinue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622054649816036496, guid: 8aa3663a27d789144a2a768a8c8187ce,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7475033373110810820, guid: 8aa3663a27d789144a2a768a8c8187ce,
         type: 3}
@@ -318,6 +323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571552628817553336, guid: 0bfdf29398f354742af367c629ae52ef,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7724864222075582690, guid: 0bfdf29398f354742af367c629ae52ef,
         type: 3}
