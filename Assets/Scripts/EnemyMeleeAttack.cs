@@ -55,6 +55,11 @@ namespace KurtSingle
         protected virtual void FixedUpdate()
         {
             Move();
+
+            if (canAttack)
+            {
+                DoScreenCheck();
+            }
         }
 
 
@@ -62,7 +67,7 @@ namespace KurtSingle
         {
             DoPositionCheck();
             DoAttackTimingCheck();
-            DoScreenCheck();
+            //DoScreenCheck();
         }
 
         private void DoPositionCheck()

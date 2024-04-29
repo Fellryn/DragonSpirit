@@ -123,7 +123,7 @@ namespace KurtSingle
 
 		public void OnDeath()
         {
-			animator.enabled = false;
+			//animator.enabled = false;
         }
 
     }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6386759762497386944}
   - component: {fileID: 4152960580208556478}
   - component: {fileID: 3173975641364209166}
+  - component: {fileID: 7405359485829063979}
   m_Layer: 0
   m_Name: Wyvern
   m_TagString: Enemy
@@ -77,7 +78,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -107,6 +108,9 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 0
   ragdollObject: {fileID: 0}
+  explosionPower: 5
+  explosionRadius: 5
+  useExplosiveForceEffectOnDeath: 1
   ticksBeforeAttack: 0
   moveSpeed: 10
   rotationSpeed: 15
@@ -144,13 +148,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 2084140194913742894}
   useDissolveAnimation: 1
-  maxAlphaCutoff: 2
-  minumumAlphaCutoff: -1.5
-  timeMod: 0.33
+  maxAlphaCutoff: 1
+  minumumAlphaCutoff: -0.5
+  timeMod: 0.35
   useGlowCycleAnimation: 0
   maxGlowMultiplier: 4
   minGlowMultiplier: 1
   glowTime: 3
+--- !u!114 &7405359485829063979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c0af9b4da8bd64fabff770074cf19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Wyvern
+  maximumSpeedVariation: 0.2
+  maximumOffset: 1
 --- !u!1001 &9011622392477359899
 PrefabInstance:
   m_ObjectHideFlags: 0
