@@ -72,10 +72,18 @@ namespace KurtSingle
         {
 			if (playerStatsScript.GodmodeActive)
             {
-				godmodeButton.GetComponent<Image>().color = Color.red;
+				var colors = godmodeButton.colors;
+				colors.normalColor = Color.green;
+				godmodeButton.colors = colors;
+
+				//godmodeButton.GetComponent<Image>().color = Color.red;
             } else
             {
-				godmodeButton.GetComponent<Image>().color = Color.white;
+				//godmodeButton.GetComponent<Image>().color = Color.white;
+
+				var colors2 = godmodeButton.colors;
+				colors2.normalColor = Color.white;
+				godmodeButton.colors = colors2;
 			}
         }
 

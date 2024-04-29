@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using KurtSingle;
 
@@ -14,6 +15,8 @@ namespace KurtSingle
 	public class PlayerPause : MonoBehaviour 
 	{
         [SerializeField] RectTransform pausePanel;
+        [SerializeField] RectTransform cheatPanel;
+        [SerializeField] bool cheatPanelLastState = false;
         [SerializeField] InputActionReference menuKeyPlayer;
         [SerializeField] InputActionReference menuKeyUI;
 
@@ -55,7 +58,16 @@ namespace KurtSingle
 
         private void OnGameManagerStateChanged(GameManager.GameStates state)
         {
-            pausePanel.gameObject.SetActive(state == GameManager.GameStates.Paused); 
+            pausePanel.gameObject.SetActive(state == GameManager.GameStates.Paused);
+            
+            if (pausePanel.gameObject.activeSelf)
+            {
+                cheatPanel.gameObject.SetActive(cheatPanelLastState);
+            } else
+            {
+                cheatPanelLastState = cheatPanel.gameObject.activeSelf;
+                cheatPanel.gameObject.SetActive(false);
+            }
         }
 		
 	}

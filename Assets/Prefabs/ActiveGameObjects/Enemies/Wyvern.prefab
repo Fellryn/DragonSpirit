@@ -108,14 +108,14 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 0
   ragdollObject: {fileID: 0}
-  explosionPower: 5
+  explosionPower: 10
   explosionRadius: 5
   useExplosiveForceEffectOnDeath: 1
   ticksBeforeAttack: 0
   moveSpeed: 10
   rotationSpeed: 15
   useSpline: 0
-  distanceThresholdToAttack: 5
+  distanceThresholdToAttack: 10
   attackSpeed: 2.17
   initialMoveTarget: {x: 5.73, y: -3.7, z: 15.09}
 --- !u!114 &4152960580208556478
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 2084140194913742894}
   useDissolveAnimation: 1
-  maxAlphaCutoff: 1
+  maxAlphaCutoff: 1.5
   minumumAlphaCutoff: -0.5
   timeMod: 0.35
   useGlowCycleAnimation: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Wyvern
-  maximumSpeedVariation: 0.2
+  maximumSpeedVariation: 0.1
   maximumOffset: 1
 --- !u!1001 &9011622392477359899
 PrefabInstance:

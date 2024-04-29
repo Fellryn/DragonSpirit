@@ -38,7 +38,7 @@ namespace KurtSingle
         protected override void OnEnable()
         {
             base.OnEnable();
-            gameTickSystem.OnRandomTick.AddListener(DoChecks);
+            gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
             cachedPlayerTransform = FindAnyObjectByType<PlayerMovement>().GetComponent<Transform>();
             cachedPlayerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             
@@ -48,7 +48,7 @@ namespace KurtSingle
 
         protected virtual void OnDisable()
         {
-            gameTickSystem.OnRandomTick.RemoveListener(DoChecks);
+            gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
             
         }
 
@@ -101,10 +101,10 @@ namespace KurtSingle
         {
             if (canAttack)
             {
-                if (cachedPlayerCamera.WorldToViewportPoint(transform.position).x > 1.0f  ||
-                    cachedPlayerCamera.WorldToViewportPoint(transform.position).x < 0f ||
-                    cachedPlayerCamera.WorldToViewportPoint(transform.position).y > 1f  ||
-                    cachedPlayerCamera.WorldToViewportPoint(transform.position).y < 0f)
+                if (cachedPlayerCamera.WorldToViewportPoint(transform.position).x > 1.1f  ||
+                    cachedPlayerCamera.WorldToViewportPoint(transform.position).x < -0.1f ||
+                    cachedPlayerCamera.WorldToViewportPoint(transform.position).y > 1.1f  ||
+                    cachedPlayerCamera.WorldToViewportPoint(transform.position).y < -0.1f)
                 {
                     Destroy(gameObject);
                 }
@@ -138,13 +138,18 @@ namespace KurtSingle
 
         protected virtual void Move()
         {
-            Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, cachedPlayerTransform.position + initialMoveTarget, moveSpeed * Time.deltaTime); ;
+            Vector3 moveTarget = Vector3.MoveTowards(cachedRigidbody.position, cachedPlayerTransform.position + initialMoveTarget, moveSpeed * Time.deltaTime);
             if (isPerformingAttack)
             {
                 //moveTarget = Vector3.MoveTowards(cachedRigidbody.position, cachedPlayerTransform.position, moveSpeed * Time.deltaTime);
                 cachedRigidbody.isKinematic = false;
                 cachedRigidbody.AddForce((cachedPlayerTransform.position - cachedRigidbody.position) * attackSpeed, ForceMode.Force);
-                return;
+                Debug.Log(cachedRigidbody.velocity.magnitude);
+                if (attackSpeed != 0f && cachedRigidbody.velocity.magnitude >= 25f)
+                {
+                    attackSpeed = 0f;
+                }
+                    return;
             }
 
             Quaternion rotateTarget = Quaternion.RotateTowards(cachedRigidbody.rotation, cachedPlayerTransform.rotation, rotationSpeed * Time.deltaTime);

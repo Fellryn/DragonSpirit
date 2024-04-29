@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2250866387428141878}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.999902, y: -0, z: -0, w: 0.013999058}
+  m_LocalRotation: {x: 0.9832121, y: -0, z: -0, w: 0.18246612}
   m_LocalPosition: {x: -0.000008940697, y: -0.008014679, z: 0.0008544922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3890621058221604909}
-  m_LocalEulerAnglesHint: {x: 178.396, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 158.97299, y: 0, z: 0}
 --- !u!1 &6812187979344180450
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,20 +133,26 @@ MonoBehaviour:
   health: 1
   score: 1
   cachedModel: {fileID: 2457465745978466875}
-  playerTag: Player
+  cachedProjectileTrackingPoint: {fileID: 0}
+  canAttack: 0
+  isInvincible: 1
   deathBegun: 0
   ragdollOnDeath: 1
   ragdollObject: {fileID: 2119249213843724266}
+  explosionPower: 10
+  explosionRadius: 5
+  useExplosiveForceEffectOnDeath: 0
   damage: 1
   attackChance: 0.5
   projectileMoveSpeed: 12
   aimAtPlayer: 1
   useCustomProjectileOrigin: 1
   projectileOrigin: {fileID: 7971435868157635972}
-  canAttack: 0
   rotationSpeed: 10
   mainCamera: {fileID: 0}
   canRotate: 1
+  yScreenspaceActivate: 1.1
+  yScreenspaceDestroy: -0.2
 --- !u!114 &6492259205032922097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +170,10 @@ MonoBehaviour:
   maxAlphaCutoff: 6
   minumumAlphaCutoff: -1.5
   timeMod: 0.75
+  useGlowCycleAnimation: 0
+  maxGlowMultiplier: 4
+  minGlowMultiplier: 1
+  glowTime: 3
 --- !u!114 &5009011691468180322
 MonoBehaviour:
   m_ObjectHideFlags: 0

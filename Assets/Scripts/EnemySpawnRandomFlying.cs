@@ -27,48 +27,75 @@ namespace KurtSingle
 		[SerializeField] int ticksBetweenSpawns = 10;
 		private int ticksRun = 0;
 
-		[SerializeField] Transform cachedPlayerTransform;
+        private int wyvernsToSpawn = 0;
+        private int wyvernsCooldown;
+        [SerializeField] Transform cachedPlayerTransform;
 
         private void OnEnable()
         {
-			gameTickSystem.OnRandomTick.AddListener(AddTick);
+			gameTickSystem.OnEveryHalfTick.AddListener(AddTick);
         }
 
 		private void OnDisable()
 		{
-			gameTickSystem.OnRandomTick.RemoveListener(AddTick);
+			gameTickSystem.OnEveryHalfTick.RemoveListener(AddTick);
 		}
 
 		private void AddTick()
         {
 			if (ticksRun >= ticksBetweenSpawns)
             {
-				SpawnEnemies();
+				ChooseSpawn();
 				ticksRun = 0;
             } else
             {
+
+
 				ticksRun += 1;
-            }
-        }
+                if (wyvernsToSpawn > 0)
+                {
+                    SpawnEnemy(1);
+                    wyvernsToSpawn--;
+                }
 
-
-		private void SpawnEnemies()
-        {
-			if (gameVars.AllowEnemySpawn)
-            {
-				if (randomEnemyHolder.childCount >= maxRandomEnemies) return;
-
-				int randomEnemyIndex = Random.Range(0, flyingEnemyPrefab.Length);
-
-				Vector3 spawnLocation = new Vector3(distanceXSpawn * Random.Range(-1f, 1f), distanceYSpawn * Random.Range(-1f, 0f), distanceSpawnRange) + cachedPlayerTransform.position;
-				var newEnemy = Instantiate(flyingEnemyPrefab[randomEnemyIndex], spawnLocation, Quaternion.identity, randomEnemyHolder);
-				if (newEnemy.TryGetComponent<EnemyMobile>(out EnemyMobile enemyMobile))
-				{
-					enemyMobile.ChangeMoveTarget(new Vector3(Random.Range(moveOffsetMin.x, moveOffsetMax.x), Random.Range(moveOffsetMin.y, moveOffsetMax.y), Random.Range(moveOffsetMin.z, moveOffsetMax.z)));
-					enemyMobile.useSpline = false;
+                if (wyvernsCooldown > 0)
+                {
+                    wyvernsCooldown--;
                 }
             }
         }
-		
-	}
+
+
+		private void ChooseSpawn()
+        {
+			if (gameVars.AllowEnemySpawn)
+            {
+                if (randomEnemyHolder.childCount >= maxRandomEnemies) return;
+
+                int randomEnemyIndex = Random.Range(0, flyingEnemyPrefab.Length);
+
+                if (randomEnemyIndex == 1 && wyvernsCooldown == 0)
+                {
+                    wyvernsToSpawn = 4;
+                    wyvernsCooldown = 20;
+                    SpawnEnemy(1);
+                }
+                else
+                {
+                    SpawnEnemy(randomEnemyIndex);
+                }
+            }
+        }
+
+        private void SpawnEnemy(int randomEnemyIndex)
+        {
+            Vector3 spawnLocation = new Vector3(distanceXSpawn * Random.Range(-1f, 1f), distanceYSpawn * Random.Range(-1f, 0f), distanceSpawnRange) + cachedPlayerTransform.position;
+            var newEnemy = Instantiate(flyingEnemyPrefab[randomEnemyIndex], spawnLocation, Quaternion.identity, randomEnemyHolder);
+            if (newEnemy.TryGetComponent<EnemyMobile>(out EnemyMobile enemyMobile))
+            {
+                enemyMobile.ChangeMoveTarget(new Vector3(Random.Range(moveOffsetMin.x, moveOffsetMax.x), Random.Range(moveOffsetMin.y, moveOffsetMax.y), Random.Range(moveOffsetMin.z, moveOffsetMax.z)));
+                enemyMobile.useSpline = false;
+            }
+        }
+    }
 }

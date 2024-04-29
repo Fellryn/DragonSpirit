@@ -167,11 +167,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9216733510008928198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 985, y: -1537}
-  m_SizeDelta: {x: 2060, y: 1600.3223}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 540}
+  m_SizeDelta: {x: 3242.7744, y: 1317.6816}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1665953857785308952
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e5f60aa25cbf24a689bfd34b198b0180, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cce2386443264a3eb773021495717a1, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -569,7 +569,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1275002727, guid: 2064c871834a34c2d9b9cd7de50716ed, type: 3}
+  m_Sprite: {fileID: -1700903879, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -608,10 +608,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+    m_HighlightedSprite: {fileID: -1148355657, guid: 2fa8d9d9da7cd134c913005bd84721d4,
       type: 3}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 948314933, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
+    m_SelectedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -625,8 +626,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KiaraPhethean.SceneNavigation, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_TargetAssemblyTypeName: UlianaKutsenko.SceneNavigation, Assembly-CSharp
+        m_MethodName: QuitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -814,7 +815,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6186533116803909697}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 10
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5670,7 +5671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1275002727, guid: 2064c871834a34c2d9b9cd7de50716ed, type: 3}
+  m_Sprite: {fileID: -1700903879, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5709,10 +5710,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+    m_HighlightedSprite: {fileID: -1148355657, guid: 2fa8d9d9da7cd134c913005bd84721d4,
       type: 3}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 948314933, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
+    m_SelectedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -5726,8 +5728,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KiaraPhethean.SceneNavigation, Assembly-CSharp
-        m_MethodName: LoadSceneAdditive
+        m_TargetAssemblyTypeName: UlianaKutsenko.SceneNavigation, Assembly-CSharp
+        m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5804,7 +5806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1275002727, guid: 2064c871834a34c2d9b9cd7de50716ed, type: 3}
+  m_Sprite: {fileID: -1700903879, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5843,10 +5845,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+    m_HighlightedSprite: {fileID: -1148355657, guid: 2fa8d9d9da7cd134c913005bd84721d4,
       type: 3}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 948314933, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
+    m_SelectedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -5860,7 +5863,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KiaraPhethean.SceneNavigation, Assembly-CSharp
+        m_TargetAssemblyTypeName: UlianaKutsenko.SceneNavigation, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -5906,11 +5909,11 @@ RectTransform:
   - {fileID: 2789986812505420064}
   m_Father: {fileID: 9216733510008928198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 151, y: -0.19995117}
-  m_SizeDelta: {x: 656.345, y: 0.4}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -451.82764, y: 540}
+  m_SizeDelta: {x: 746.345, y: 1080.4}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2825492053032298343
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5939,7 +5942,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8970183bbc15b44c395f133db237f75c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cce2386443264a3eb773021495717a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6057,7 +6060,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -6388,7 +6391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1275002727, guid: 2064c871834a34c2d9b9cd7de50716ed, type: 3}
+  m_Sprite: {fileID: -1700903879, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6427,10 +6430,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+    m_HighlightedSprite: {fileID: -1148355657, guid: 2fa8d9d9da7cd134c913005bd84721d4,
       type: 3}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 948314933, guid: 2fa8d9d9da7cd134c913005bd84721d4, type: 3}
+    m_SelectedSprite: {fileID: -792434012, guid: 2064c871834a34c2d9b9cd7de50716ed,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -6444,7 +6448,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KiaraPhethean.SceneNavigation, Assembly-CSharp
+        m_TargetAssemblyTypeName: UlianaKutsenko.SceneNavigation, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -6472,7 +6476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1902403709278839879
 RectTransform:
   m_ObjectHideFlags: 0
