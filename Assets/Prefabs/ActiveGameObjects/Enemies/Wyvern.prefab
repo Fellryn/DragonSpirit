@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7546236311885392284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241968295867372778}
+  - component: {fileID: 2128654653608629189}
+  - component: {fileID: 7980381948048590255}
+  - component: {fileID: 6386759762497386944}
+  - component: {fileID: 4152960580208556478}
+  - component: {fileID: 3173975641364209166}
+  m_Layer: 0
+  m_Name: Wyvern
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1241968295867372778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2811023873221452882}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2128654653608629189
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.9393891
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7980381948048590255
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6386759762497386944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf498c0dda527c240af6fee3f6820ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Wyvern
+  health: 1
+  score: 1
+  cachedModel: {fileID: 2811023873221452882}
+  cachedProjectileTrackingPoint: {fileID: 0}
+  canAttack: 0
+  isInvincible: 0
+  deathBegun: 0
+  ragdollOnDeath: 0
+  ragdollObject: {fileID: 0}
+  ticksBeforeAttack: 0
+  moveSpeed: 10
+  rotationSpeed: 15
+  useSpline: 0
+  distanceThresholdToAttack: 5
+  attackSpeed: 2.17
+  initialMoveTarget: {x: 5.73, y: -3.7, z: 15.09}
+--- !u!114 &4152960580208556478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7213ed201b5f445af9032d4f7ce551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelTransform: {fileID: 2811023873221452882}
+  shakeDuration: 1
+  shakeStrength: 0.2
+  shakeVibrato: 1
+--- !u!114 &3173975641364209166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e8012f14a37a94d95e53040ac747ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cachedRenderer: {fileID: 2084140194913742894}
+  useDissolveAnimation: 1
+  maxAlphaCutoff: 2
+  minumumAlphaCutoff: -1.5
+  timeMod: 0.33
+  useGlowCycleAnimation: 0
+  maxGlowMultiplier: 4
+  minGlowMultiplier: 1
+  glowTime: 3
+--- !u!1001 &9011622392477359899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1241968295867372778}
+    m_Modifications:
+    - target: {fileID: 5856549987288097267, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_Name
+      value: WyvernModelPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0343e842ac68e13448f72c422a6311b9, type: 3}
+--- !u!137 &2084140194913742894 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7053741634980409141, guid: 0343e842ac68e13448f72c422a6311b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9011622392477359899}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2811023873221452882 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6488971846750337865, guid: 0343e842ac68e13448f72c422a6311b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9011622392477359899}
+  m_PrefabAsset: {fileID: 0}

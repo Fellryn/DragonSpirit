@@ -14,7 +14,7 @@ namespace KurtSingle
 		private Animator animator;
 
 		/// <summary>
-		/// Make sure to name either: Bat, Dinosaur, Plant, Sugarglider, SeaMonster or Boss
+		/// Make sure to name either: Bat, Dinosaur, Plant, Wyvern, SeaMonster or Boss
 		/// </summary>
 		[SerializeField]
 		string enemyName;
@@ -33,7 +33,10 @@ namespace KurtSingle
             switch (enemyName)
             {
 				case "Bat":
-					BatAnimation();
+					FlyerAnimation();
+					break;
+				case "Wyvern":
+					FlyerAnimation();
 					break;
 				case "Dinosaur":
 					DinosaurAnimation();
@@ -69,7 +72,7 @@ namespace KurtSingle
         }
 
 
-        private void BatAnimation()
+        private void FlyerAnimation()
         {
 			FlyingLoopRandomiser();
         }

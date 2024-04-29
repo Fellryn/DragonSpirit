@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6472857515831200810}
   - component: {fileID: 5149512315512764220}
   - component: {fileID: 1451161731883886106}
+  - component: {fileID: 9094173109440310307}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -188,6 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameVars: {fileID: 11400000, guid: a7d380d682b0bfa45a69f2791cfd9bde, type: 2}
   gameTickSystem: {fileID: 0}
+  playerShaderController: {fileID: 9094173109440310307}
+  playerPowerUps: {fileID: 1451161731883886106}
   maxMana: 10
   maxLives: 10
   scoreText: {fileID: 0}
@@ -210,10 +213,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStats: {fileID: 5149512315512764220}
   gameTickSystem: {fileID: 0}
+  playerAttack: {fileID: 3641366910769481479}
+  playerShaderController: {fileID: 9094173109440310307}
+  powerUpDisplay: {fileID: 0}
   powerUpTag: PowerUp
-  healPerPickup: 1
+  lifePowerUpPlayerEffect: {fileID: 9148410779099541663, guid: 7a7720b2f135bad4ea0fba12cedc3e73,
+    type: 3}
+  healPerPickup: 5
+  multiShotPowerUpPlayerEffect: {fileID: 9148410779099541663, guid: e7f0783d07afb334b88611205cff6319,
+    type: 3}
   multiShotActiveTime: 5
   additiveTimePerPickup: 1
+  trackingPowerUpPlayerEffect: {fileID: 9148410779099541663, guid: dd3f4b59d6b146846b00c4259c188809,
+    type: 3}
+--- !u!114 &9094173109440310307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650451702819304770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599620fc463cdde4396e3f923af848a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cachedMaterial: {fileID: 2100000, guid: eaa4a2e99b0fda84c8cfa97ddfdfa2d3, type: 2}
+  playerStats: {fileID: 5149512315512764220}
+  maxEmissionValue: 250
+  minEmissionValue: 0
+  tweenObject: {fileID: 0}
 --- !u!1001 &9123743425102825102
 PrefabInstance:
   m_ObjectHideFlags: 0
