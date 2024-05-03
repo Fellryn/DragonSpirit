@@ -158,13 +158,13 @@ TextureImporter:
       name: SpriteV01_0
       rect:
         serializedVersion: 2
-        x: 134
-        y: 5696
-        width: 308
-        height: 308
+        x: 138
+        y: 5553
+        width: 300
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 74, y: 64, z: 66, w: 62}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -179,10 +179,10 @@ TextureImporter:
       name: Primary_Default
       rect:
         serializedVersion: 2
-        x: 493
-        y: 5702
-        width: 1315
-        height: 308
+        x: 485
+        y: 5565
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,10 +200,10 @@ TextureImporter:
       name: Secondary_Default
       rect:
         serializedVersion: 2
-        x: 1863
-        y: 5708
-        width: 1362
-        height: 308
+        x: 1881
+        y: 5565
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,10 +221,10 @@ TextureImporter:
       name: Icon_Key
       rect:
         serializedVersion: 2
-        x: 4059
-        y: 4791
-        width: 558
-        height: 1344
+        x: 4060
+        y: 4644
+        width: 557
+        height: 1347
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,13 +242,13 @@ TextureImporter:
       name: SpriteV01_4
       rect:
         serializedVersion: 2
-        x: 134
-        y: 5324
-        width: 308
-        height: 308
+        x: 141
+        y: 5190
+        width: 294
+        height: 290
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 66, y: 63, z: 60, w: 55}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -263,10 +263,10 @@ TextureImporter:
       name: Primary_Hover
       rect:
         serializedVersion: 2
-        x: 494
-        y: 5318
-        width: 1328
-        height: 308
+        x: 496
+        y: 5175
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,10 +284,10 @@ TextureImporter:
       name: Secondary_Hover
       rect:
         serializedVersion: 2
-        x: 1886
-        y: 5318
-        width: 1328
-        height: 308
+        x: 1888
+        y: 5173
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,10 +305,10 @@ TextureImporter:
       name: SpriteV01_7
       rect:
         serializedVersion: 2
-        x: 134
-        y: 4940
-        width: 306
-        height: 308
+        x: 133
+        y: 4797
+        width: 308
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -326,10 +326,10 @@ TextureImporter:
       name: Primary_Pressed
       rect:
         serializedVersion: 2
-        x: 488
-        y: 4940
-        width: 1351
-        height: 308
+        x: 497
+        y: 4799
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,10 +347,10 @@ TextureImporter:
       name: Secondary_Pressed
       rect:
         serializedVersion: 2
-        x: 1869
-        y: 4940
-        width: 1362
-        height: 308
+        x: 1886
+        y: 4802
+        width: 1320
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,10 +368,10 @@ TextureImporter:
       name: HUD_Sphere
       rect:
         serializedVersion: 2
-        x: 44
-        y: 2912
-        width: 1658
-        height: 1658
+        x: 46
+        y: 2770
+        width: 1655
+        height: 1655
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -389,10 +389,10 @@ TextureImporter:
       name: HUD_Frame
       rect:
         serializedVersion: 2
-        x: 1905
-        y: 2841
-        width: 1822
-        height: 1842
+        x: 1904
+        y: 2698
+        width: 1824
+        height: 1840
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -410,10 +410,10 @@ TextureImporter:
       name: Cheets
       rect:
         serializedVersion: 2
-        x: 4076
-        y: 2930
-        width: 1328
-        height: 1568
+        x: 4091
+        y: 2783
+        width: 1301
+        height: 1562
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -423,6 +423,48 @@ TextureImporter:
       bones: []
       spriteID: 41b73b32863014fdc8ed64bbd163c565
       internalID: -310563795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossHealthBar
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 2049
+        width: 2031
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85cf099d4c54d504cb0a37d50537ac51
+      internalID: 420321568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SliderBar
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 1844
+        width: 730
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09b692479136f8f4baff432a64c6227c
+      internalID: 549296704
       vertices: []
       indices: 
       edges: []
@@ -438,6 +480,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BossHealthBar: 420321568
       Cheets: -310563795
       HUD_Frame: -874615753
       HUD_Sphere: 1234002389
@@ -448,6 +491,7 @@ TextureImporter:
       Secondary_Default: -799131456
       Secondary_Hover: -2006476678
       Secondary_Pressed: 843069624
+      SliderBar: 549296704
       SpriteV01_0: 1697043181
       SpriteV01_4: 1985301546
       SpriteV01_7: -124976576

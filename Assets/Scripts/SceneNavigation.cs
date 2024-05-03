@@ -45,6 +45,13 @@ public class SceneNavigation : MonoBehaviour
 		}
 
 
+		public void ChangeSceneAsync(string sceneName)
+		{
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        }
+
+
+
 		private void ChangeScene()
 		{
 			Time.timeScale = 1f;
