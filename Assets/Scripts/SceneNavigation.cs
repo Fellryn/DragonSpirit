@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UlianaKutsenko;
 
 namespace UlianaKutsenko
@@ -31,6 +32,14 @@ public class SceneNavigation : MonoBehaviour
 
         public void ChangeScene(string sceneName)
 		{
+			EventSystem.current.SetSelectedGameObject(null);
+
+			if (SceneManager.sceneCount > 1)
+            {
+				CloseSceneAdditive();
+				return;
+			}
+
 			sceneNameToChangeTo = sceneName;
 
 			ChangeScene();
@@ -45,10 +54,18 @@ public class SceneNavigation : MonoBehaviour
 		}
 
 
-		public void ChangeSceneAsync(string sceneName)
+		public void ChangeSceneAdditive(string sceneName)
 		{
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+			EventSystem.current.SetSelectedGameObject(null);
+
+			SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         }
+
+
+		public void CloseSceneAdditive()
+		{
+			SceneManager.UnloadSceneAsync(gameObject.scene);
+		}
 
 
 
@@ -58,10 +75,6 @@ public class SceneNavigation : MonoBehaviour
 			SceneManager.LoadScene(sceneNameToChangeTo, LoadSceneMode.Single);
         }
 
-
-
-
-
 		public void QuitApplication()
 		{
 #if UNITY_WEBGL
@@ -69,9 +82,6 @@ public class SceneNavigation : MonoBehaviour
 			Application.Quit();
 #endif
 		}
-
-
-
 
 }
 

@@ -120,7 +120,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EdgeWidth: 4.12
-    - _EmissionMultiplier: 0
+    - _EmissionMultiplier: 137.5
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
