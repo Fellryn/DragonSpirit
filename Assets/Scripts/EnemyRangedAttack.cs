@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using KurtSingle;
 
 namespace KurtSingle
 {
@@ -26,18 +23,21 @@ namespace KurtSingle
         protected PrefabReferencesLink prefabLink;
         protected Transform projectileHolder;
         protected Transform mainCameraTransform;
+        private EnemyAnimation enemyAnimationScript;
 
-
+        // Example of polymorphism (Changing the function while still keeping the same name and previous behaviour)
         // On enable adds listener for shooting randomly, grabs link to prefab list
-        // and caches projectile parent so projectiles go into their own gameobject.
+        // and caches projectile parent so projectiles go into their own gameobject
         protected override void OnEnable()
         {
             base.OnEnable();
+
             gameTickSystem.OnRandomTick.AddListener(Attack);
             cachedPlayerTransform = FindAnyObjectByType<PlayerMovement>().GetComponent<Transform>();
             prefabLink = FindAnyObjectByType<PrefabReferencesLink>();
             projectileHolder = GameObject.FindWithTag("ProjectileHolder").GetComponent<Transform>();
             mainCameraTransform = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+            if (TryGetComponent(out EnemyAnimation enemyAnimation)) enemyAnimationScript = enemyAnimation;
             if (!useCustomProjectileOrigin) projectileOrigin = transform;
         }
 
@@ -49,7 +49,7 @@ namespace KurtSingle
         // Called from animation event passer that is on animator child
         protected virtual void AttackCompleted()
         {
-            if (TryGetComponent(out EnemyAnimation enemyAnimationScript))
+            if (enemyAnimationScript != null)
             {
                 enemyAnimationScript.AttackCompleted();
                 canAttack = true;
@@ -57,35 +57,40 @@ namespace KurtSingle
         }
 
 
-
+        // Attack on random tick from tick system, further random chance from random range
         protected virtual void Attack()
         {
-            // When tick occurs, further random chance to shoot or not shoot
             if (canAttack && Random.Range(0f, 1f) < attackChance)
             {
                 canAttack = false;
 
-                if (TryGetComponent(out EnemyAnimation enemyAnimationScript))
+                if (enemyAnimationScript != null)
                 {
                     enemyAnimationScript.AttackBegun();
                 }
 
-                // Instantiate the fireball
-                var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
+                LaunchFireball();
 
-                // Try get projectile base and initialise
-                if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
-                {
-                    projectileBase.Initalise(
-                        playerTransform: cachedPlayerTransform,
-                        firingUnitTransform: projectileOrigin,
-                        mainCameraTransform: mainCameraTransform,
-                        projectileDamage: damage,
-                        isEnemy: true,
-                        projectileMoveSpeed: projectileMoveSpeed,
-                        aimAtPlayer: aimAtPlayer);
-                }
+            }
+        }
 
+        // Example of abstraction (hiding all the details of launching a fireball, inheriting classes can just call LaunchFireball())
+        protected void LaunchFireball()
+        {
+            // Instantiate the fireball
+            var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
+
+            // Try get projectile base and initialise
+            if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
+            {
+                projectileBase.Initalise(
+                    playerTransform: cachedPlayerTransform,
+                    firingUnitTransform: projectileOrigin,
+                    mainCameraTransform: mainCameraTransform,
+                    projectileDamage: damage,
+                    isEnemy: true,
+                    projectileMoveSpeed: projectileMoveSpeed,
+                    aimAtPlayer: aimAtPlayer);
             }
         }
     }

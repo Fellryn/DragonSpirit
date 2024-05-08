@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using KurtSingle;
-
 namespace KurtSingle
 {
 	/// <summary>
@@ -11,7 +6,6 @@ namespace KurtSingle
 	/// </summary>
 	public class EnemyBat : EnemyMobile 
 	{
-
-		
+		// Nothing here yet! But further polymorphic behaviour could be added to this bat enemy.
 	}
 }

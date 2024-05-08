@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using KurtSingle;
 using UlianaKutsenko;
 using DG.Tweening;
 
@@ -10,7 +7,7 @@ namespace KurtSingle
     /// <summary>
     /// Author: Kurt Single
     /// Description: This script demonstrates how to manage a boss's movement and attacking in Unity
-    /// Inherits from the EnemyRangedAttack script (EnemyBase hierarchy)
+    /// Inherits from the EnemyBase > EnemyRangedAttack parent classes
     /// </summary>
     public class EnemyBoss : EnemyRangedAttack
     {
@@ -31,7 +28,6 @@ namespace KurtSingle
         private float attackTimer = 0f;
 
         [Header("Movement")]
-        //[SerializeField] float movementSpeed = 10f;
         [SerializeField] float delayBeforeMove = 3f;
         [SerializeField] float maxMoveTime = 3f;
         [SerializeField] float minMoveTime = 0.5f;
@@ -46,6 +42,8 @@ namespace KurtSingle
         [Header("PowerUp Spawns")]
         [SerializeField] GameObject[] powerUpPrefabs;
 
+        // Example of polymorphism (extending parent function by using base.OnEnable())
+        // Adding and removing listeners, getting references
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -54,7 +52,6 @@ namespace KurtSingle
             cameraController.AtBossEvent.AddListener(BossInit);
         }
 
-
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -62,20 +59,16 @@ namespace KurtSingle
             cameraController.AtBossEvent.RemoveListener(BossInit);
         }
 
-
+        // Used for mass fireball attacking. If looking at player, keep sending fireballs
         protected virtual void Update()
         {
             if (enemyBossLookConstraint.lookingAtPlayer && attackTimer <= 0.99f)
             {
                 FireballAttack();
             }
-
-            //if (attackTimer >= 1f && enemyBossAnimation.CheckAttackState())
-            //         {
-            //	enemyBossAnimation.AttackCompleted();
-            //         }
         }
 
+        // When destroyed, win round
         private void OnDestroy()
         {
             DOTween.Kill(transform);
@@ -84,9 +77,10 @@ namespace KurtSingle
 
             gameVars.WonLevel(true);
             sceneNavigation.ChangeScene("GameOver");
-
         }
 
+
+        // Called when first entering boss area, instructs boss to move to center of screen
         private void BossInit()
         {
             moveTargetPosition = cachedPlayerCamera.ViewportToWorldPoint(firstPosition);
@@ -94,13 +88,15 @@ namespace KurtSingle
 
         }
 
-
+        // Do various checks, which is called by tick system event
         private void DoChecks()
         {
             MoveTimingCheck();
             AttackTimingCheck();
         }
 
+        // Example of polymorphism (Changing the function while still keeping the same name and previous behaviour)
+        // When health is 0, do normal behaviour, but also every 10 health spawn a power up
         protected override void HealthCheck()
         {
             base.HealthCheck();
@@ -112,8 +108,7 @@ namespace KurtSingle
             }
         }
 
-
-
+        // Check if boss should move by using game tick timer
         private void MoveTimingCheck()
         {
             if (moveTimer >= delayBeforeMove)
@@ -127,22 +122,19 @@ namespace KurtSingle
             }
         }
 
-
-
+        // Set random move position based off two scene objects
         private void SetRandomMovePosition()
         {
             float randomPositionX = Random.Range(minPositionObject.position.x, maxPositionObject.position.x);
             float randomPositionZ = Random.Range(minPositionObject.position.z, maxPositionObject.position.z);
 
-            //Vector3 randomScreenPosition = new Vector3(randomScreenPositionX, randomScreenPositionY, yHeight);
-
-            //moveTargetPosition = cachedPlayerCamera.ViewportToWorldPoint(randomScreenPosition);
             moveTargetPosition = new Vector3(randomPositionX, yHeight, randomPositionZ);
 
             Move();
         }
 
-
+        // Move toward random move position using DOTween
+        // Rotate boss during movement depending on which direction moving
         private void Move()
         {
             DOTween.Kill(400);
@@ -168,11 +160,10 @@ namespace KurtSingle
                     transform.DORotate(new Vector3(0f, 10f, 0f), moveTime / 2f).SetEase(Ease.InOutCubic).SetLoops(2, LoopType.Yoyo).SetId(500);
                 }
             }
-
-
-            //transform.DOJump(moveTargetPosition, 4f, 1, moveTime).SetEase(Ease.OutCubic).OnComplete(StopMove).SetId(100);
         }
 
+
+        // Called by tween callback when move complete. Resets states and begins "floating" tween
         private void StopMove()
         {
             canAttack = true;
@@ -183,6 +174,7 @@ namespace KurtSingle
             enemyBossAnimation.SetMoveBool(false);
         }
 
+        // Checks if long enough has passed before attacking again. Uses game tick system as well
         private void AttackTimingCheck()
         {
             if (attackTimer >= maxTimeBetweenAttacks)
@@ -209,7 +201,8 @@ namespace KurtSingle
             }
         }
 
-
+        // Example of Polymorphism (attack, but do different attack than normal)
+        // Once beginning attack, look at player and reset fireball count
         protected override void Attack()
         {
             if (canAttack)
@@ -217,11 +210,11 @@ namespace KurtSingle
                 currentFireballVolleyCount = 0;
                 enemyBossLookConstraint.LookAtPlayer();
             }
-            
         }
 
 
-
+        // Example of Abstraction (using function from other parent scripts to send fireballs)
+        // Plays attacking animation and launches fireballs if not at max fireball count
         public void FireballAttack()
         {
             if (!enemyBossAnimation.CheckAttackState())
@@ -229,34 +222,12 @@ namespace KurtSingle
                 enemyBossAnimation.AttackBegun();
             }
 
-
             if (currentFireballVolleyCount <= maxFireballPerVolley)
             {
-                var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
-
-                // Try get projectile base and initialise
-                if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
-                {
-                    projectileBase.Initalise(
-                        playerTransform: cachedPlayerTransform,
-                        firingUnitTransform: projectileOrigin,
-                        mainCameraTransform: mainCameraTransform,
-                        projectileDamage: damage,
-                        isEnemy: true,
-                        projectileMoveSpeed: projectileMoveSpeed,
-                        aimAtPlayer: aimAtPlayer);
-                }
+                LaunchFireball();
 
                 currentFireballVolleyCount++;
             }
-
-
-
-            //canAttack = false;
         }
-
-
-
-
     }
 }

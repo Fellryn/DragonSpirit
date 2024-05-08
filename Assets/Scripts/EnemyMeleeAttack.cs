@@ -67,7 +67,6 @@ namespace KurtSingle
         {
             DoPositionCheck();
             DoAttackTimingCheck();
-            //DoScreenCheck();
         }
 
         private void DoPositionCheck()
@@ -78,8 +77,6 @@ namespace KurtSingle
                 {
                     canAttack = true;
                     moveSpeed = storedMoveSpeed / 2;
-
-                    //initialMoveTarget = new Vector3(0f, 0f, 0f);
                 }
                 else
                 {
@@ -89,13 +86,6 @@ namespace KurtSingle
             }
         }
 
-        //private void OnBecameInvisible()
-        //{
-        //    if (canAttack)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //}
 
         protected virtual void DoScreenCheck()
         {
@@ -144,7 +134,6 @@ namespace KurtSingle
                 //moveTarget = Vector3.MoveTowards(cachedRigidbody.position, cachedPlayerTransform.position, moveSpeed * Time.deltaTime);
                 cachedRigidbody.isKinematic = false;
                 cachedRigidbody.AddForce((cachedPlayerTransform.position - cachedRigidbody.position) * attackSpeed, ForceMode.Force);
-                Debug.Log(cachedRigidbody.velocity.magnitude);
                 if (attackSpeed != 0f && cachedRigidbody.velocity.magnitude >= 25f)
                 {
                     attackSpeed = 0f;

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using KurtSingle;
 
 namespace KurtSingle
 {
@@ -17,7 +13,9 @@ namespace KurtSingle
         [Header("Base")]
         [SerializeField]
         string enemyName = "Enemy";
-        public int health = 1;
+        public int health { get; private set; }
+        [SerializeField]
+        private int startingHealth = 1;
         public int score = 1;
         public Transform cachedModel;
         public Transform cachedProjectileTrackingPoint;
@@ -32,13 +30,13 @@ namespace KurtSingle
         [SerializeField]
         Transform ragdollObject;
 
+        [Space(10)]
+        [SerializeField]
+        private bool useExplosiveForceEffectOnDeath = false;
         [SerializeField]
         private float explosionPower = 10f;
         [SerializeField]
         private float explosionRadius = 5f;
-        [SerializeField]
-        private bool useExplosiveForceEffectOnDeath = false;
-
 
         public delegate void OnKill(int scoreToAdd);
         public static event OnKill onKill;
@@ -46,12 +44,11 @@ namespace KurtSingle
         protected Rigidbody cachedRigidbody;
 
 
+        // Get references and cached components, set name and starting health
         protected virtual void OnEnable()
         {
             gameTickSystem = FindFirstObjectByType<GameTickSystem>();
             cachedRigidbody = GetComponent<Rigidbody>();
-
-            cachedCollider = GetComponent<Collider>();
 
             if (transform.TryGetComponent(out Collider collider))
             {
@@ -61,12 +58,12 @@ namespace KurtSingle
                 cachedCollider = transform.GetComponentInChildren<Collider>();
             }
 
-            
-
             transform.name = enemyName;
+
+            SetHealth(startingHealth);
         }
 
-
+        // Take damage (example of encapsulation - private (set) health property is only modified with this or set health)
         public void TakeDamage(int damageAmount)
         {
             if (!isInvincible)
@@ -76,7 +73,13 @@ namespace KurtSingle
             }
         }
 
+        // Set health (example of encapsulation - health must be modified here)
+        protected void SetHealth(int amount)
+        {
+            health = amount;
+        }
 
+        // Check health when takes damage
         protected virtual void HealthCheck()
         {
             if (health <= 0)
@@ -85,8 +88,8 @@ namespace KurtSingle
             }
         }
 
-
-
+        // Begin death function (example of abstraction - inheritors and other objects can call this and not worry about the how)
+        // Called when health hits 0, changes various physics settings and begins/stop animations
         public virtual void BeginDeath()
         {
             deathBegun = true;
@@ -102,8 +105,6 @@ namespace KurtSingle
             }
 
             cachedCollider.isTrigger = false;
-            
-            
 
             if (ragdollOnDeath)
             {
