@@ -99,10 +99,6 @@ namespace KurtSingle
             {
                 TrackingFireball();
             }
-
-
-
-
         }
 
 

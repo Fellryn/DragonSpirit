@@ -44,9 +44,6 @@ namespace KurtSingle
         /// <summary>
         /// Max emission value is 50. Set whatever value you want the emission to be tweened to.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="duration"></param>
-        /// <param name="useRelativeDuration"></param>
         public void TweenEmissionToValue(float value, float duration = 1f, bool useRelativeDuration = false)
         {
             DOTween.Kill(tweenObject);

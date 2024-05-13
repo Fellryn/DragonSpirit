@@ -10,13 +10,13 @@ using DG.Tweening;
 
 namespace KurtSingle
 {
-	/// <summary>
-	/// Author: Kurt Single
-	/// Description: This script demonstrates how to store player stats (score, life, active powerups) 
-	/// and provide ways for events to be called for gaining/losing score/life in Unity
-	/// </summary>
-	public class PlayerStats : MonoBehaviour 
-	{
+    /// <summary>
+    /// Author: Kurt Single
+    /// Description: This script demonstrates how to store player stats (score, life, active powerups) 
+    /// and provide ways for events to be called for gaining/losing score/life in Unity
+    /// </summary>
+    public class PlayerStats : MonoBehaviour
+    {
         [SerializeField] GameVars gameVars;
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerShaderController playerShaderController;
@@ -93,12 +93,12 @@ namespace KurtSingle
 
         public void AddScore(int score)
         {
-			PlayerScore += score;
+            PlayerScore += score;
             UpdateScoreText();
             UpdateManaText();
         }
 
-        
+
         public void RemoveScore(int score)
         {
             PlayerScore -= score;
@@ -169,7 +169,7 @@ namespace KurtSingle
         private void DamageVisualEffect()
         {
             DOTween.Complete(100);
-            cachedModel.DOPunchScale(Vector3.one * 0.8f, 0.3f, 1, 0.3f).SetId(100); 
+            cachedModel.DOPunchScale(Vector3.one * 0.8f, 0.3f, 1, 0.3f).SetId(100);
         }
 
         public void PlayerGainMana(float amount)
@@ -186,7 +186,8 @@ namespace KurtSingle
                 PlayerMana -= amount;
                 UpdateManaText();
                 return true;
-            } else
+            }
+            else
             {
                 // Do effect for no mana
                 return false;
@@ -198,11 +199,11 @@ namespace KurtSingle
             if (PlayerMana <= 0f)
             {
                 return 0f;
-            } else
+            }
+            else
             {
                 return PlayerMana / maxMana;
             }
-            
         }
 
 

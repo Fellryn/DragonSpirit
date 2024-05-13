@@ -46,7 +46,8 @@ namespace KurtSingle
             gameTickSystem.OnRandomTick.RemoveListener(Attack);
         }
 
-        // Called from animation event passer that is on animator child
+        // Called from animation event that is on child object with animator component
+        // Disables attacking until attack animation is complete
         protected virtual void AttackCompleted()
         {
             if (enemyAnimationScript != null)
@@ -56,8 +57,7 @@ namespace KurtSingle
             }
         }
 
-
-        // Attack on random tick from tick system, further random chance from random range
+        // Attack on random tick from tick system, further random chance to attack or not
         protected virtual void Attack()
         {
             if (canAttack && Random.Range(0f, 1f) < attackChance)
@@ -75,8 +75,11 @@ namespace KurtSingle
         }
 
         // Example of abstraction (hiding all the details of launching a fireball, inheriting classes can just call LaunchFireball())
+        
         protected void LaunchFireball()
         {
+
+
             // Instantiate the fireball
             var newProjectile = Instantiate(prefabLink.prefabReferences.fireballPrefab, projectileHolder);
 
