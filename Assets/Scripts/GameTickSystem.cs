@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using LukeMartin;
 
 namespace KurtSingle
 {
@@ -8,13 +9,12 @@ namespace KurtSingle
     /// Description: This script demonstrates how to create a custom tick system in Unity
     /// All ticks can be subscribed to in the inspector or with AddListener
     /// </summary>
-    public class GameTickSystem : MonoBehaviour
+    public class GameTickSystem : TimerParent
     {
         // Events for each tick. Seven tick events in total - whole tick (one second) and then half that, quarter that etc.
 
         [SerializeField] float tickWholeInterval = 1f;
         [SerializeField] float randomTickChance = 0.25f;
-        private float timer;
 
         public UnityEvent OnTickWhole;
 
@@ -38,12 +38,12 @@ namespace KurtSingle
         // The core loop. The timer runs over its interval (one second) and as it reaches 0.25, 0.5, 0.75 and 1, it runs each tick event. 
         // It then disables that tick event using a bool so it doesn't run again. 
         // When it reaches 1 it does the "TickWhole" event and resets all the event bools and timer
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+
             if (timer <= tickWholeInterval)
             {
-                timer += Time.deltaTime * Time.timeScale;
-
                 // Wait for 0.25 timer and then run Every Tick and Quarter Tick events
                 if (timer >= tickWholeInterval * 0.25f && !onTickQuarterRun)
                 {
@@ -67,8 +67,6 @@ namespace KurtSingle
 
                     OnTickHalf?.Invoke();
                     onTickHalfRun = true;
-
-
                 }
 
                 // Wait for 0.75 timer and then run Every Tick and Three Quarter events
@@ -83,22 +81,35 @@ namespace KurtSingle
                 }
             }
 
-            // Once at 1 timer run Every Tick and Whole Tick events, then "reset" script
-            else
-            {
-                OnEveryTick?.Invoke();
-                OnEveryHalfTick?.Invoke();
 
-                RandomTickCheck();
+            //else
+            //{
+            //    OnEveryTick?.Invoke();
+            //    OnEveryHalfTick?.Invoke();
 
-                OnTickWhole?.Invoke();
-                onTickQuarterRun = false;
-                onTickHalfRun = false;
-                onTickThreeQuarterRun = false;
-                onRandomTickRun = false;
+            //    RandomTickCheck();
 
-                timer = 0f;
-            }
+            //    OnTickWhole?.Invoke();
+            //    onTickQuarterRun = false;
+            //    onTickHalfRun = false;
+            //    onTickThreeQuarterRun = false;
+            //    onRandomTickRun = false;
+            //}
+        }
+
+        // Once at 1 timer run Every Tick and Whole Tick events, then "reset" script
+        protected override void OnTimerEnd()
+        {
+            OnEveryTick?.Invoke();
+            OnEveryHalfTick?.Invoke();
+
+            RandomTickCheck();
+
+            OnTickWhole?.Invoke();
+            onTickQuarterRun = false;
+            onTickHalfRun = false;
+            onTickThreeQuarterRun = false;
+            onRandomTickRun = false;
         }
 
 

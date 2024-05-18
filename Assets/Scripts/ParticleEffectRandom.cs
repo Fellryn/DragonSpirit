@@ -1,38 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using KurtSingle;
+using LukeMartin;
 
-namespace KurtSingle
+namespace LukeMartin
 {
 	/// <summary>
-	/// Author: Kurt Single
-	/// Description: This script demonstrates how to randomly properties of a particle effect in Unity
-	/// Change material sheet, colour, speed etc.
+	/// Author: Luke Martin
+	/// Description: This script demonstrates how to change material of a particle effect in Unity
 	/// </summary>
 	public class ParticleEffectRandom : MonoBehaviour 
 	{
-		[Header("Materials")]
-		[SerializeField]
-		bool useRandomMaterial = false;
-		[SerializeField]
-		Material[] materials;
+		[SerializeField] bool useRandomMaterial = false;
+		[SerializeField] Material[] materials;
 
         private void Start()
         {
-            if (useRandomMaterial)
+            if (useRandomMaterial == true)
             {
-				int materialIndex = Random.Range(0, materials.Length);
+				int materialNumber = Random.Range(0, materials.Length);
 
-				if (materialIndex != 0) 
+				if (materialNumber != 0) 
 				{
-					GetComponent<ParticleSystemRenderer>().material = materials[materialIndex];
+					GetComponent<ParticleSystemRenderer>().material = materials[materialNumber];
 				}
 
             }
         }
-
-
-
     }
 }
