@@ -2,16 +2,14 @@ Top left corner, no score text//
 Player emission increased at start for short duration //
 boss black colour - cracks/stone //
 Delay on dissolve beginning //
+Glow eggs //
+Lights worked on/shadows //
+
 
 
 camera tipping down when vertical view (not behind)
+--Parallax mapping for shadows
 
-
-
-
-
-Lights worked on/shadows
-Parallax mapping for shadows
 Incremental enemies
 
 Screenshake/shake on enemies
@@ -27,8 +25,7 @@ Cave scene
 Vertical camera
 
 Replace trees
-tilt shift
-Glow eggs
+
 boss texture scale
 Music volume lowered
 

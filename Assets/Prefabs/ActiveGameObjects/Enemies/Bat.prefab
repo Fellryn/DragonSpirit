@@ -123,6 +123,7 @@ MonoBehaviour:
   isInvincible: 0
   deathBegun: 0
   ragdollOnDeath: 0
+  timeBeforeDestroyObject: 5
   ragdollObject: {fileID: 0}
   useExplosiveForceEffectOnDeath: 1
   explosionPower: 5
@@ -243,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 5565362283135345037, guid: 55a6e443e1594f64b8f705f30dadde21,
         type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5565362283135345037, guid: 55a6e443e1594f64b8f705f30dadde21,
         type: 3}

@@ -172,19 +172,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   shadows:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.19495049}
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0.14199373}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.14105089}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.16769639}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.041546628}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.11215564}
   shadowsStart:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   shadowsEnd:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.3
   highlightsStart:
     m_OverrideState: 0
