@@ -99,23 +99,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Dinosaur
-  health: 1
+  startingHealth: 1
   score: 1
   cachedModel: {fileID: 8905110644947594703}
-  playerTag: Player
+  cachedProjectileTrackingPoint: {fileID: 0}
+  canAttack: 0
+  isInvincible: 1
   deathBegun: 0
   ragdollOnDeath: 1
   ragdollObject: {fileID: 3261073371137902884}
+  useExplosiveForceEffectOnDeath: 0
+  explosionPower: 10
+  explosionRadius: 5
   damage: 1
   attackChance: 0.5
   projectileMoveSpeed: 12
   aimAtPlayer: 1
   useCustomProjectileOrigin: 0
   projectileOrigin: {fileID: 0}
-  canAttack: 0
   rotationSpeed: 15
   mainCamera: {fileID: 0}
   canRotate: 1
+  yScreenspaceActivate: 1.1
+  yScreenspaceDestroy: -0.2
 --- !u!114 &773332379147404065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +151,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 1535178377867004750}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 2
   minumumAlphaCutoff: -1.5
   timeMod: 0.33
+  useGlowCycleAnimation: 0
+  maxGlowMultiplier: 4
+  minGlowMultiplier: 1
+  glowTime: 3
 --- !u!1001 &8064698879102299654
 PrefabInstance:
   m_ObjectHideFlags: 0

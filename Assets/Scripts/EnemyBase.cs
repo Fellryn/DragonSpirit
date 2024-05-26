@@ -28,6 +28,8 @@ namespace KurtSingle
         [SerializeField]
         bool ragdollOnDeath = false;
         [SerializeField]
+        float timeBeforeDestroyObject = 5f;
+        [SerializeField]
         Transform ragdollObject;
 
         [Space(10)]
@@ -123,7 +125,7 @@ namespace KurtSingle
                 enemyAnimation.OnDeath();
             }
 
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, timeBeforeDestroyObject);
 
             enabled = false;
         }

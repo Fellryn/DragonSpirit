@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Pterodactyl
-  health: 1
+  startingHealth: 1
   score: 1
   cachedModel: {fileID: 6028377269135645396}
   cachedProjectileTrackingPoint: {fileID: 0}
@@ -124,9 +124,9 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 0
   ragdollObject: {fileID: 0}
+  useExplosiveForceEffectOnDeath: 1
   explosionPower: 5
   explosionRadius: 5
-  useExplosiveForceEffectOnDeath: 1
   damage: 1
   attackChance: 0.5
   projectileMoveSpeed: 12
@@ -168,6 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 3865146389644227688}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 0.5
   minumumAlphaCutoff: -0.5
   timeMod: 0.5

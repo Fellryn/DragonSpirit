@@ -18,8 +18,13 @@ namespace KurtSingle
 		[Header("Dissolve Animation")]
 		[SerializeField]
 		bool useDissolveAnimation = false;
+		[SerializeField]
+		bool useDelayBeforeDissolve = true;
+		[SerializeField]
+		float delayBeforeDissolve = 1.5f;
 		public bool BegunDissolveAnimation { get; private set; }
 		private float timer;
+		
 
 		[SerializeField]
 		float maxAlphaCutoff = 2f;
@@ -56,7 +61,18 @@ namespace KurtSingle
 			if (BegunDissolveAnimation)
             {
 				timer += Time.deltaTime * timeMod;
-				cachedRenderer.material.SetFloat("_Cutoff", Mathf.Lerp(maxAlphaCutoff, minumumAlphaCutoff, timer));
+				if (useDelayBeforeDissolve)
+                {
+					if (timer >= delayBeforeDissolve)
+                    {
+						useDelayBeforeDissolve = false;
+						timer = 0f;
+                    }
+                } else
+                {
+					cachedRenderer.material.SetFloat("_Cutoff", Mathf.Lerp(maxAlphaCutoff, minumumAlphaCutoff, timer));
+				}
+				
 			}
 
 			if (useGlowCycleAnimation)
@@ -81,6 +97,7 @@ namespace KurtSingle
 
 				cachedRenderer.sharedMaterial.SetFloat("_EmissionMultiplier", glowTarget);
             }
+			
 
         }
 

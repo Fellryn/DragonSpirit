@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: SeaMonster
-  health: 1
+  startingHealth: 1
   score: 1
   cachedModel: {fileID: 2457465745978466875}
   cachedProjectileTrackingPoint: {fileID: 0}
@@ -139,9 +139,9 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 1
   ragdollObject: {fileID: 2119249213843724266}
+  useExplosiveForceEffectOnDeath: 0
   explosionPower: 10
   explosionRadius: 5
-  useExplosiveForceEffectOnDeath: 0
   damage: 1
   attackChance: 0.5
   projectileMoveSpeed: 12
@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 3577126290870611573}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 6
   minumumAlphaCutoff: -1.5
   timeMod: 0.75

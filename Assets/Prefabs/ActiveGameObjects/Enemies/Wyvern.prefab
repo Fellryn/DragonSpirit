@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Wyvern
-  health: 1
+  startingHealth: 1
   score: 1
   cachedModel: {fileID: 2811023873221452882}
   cachedProjectileTrackingPoint: {fileID: 0}
@@ -108,9 +108,9 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 0
   ragdollObject: {fileID: 0}
+  useExplosiveForceEffectOnDeath: 1
   explosionPower: 10
   explosionRadius: 5
-  useExplosiveForceEffectOnDeath: 1
   ticksBeforeAttack: 0
   moveSpeed: 10
   rotationSpeed: 15
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 2084140194913742894}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 1.5
   minumumAlphaCutoff: -0.5
   timeMod: 0.35

@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Boss
-  health: 30
+  startingHealth: 1
   score: 100
   cachedModel: {fileID: 4761886219069391381}
   cachedProjectileTrackingPoint: {fileID: 4603611003430234910}
@@ -118,6 +118,9 @@ MonoBehaviour:
   deathBegun: 0
   ragdollOnDeath: 1
   ragdollObject: {fileID: 4021722891422403432}
+  useExplosiveForceEffectOnDeath: 0
+  explosionPower: 10
+  explosionRadius: 5
   damage: 1
   attackChance: 0.33
   projectileMoveSpeed: 20
@@ -140,6 +143,7 @@ MonoBehaviour:
   minPositionObject: {fileID: 0}
   maxPositionObject: {fileID: 0}
   yHeight: -28
+  powerUpPrefabs: []
 --- !u!114 &8217869603156773704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 81280809813419589}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 40
   minumumAlphaCutoff: -35
   timeMod: 0.33

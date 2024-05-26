@@ -99,23 +99,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Plant
-  health: 1
+  startingHealth: 1
   score: 1
   cachedModel: {fileID: 3575681098747973862}
-  playerTag: Player
+  cachedProjectileTrackingPoint: {fileID: 0}
+  canAttack: 0
+  isInvincible: 1
   deathBegun: 0
   ragdollOnDeath: 1
   ragdollObject: {fileID: 8518227173845875439}
+  useExplosiveForceEffectOnDeath: 0
+  explosionPower: 10
+  explosionRadius: 5
   damage: 1
   attackChance: 0.5
   projectileMoveSpeed: 12
   aimAtPlayer: 1
   useCustomProjectileOrigin: 1
   projectileOrigin: {fileID: 2785042892021114919}
-  canAttack: 0
   rotationSpeed: 15
   mainCamera: {fileID: 0}
   canRotate: 1
+  yScreenspaceActivate: 1.1
+  yScreenspaceDestroy: -0.2
 --- !u!114 &8823542675244399678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +151,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cachedRenderer: {fileID: 662733223808639546}
   useDissolveAnimation: 1
+  useDelayBeforeDissolve: 1
+  delayBeforeDissolve: 0.5
   maxAlphaCutoff: 2.5
   minumumAlphaCutoff: -2
   timeMod: 0.22
+  useGlowCycleAnimation: 0
+  maxGlowMultiplier: 4
+  minGlowMultiplier: 1
+  glowTime: 3
 --- !u!1 &5315749890254850014
 GameObject:
   m_ObjectHideFlags: 0

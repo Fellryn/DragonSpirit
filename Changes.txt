@@ -1,0 +1,35 @@
+Top left corner, no score text//
+Player emission increased at start for short duration //
+boss black colour - cracks/stone //
+Delay on dissolve beginning //
+
+
+camera tipping down when vertical view (not behind)
+
+
+
+
+
+Lights worked on/shadows
+Parallax mapping for shadows
+Incremental enemies
+
+Screenshake/shake on enemies
+Bonus points for rocks/other target
+
+multiplier
+
+side quest/bonus stars
+
+Randomise level a bit
+Cave scene
+
+Vertical camera
+
+Replace trees
+tilt shift
+Glow eggs
+boss texture scale
+Music volume lowered
+
+Boss moves away from player
