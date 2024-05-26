@@ -19,7 +19,6 @@ namespace KurtSingle
     {
         [SerializeField] GameVars gameVars;
         [SerializeField] GameTickSystem gameTickSystem;
-        [SerializeField] PlayerShaderController playerShaderController;
         [SerializeField] PlayerPowerups playerPowerUps;
 
         public int PlayerScore { get; private set; }
@@ -47,13 +46,16 @@ namespace KurtSingle
         [SerializeField]
         Transform cachedModel;
 
+
         private Vector2 healthMaskOriginalPositions;
         private Vector2 healthMaskOriginalDimensions;
 
         private Vector2 manaMaskOriginalPositions;
         private Vector2 manaMaskOriginalDimensions;
 
-
+        public delegate void ManaChanged(float ManaPercentage);
+        public static event ManaChanged OnManaChanged;
+        private bool firstInvokeIgnored = false;
 
 
         private void OnEnable()
@@ -95,7 +97,7 @@ namespace KurtSingle
         {
             PlayerScore += score;
             UpdateScoreText();
-            UpdateManaText();
+            //UpdateManaText();
         }
 
 
@@ -128,7 +130,7 @@ namespace KurtSingle
         {
             PlayerScore = Mathf.Clamp(PlayerScore, 0, int.MaxValue);
 
-            scoreText.text = $"Score: {PlayerScore.ToString()}";
+            scoreText.text = PlayerScore.ToString();
         }
 
 
@@ -223,7 +225,15 @@ namespace KurtSingle
             manaMask.DOAnchorPosY(newManaYPosition, 0.2f).SetId(2);
             manaMask.DOSizeDelta(newManaSizeDelta, 0.2f).SetId(3);
 
-            playerShaderController.TweenEmissionFromMana();
+            if (!firstInvokeIgnored)
+            {
+                firstInvokeIgnored = true;
+            }
+            else
+            {
+                OnManaChanged?.Invoke(GetManaPercentage());
+            }
+
 
             //manaMask.anchoredPosition = new Vector2(manaMaskOriginalPositions.x, manaMaskOriginalPositions.y * (PlayerMana / maxMana));
             //manaMask.sizeDelta = new Vector2(manaMaskOriginalDimensions.x, manaMaskOriginalDimensions.y * (PlayerMana / maxMana));
