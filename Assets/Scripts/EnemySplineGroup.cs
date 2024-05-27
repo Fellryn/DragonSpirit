@@ -27,7 +27,10 @@ namespace KurtSingle
         [SerializeField] float stopDistanceFromPlayer = 0.05f;
         public float moveSpeed = 0.005f;
         [SerializeField] GameObject enemyTypePrefab;
-        [SerializeField] int numberOfEnemies;
+        [SerializeField] int maxNumberOfEnemies = 5;
+        [SerializeField] int numberToIncreasePerWave = 1;
+        [SerializeField] int numberOfEnemies = 1;
+
         [SerializeField] Vector3 wholeGroupOffsetMax;
         [SerializeField] Vector3 offsetMin = new Vector3(2f, -1f, 1f);
         [SerializeField] Vector3 offsetMax = new Vector3(4f, -3f, 3f);
@@ -73,6 +76,11 @@ namespace KurtSingle
             if (!gameVars.AllowEnemySpawn) return;
 
             currentTicks = 0;
+
+            if (numberOfEnemies < maxNumberOfEnemies)
+            {
+                numberOfEnemies += numberToIncreasePerWave;
+            }
 
             Vector3 randomGroupOffset = new Vector3(Random.Range(0, wholeGroupOffsetMax.x), Random.Range(0, wholeGroupOffsetMax.y), Random.Range(0, wholeGroupOffsetMax.z));
             Vector3 randomUnitOffset = new Vector3(Random.Range(offsetMin.x, offsetMax.x), Random.Range(offsetMin.y, offsetMax.y), Random.Range(offsetMin.z, offsetMax.z));

@@ -27,6 +27,8 @@ namespace KurtSingle
 		[SerializeField] int ticksBetweenSpawns = 10;
 		private int ticksRun = 0;
 
+        [SerializeField] int maxWyvernsToSpawn = 4;
+        private int wyvernsPerWave = 0;
         private int wyvernsToSpawn = 0;
         private int wyvernsCooldown;
         [SerializeField] Transform cachedPlayerTransform;
@@ -51,7 +53,7 @@ namespace KurtSingle
             {
 
 
-				ticksRun += 1;
+				ticksRun++;
                 if (wyvernsToSpawn > 0)
                 {
                     SpawnEnemy(1);
@@ -76,7 +78,11 @@ namespace KurtSingle
 
                 if (randomEnemyIndex == 1 && wyvernsCooldown == 0)
                 {
-                    wyvernsToSpawn = 4;
+                    if (wyvernsPerWave < maxWyvernsToSpawn)
+                    {
+                        wyvernsPerWave++;
+                    }
+                    wyvernsToSpawn = wyvernsPerWave;
                     wyvernsCooldown = 20;
                     SpawnEnemy(1);
                 }

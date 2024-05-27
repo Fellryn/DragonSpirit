@@ -1,16 +1,19 @@
-Top left corner, no score text//
+Score changed - top left and no score text//
 Player emission increased at start for short duration //
 boss black colour - cracks/stone //
 Delay on dissolve beginning //
 Glow eggs //
 Lights worked on/shadows //
+Incremental enemies (less enemies at start, spawning enemies increase per wave) // 
+
+Reduce tracking projectile time 
 
 
 
 camera tipping down when vertical view (not behind)
 --Parallax mapping for shadows
 
-Incremental enemies
+
 
 Screenshake/shake on enemies
 Bonus points for rocks/other target
