@@ -13,10 +13,11 @@ namespace KurtSingle
     [RequireComponent(typeof(Rigidbody))]
     public abstract class ProjectileBase : MonoBehaviour
     {
-
+        [Header("Collider")]
         [SerializeField]
         protected float capsuleHeight = 100f;
         public float capsuleRadius = 0.25f;
+        [Header("Projectile Options")]
         [SerializeField]
         protected float ProjectileLifetime = 5f;
         public float maxHeight = 7;
@@ -31,6 +32,7 @@ namespace KurtSingle
         public bool usingCustomRotation = false;
         public bool usingCustomPosition = false;
 
+        [Header("References and Tags")]
         public Transform cachedPlayerCamera;
         public Transform cachedUnitTransform;
         private Transform cachedPlayerTransform;

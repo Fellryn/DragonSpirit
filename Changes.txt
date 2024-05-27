@@ -5,8 +5,9 @@ Delay on dissolve beginning //
 Glow eggs //
 Lights worked on/shadows //
 Incremental enemies (less enemies at start, spawning enemies increase per wave) // 
+Reduce tracking projectile time // 
 
-Reduce tracking projectile time 
+
 
 
 

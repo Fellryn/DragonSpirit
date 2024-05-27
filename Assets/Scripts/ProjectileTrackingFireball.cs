@@ -14,9 +14,10 @@ namespace KurtSingle
     public class ProjectileTrackingFireball : ProjectileBase
     {
 
+        [Header("Tracking Projectile")]
+        public Transform randomEnemyToFollow;
         private GameObject[] enemyHolders;
         private EnemyBoss enemyBoss;
-        public Transform randomEnemyToFollow;
         private GameTickSystem gameTickSystem;
 
         [SerializeField] 

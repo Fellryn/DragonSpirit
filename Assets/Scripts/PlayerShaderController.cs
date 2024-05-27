@@ -24,7 +24,7 @@ namespace KurtSingle
         [SerializeField] Transform tweenObject;
 
         private bool emissionCurrentlyTweening = false;
-        private bool startAnimationComplete = false;
+        [SerializeField] private bool startAnimationComplete = false;
 
         private void Start()
         {
@@ -80,8 +80,7 @@ namespace KurtSingle
                 startupSequence
                     .Append(tweenObject.DOMoveX(value, startAnimationDuration / 2))
                     .Append(tweenObject.DOMoveX(minEmissionValue, startAnimationDuration / 2))
-                    .OnComplete(() => startAnimationComplete = true)
-                    .OnComplete(() => emissionCurrentlyTweening = false);
+                    .OnComplete(EndStartupAnimation);
             } else
             {
                 tweenObject.DOMoveX(value, modifiedDuration).OnComplete(() => emissionCurrentlyTweening = false);
@@ -90,6 +89,12 @@ namespace KurtSingle
             emissionCurrentlyTweening = true;
 
             
+        }
+
+        private void EndStartupAnimation()
+        {
+            startAnimationComplete = true;
+            emissionCurrentlyTweening = false;
         }
 
         //private void EndEmissionTween()
