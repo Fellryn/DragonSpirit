@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KurtSingle;
+using DG.Tweening;
+using TMPro;
 
 namespace KurtSingle
 {
-	/// <summary>
-	/// Author: Kurt Single
-	/// Description: This script demonstrates how to pickup powerups and apply their effects in Unity
-	/// </summary>
-	public class PlayerPowerups : MonoBehaviour 
-	{
+    /// <summary>
+    /// Author: Kurt Single
+    /// Description: This script demonstrates how to pickup powerups and apply their effects in Unity
+    /// </summary>
+    public class PlayerPowerups : MonoBehaviour
+    {
         [Header("References")]
         [SerializeField] PlayerStats playerStats;
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerAttack playerAttack;
         [SerializeField] PlayerShaderController playerShaderController;
         [SerializeField] RectTransform powerUpDisplay;
-		[SerializeField] string powerUpTag = "PowerUp";
+        [SerializeField] string powerUpTag = "PowerUp";
+        [SerializeField] RectTransform powerUpText;
+        [SerializeField] TextMeshProUGUI powerUpActualText;
 
-        
-        
         [Header("Life PowerUp")]
         [SerializeField]
         GameObject lifePowerUpPlayerEffect;
@@ -46,6 +48,16 @@ namespace KurtSingle
         const string trackingPowerUpName = "TrackingPowerUp";
         public bool TrackingPowerUpActive { get; set; }
 
+        [Header("PowerUp Text")]
+        [SerializeField] Vector2 textOffscreenPos;
+        [SerializeField] Vector2 textOnscreenPos;
+        [SerializeField] float totalTweenTime = 6f;
+        [SerializeField] Ease textEaseInType = Ease.OutQuint;
+        [SerializeField] Ease textEaseOutType = Ease.InQuint;
+        [SerializeField] float shakeStrength = 5f;
+        [SerializeField] int shakeVibrato = 4;
+        [SerializeField] Ease shakeEaseType = Ease.InOutQuad;
+        Sequence powerUpTextSequence;
 
 
 
@@ -61,6 +73,21 @@ namespace KurtSingle
             gameTickSystem.OnEveryHalfTick.RemoveListener(PowerUpTimingChecks);
         }
 
+        private void Start()
+        {
+            powerUpText.anchoredPosition = textOffscreenPos;
+            powerUpTextSequence = DOTween.Sequence();
+
+            powerUpTextSequence
+                .Append(powerUpText.DOAnchorPos(textOnscreenPos, totalTweenTime * 0.25f).SetEase(textEaseInType))
+                .AppendInterval(totalTweenTime * 0.5f)
+                .Join(powerUpText.DOShakeAnchorPos(totalTweenTime * 0.75f, shakeStrength, shakeVibrato, fadeOut: false).SetEase(shakeEaseType))
+                .Append(powerUpText.DOAnchorPos(textOffscreenPos, totalTweenTime * 0.25f).SetEase(textEaseOutType))
+                .SetAutoKill(false);
+
+            powerUpTextSequence.Complete();
+        }
+
 
         private void OnTriggerEnter(Collider otherColliderHit)
         {
@@ -72,15 +99,18 @@ namespace KurtSingle
                     {
                         case lifePowerUpName:
                             playerStats.PlayerHeal(healPerPickup);
-                            Instantiate(lifePowerUpPlayerEffect, transform);
+                            DisplayPowerup("Healed +5", Color.green);
+                            //Instantiate(lifePowerUpPlayerEffect, transform);
                             break;
                         case multiShotPowerUpName:
                             ChangeMultiShotLevel(1);
-                            Instantiate(multiShotPowerUpPlayerEffect, transform);
+                            DisplayPowerup("MultiShot", Color.yellow);
+                            //Instantiate(multiShotPowerUpPlayerEffect, transform);
                             break;
                         case trackingPowerUpName:
                             ActivateTrackingAbility();
-                            Instantiate(trackingPowerUpPlayerEffect, transform);
+                            DisplayPowerup("Tracking Shot", Color.cyan);
+                            //Instantiate(trackingPowerUpPlayerEffect, transform);
                             break;
                         default:
                             break;
@@ -105,7 +135,8 @@ namespace KurtSingle
                     MultiShotActive = false;
                     ChangeMultiShotLevel(0, true);
                     multiShotTimer = 0;
-                } else
+                }
+                else
                 {
                     multiShotTimer -= 0.5f;
                 }
@@ -127,7 +158,8 @@ namespace KurtSingle
             if (additiveTimePerPickup)
             {
                 multiShotTimer += multiShotActiveTime;
-            } else
+            }
+            else
             {
                 multiShotTimer = multiShotActiveTime;
             }
@@ -138,10 +170,11 @@ namespace KurtSingle
             if (CurrentMultiShotLevel == 1)
             {
                 return 3;
-            } else
+            }
+            else
             {
                 return 3 + ((CurrentMultiShotLevel - 1) * 2);
-            }   
+            }
         }
 
 
@@ -160,11 +193,12 @@ namespace KurtSingle
             if (playerStats.PlayerUseMana(playerAttack.trackingFireballManaCost))
             {
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
-            
+
         }
 
 
@@ -174,6 +208,16 @@ namespace KurtSingle
             playerStats.PlayerMana = 0f;
             TrackingPowerUpActive = false;
 
+        }
+
+        private void DisplayPowerup(string powerUpName, Color powerUpColour)
+        {
+
+            powerUpActualText.color = powerUpColour;
+            powerUpActualText.text = powerUpName;
+            powerUpTextSequence.Complete();
+
+            powerUpTextSequence.Restart();
         }
 
     }
