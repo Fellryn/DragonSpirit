@@ -66,6 +66,12 @@ namespace KurtSingle
             {
                 FireballAttack();
             }
+
+            //Debug.Log(Vector3.Distance(projectileOrigin.position, cachedPlayerTransform.position));
+            //if (Vector3.Distance(projectileOrigin.position, cachedPlayerTransform.position) <= 18f && canAttack)
+            //{
+            //    moveTimer = delayBeforeMove;
+            //}
         }
 
         // When destroyed, win round

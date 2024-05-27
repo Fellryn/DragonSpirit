@@ -8,32 +8,17 @@ Incremental enemies (less enemies at start, spawning enemies increase per wave) 
 Reduce tracking projectile time // 
 Powerups pickup display changed //
 
-
-
-
-
-
-
 camera tipping down when vertical view (not behind)
---Parallax mapping for shadows
-
-
-
 Screenshake/shake on enemies
 Bonus points for rocks/other target
-
 multiplier
-
 side quest/bonus stars
-
 Randomise level a bit
 Cave scene
-
 Vertical camera
-
 Replace trees
-
 boss texture scale
 Music volume lowered
-
 Boss moves away from player
+
+--Parallax mapping for shadows
