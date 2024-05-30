@@ -38,6 +38,7 @@ namespace KurtSingle
         [SerializeField] float cooldownBetweenNormalAttack = 0.1f;
         [SerializeField] bool canNormalAttack = true;
         float timer = 0f;
+        bool attackButtonHeld = false;
 
         private Transform cachedTransform;
 
@@ -51,19 +52,26 @@ namespace KurtSingle
 
         private void OnEnable()
         {
-            fire.action.performed += PlayerAttacking;
+            fire.action.started += PlayerAttacking;
+            fire.action.canceled += PlayerStopAttacking;
             altFire.action.performed += PlayerAltAttacking;
         }
 
 
         private void OnDisable()
         {
-            fire.action.performed -= PlayerAttacking;
+            fire.action.started -= PlayerAttacking;
+            fire.action.canceled -= PlayerStopAttacking;
             altFire.action.performed -= PlayerAltAttacking;
         }
 
         private void Update()
         {
+            if (attackButtonHeld && canNormalAttack)
+            {
+                PlayerPerformAttack();
+            }
+
             if (timer >= cooldownBetweenNormalAttack && !canNormalAttack)
             {
                 canNormalAttack = true;
@@ -77,20 +85,26 @@ namespace KurtSingle
 
         private void PlayerAttacking(InputAction.CallbackContext obj)
         {
-            if (canNormalAttack)
-            {
+            attackButtonHeld = true;
+        }
+
+        private void PlayerStopAttacking(InputAction.CallbackContext obj)
+        {
+            attackButtonHeld = false;
+        }
+
+        private void PlayerPerformAttack()
+        {
                 canNormalAttack = false;
 
                 if (playerPowerUps.MultiShotActive)
                 {
                     MultiFireball(playerPowerUps.UseMultiShot());
-                } else
+                }
+                else
                 {
                     Fireball();
                 }
-                
-            }
-            
         }
 
         private void PlayerAltAttacking(InputAction.CallbackContext obj)

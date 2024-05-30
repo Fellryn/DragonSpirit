@@ -224,6 +224,7 @@ namespace KurtSingle
 
         public void CheatSkipToBoss()
         {
+
             cameraMoveOverride = true;
             skippedFirstFrame = false;
             dollyCamera.CameraPosition = 1f;

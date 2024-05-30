@@ -296,11 +296,22 @@ public partial class @DragonSpirit: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2f1c1eaf-0767-4c63-afd9-cd909ddf8bc4"",
-                    ""path"": ""*/{Cancel}"",
+                    ""id"": ""2afee415-ddf1-442f-b488-d4c7cbb9b869"",
+                    ""path"": ""<Keyboard>/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9f08495-c751-4ea3-98d1-3130d36d408c"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

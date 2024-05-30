@@ -7,7 +7,7 @@ namespace KurtSingle
 {
 	/// <summary>
 	/// Author: Kurt Single
-	/// Description: This script demonstrates how to ... in Unity
+	/// Description: This script demonstrates how to debug the tick system by displaying tick events in Unity
 	/// </summary>
 	public class ShowGameTick : MonoBehaviour 
 	{

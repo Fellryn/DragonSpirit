@@ -20,6 +20,7 @@ namespace KurtSingle
         [SerializeField] GameVars gameVars;
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerPowerups playerPowerUps;
+        [SerializeField] PlayerMultiplier playerMultiplier;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
@@ -56,6 +57,9 @@ namespace KurtSingle
         public delegate void ManaChanged(float ManaPercentage);
         public static event ManaChanged OnManaChanged;
         private bool firstInvokeIgnored = false;
+
+        public delegate void DamageTaken();
+        public static event DamageTaken OnDamageTaken;
 
 
         private void OnEnable()
@@ -95,7 +99,7 @@ namespace KurtSingle
 
         public void AddScore(int score)
         {
-            PlayerScore += score;
+            PlayerScore += (score * playerMultiplier.MultiplierLevel);
             UpdateScoreText();
             //UpdateManaText();
         }
@@ -115,6 +119,7 @@ namespace KurtSingle
             DamageVisualEffect();
             UpdateLivesText();
             CheckLifeStatus();
+            OnDamageTaken?.Invoke();
         }
 
 
