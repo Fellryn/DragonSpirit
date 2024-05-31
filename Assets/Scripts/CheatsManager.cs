@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using KurtSingle;
@@ -68,8 +69,9 @@ namespace KurtSingle
 			gameVars.EnemySpawn(!gameVars.AllowEnemySpawn);
         }
 
-		public void DisplayGodMode()
+		public async void DisplayGodMode()
         {
+			await Task.Delay(1);
 			if (playerStatsScript.GodmodeActive)
             {
 				var colors = godmodeButton.colors;
