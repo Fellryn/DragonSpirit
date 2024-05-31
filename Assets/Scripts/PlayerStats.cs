@@ -52,11 +52,11 @@ namespace KurtSingle
         Transform cachedModel;
 
 
-        private Vector2 healthMaskOriginalPositions;
-        private Vector2 healthMaskOriginalDimensions;
+        private static Vector2 healthMaskOriginalPositions;
+        private static Vector2 healthMaskOriginalDimensions;
 
-        private Vector2 manaMaskOriginalPositions;
-        private Vector2 manaMaskOriginalDimensions;
+        private static Vector2 manaMaskOriginalPositions;
+        private static Vector2 manaMaskOriginalDimensions;
 
         public delegate void ManaChanged(float ManaPercentage);
         public static event ManaChanged OnManaChanged;
@@ -71,11 +71,14 @@ namespace KurtSingle
             EnemyBase.onKill += AddScore;
             //gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
 
-            healthMaskOriginalPositions = healthMask.anchoredPosition;
-            healthMaskOriginalDimensions = healthMask.sizeDelta;
+            if (isPlayerOne)
+            {
+                healthMaskOriginalPositions = healthMask.anchoredPosition;
+                healthMaskOriginalDimensions = healthMask.sizeDelta;
 
-            manaMaskOriginalPositions = manaMask.anchoredPosition;
-            manaMaskOriginalDimensions = manaMask.sizeDelta;
+                manaMaskOriginalPositions = manaMask.anchoredPosition;
+                manaMaskOriginalDimensions = manaMask.sizeDelta;
+            }
 
             PlayerLife = 10;
             UpdateLivesText();

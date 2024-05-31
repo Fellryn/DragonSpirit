@@ -91,15 +91,19 @@ namespace KurtSingle
 			{
 				numberOfEnemiesKilledSinceLastHit -= numberOfEnemiesToIncreaseMultiplier;
 				timer = 0f;
+                MultiplierLevel++;
 				DoMultiplierTween();
 				SetMultiplierText();
-                MultiplierLevel++;
-            }
+			}
 		}
 
 		private void DoMultiplierTween()
 		{
-			
+			multiplierText.rectTransform.DOComplete();
+			multiplierText.rectTransform.DOPunchAnchorPos(new Vector2(0f, 10f), 0.3f).SetRelative(true);
+
+			multiplierTextMultiplayer.rectTransform.DOComplete();
+			multiplierTextMultiplayer.rectTransform.DOPunchAnchorPos(new Vector2(0f, 10f), 0.3f).SetRelative(true);
 		}
 
 		private void SetMultiplierText()
