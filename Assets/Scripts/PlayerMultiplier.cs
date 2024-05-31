@@ -16,6 +16,8 @@ namespace KurtSingle
 	{
 		[SerializeField]
 		PlayerStats playerStats;
+		[SerializeField]
+		GameTickSystem gameTickSystem;
 
         public int MultiplierLevel { get; private set; }
 
@@ -41,6 +43,7 @@ namespace KurtSingle
         {
             EnemyBase.onKill += AddKillCount;
 			PlayerStats.OnDamageTaken += PlayerHit;
+			gameTickSystem.OnTickWhole.AddListener(DoChecks);
 			MultiplierLevel = 1;
 			SetMultiplierText();
         }
@@ -49,7 +52,8 @@ namespace KurtSingle
         {
             EnemyBase.onKill -= AddKillCount;
 			PlayerStats.OnDamageTaken -= PlayerHit;
-        }
+			gameTickSystem.OnTickWhole.RemoveListener(DoChecks);
+		}
 
         public void DoChecks()
 		{

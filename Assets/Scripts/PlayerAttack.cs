@@ -136,7 +136,8 @@ namespace KurtSingle
                     firingUnitTransform: cachedTransform,
                     mainCameraTransform: cachedPlayerCamera,
                     projectileMoveSpeed: fireballMovespeed,
-                    useRandomProjectileSpeed: false);
+                    useRandomProjectileSpeed: false,
+                    playerOneProjectile: playerStats.isPlayerOne);
             }
         }
 
@@ -160,7 +161,8 @@ namespace KurtSingle
                         mainCameraTransform: cachedPlayerCamera,
                         projectileMoveSpeed: fireballMovespeed,
                         useRandomProjectileSpeed: false,
-                        customRotationY: currentFireballDegrees);
+                        customRotationY: currentFireballDegrees,
+                        playerOneProjectile: playerStats.isPlayerOne);
                 }
 
                 currentFireballDegrees += degreesBetweenFireball;
@@ -180,7 +182,8 @@ namespace KurtSingle
                     firingUnitTransform: cachedTransform,
                     mainCameraTransform: cachedPlayerCamera,
                     projectileMoveSpeed: trackingFireballMovespeed,
-                    useRandomProjectileSpeed: false);
+                    useRandomProjectileSpeed: false,
+                    playerOneProjectile: playerStats.isPlayerOne);
             }
         }
     }

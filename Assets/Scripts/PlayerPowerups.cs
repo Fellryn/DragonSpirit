@@ -23,6 +23,9 @@ namespace KurtSingle
         [SerializeField] RectTransform powerUpText;
         [SerializeField] TextMeshProUGUI powerUpActualText;
 
+        [SerializeField] RectTransform powerUpTextMultiplayer;
+        [SerializeField] TextMeshProUGUI powerUpActualTextMultiplayer;
+
         [Header("Life PowerUp")]
         [SerializeField]
         GameObject lifePowerUpPlayerEffect;
@@ -58,6 +61,7 @@ namespace KurtSingle
         [SerializeField] int shakeVibrato = 4;
         [SerializeField] Ease shakeEaseType = Ease.InOutQuad;
         Sequence powerUpTextSequence;
+        Sequence powerUpTextMultiplayerSequence;
 
 
 
@@ -76,6 +80,9 @@ namespace KurtSingle
         private void Start()
         {
             powerUpText.anchoredPosition = textOffscreenPos;
+
+            powerUpTextMultiplayer.anchoredPosition = new Vector2(powerUpText.anchoredPosition.x, textOffscreenPos.y);
+
             powerUpTextSequence = DOTween.Sequence();
 
             powerUpTextSequence
@@ -85,7 +92,17 @@ namespace KurtSingle
                 .Append(powerUpText.DOAnchorPos(textOffscreenPos, totalTweenTime * 0.25f).SetEase(textEaseOutType))
                 .SetAutoKill(false);
 
+            powerUpTextMultiplayerSequence = DOTween.Sequence();
+
+            powerUpTextMultiplayerSequence
+                .Append(powerUpTextMultiplayer.DOAnchorPos(textOnscreenPos, totalTweenTime * 0.25f).SetEase(textEaseInType))
+                .AppendInterval(totalTweenTime * 0.5f)
+                .Join(powerUpTextMultiplayer.DOShakeAnchorPos(totalTweenTime * 0.75f, shakeStrength, shakeVibrato, fadeOut: false).SetEase(shakeEaseType))
+                .Append(powerUpTextMultiplayer.DOAnchorPos(textOffscreenPos, totalTweenTime * 0.25f).SetEase(textEaseOutType))
+                .SetAutoKill(false);
+
             powerUpTextSequence.Complete();
+            powerUpTextMultiplayerSequence.Complete();
         }
 
 
@@ -215,9 +232,15 @@ namespace KurtSingle
 
             powerUpActualText.color = powerUpColour;
             powerUpActualText.text = powerUpName;
+
+            powerUpActualTextMultiplayer.color = powerUpColour;
+            powerUpActualTextMultiplayer.text = powerUpName;
+
             powerUpTextSequence.Complete();
+            powerUpTextMultiplayerSequence.Complete();
 
             powerUpTextSequence.Restart();
+            powerUpTextMultiplayerSequence.Restart();
         }
 
     }
