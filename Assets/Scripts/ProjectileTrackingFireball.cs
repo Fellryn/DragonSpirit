@@ -99,11 +99,11 @@ namespace KurtSingle
             {
                 if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
                 {
-                    enemyBase.TakeDamage(ProjectileDamage);
+                    enemyBase.TakeDamage(ProjectileDamage, playerOneProjectile);
                 }
                 else
                 {
-                    other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage);
+                    other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage, playerOneProjectile);
                 }
 
                 PlayEffects(transform);

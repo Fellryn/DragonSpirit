@@ -20,9 +20,15 @@ namespace KurtSingle
         [SerializeField] Transform projectilesHolder;
         [SerializeField] InputActionReference fire;
         [SerializeField] InputActionReference altFire;
-        //[SerializeField] string playerProjectileTag = "PlayerProjectile";
+        //[SerializeField]
+        PlayerInput _playerInput;
+        //[SerializeField]
+        InputAction attackAction;
+        //[SerializeField]
+        InputAction altAttackAction;
+    //[SerializeField] string playerProjectileTag = "PlayerProjectile";
 
-        [Header("Fireball Attack")]
+    [Header("Fireball Attack")]
         [SerializeField] float fireballMovespeed = 15f;
         [SerializeField] GameObject fireballPrefab;
 
@@ -52,17 +58,20 @@ namespace KurtSingle
 
         private void OnEnable()
         {
-            fire.action.started += PlayerAttacking;
-            fire.action.canceled += PlayerStopAttacking;
-            altFire.action.performed += PlayerAltAttacking;
-        }
+            _playerInput = GetComponent<PlayerInput>();
+            attackAction = _playerInput.actions.FindAction("Fire");
+            altAttackAction = _playerInput.actions.FindAction("AltFire");
 
+            attackAction.started += PlayerAttacking;
+            attackAction.canceled += PlayerStopAttacking;
+            altAttackAction.performed += PlayerAltAttacking;
+        }
 
         private void OnDisable()
         {
-            fire.action.started -= PlayerAttacking;
-            fire.action.canceled -= PlayerStopAttacking;
-            altFire.action.performed -= PlayerAltAttacking;
+            attackAction.started -= PlayerAttacking;
+            attackAction.canceled -= PlayerStopAttacking;
+            altAttackAction.performed -= PlayerAltAttacking;
         }
 
         private void Update()

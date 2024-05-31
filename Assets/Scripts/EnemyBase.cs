@@ -31,6 +31,8 @@ namespace KurtSingle
         float timeBeforeDestroyObject = 5f;
         [SerializeField]
         Transform ragdollObject;
+        [SerializeField]
+        public bool lastHitByPlayerOne = true;
 
         [Space(10)]
         [SerializeField]
@@ -40,7 +42,7 @@ namespace KurtSingle
         [SerializeField]
         private float explosionRadius = 5f;
 
-        public delegate void OnKill(int scoreToAdd);
+        public delegate void OnKill(int scoreToAdd, bool playerOneScore);
         public static event OnKill onKill;
 
         protected Rigidbody cachedRigidbody;
@@ -66,10 +68,12 @@ namespace KurtSingle
         }
 
         // Take damage (example of encapsulation - private (set) health property is only modified with this or set health)
-        public void TakeDamage(int damageAmount)
+        public void TakeDamage(int damageAmount, bool hitByPlayerOne)
         {
             if (!isInvincible)
             {
+                lastHitByPlayerOne = hitByPlayerOne;
+
                 health -= damageAmount;
                 HealthCheck();
             }
@@ -95,7 +99,7 @@ namespace KurtSingle
         public virtual void BeginDeath()
         {
             deathBegun = true;
-            onKill?.Invoke(score);
+            onKill?.Invoke(score, lastHitByPlayerOne);
 
             transform.tag = "Untagged";
             cachedRigidbody.useGravity = true;

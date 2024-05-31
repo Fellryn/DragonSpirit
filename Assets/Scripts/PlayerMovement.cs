@@ -14,7 +14,9 @@ namespace KurtSingle
 	/// </summary>
 	public class PlayerMovement : MonoBehaviour 
 	{
-		[SerializeField] InputActionReference movement;
+		//[SerializeField] InputActionReference movement;
+        [SerializeField] PlayerInputManager inputManager;
+        private PlayerInput _playerInput;
         [SerializeField] float moveSpeed = 50f;
 
         [SerializeField] SplineContainer splineContainer;
@@ -46,19 +48,24 @@ namespace KurtSingle
         {
             cachedRigidbody = GetComponent<Rigidbody>();
 
+            _playerInput = GetComponent<PlayerInput>();
+
             lastPosition = dollyCamera.transform.position;
+            //Debug.Log(GetComponent<PlayerInput>().currentControlScheme + name);
         }
 
 
         private void Awake()
         {
             GameManager.OnGameStateChanged += PauseAction;
+            //inputManager.onPlayerJoined += CheckControlScheme;
         }
 
 
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= PauseAction;
+            //inputManager.onPlayerJoined -= CheckControlScheme;
         }
 
 
@@ -72,6 +79,12 @@ namespace KurtSingle
             {
 
             }
+        }
+
+        private void CheckControlScheme(PlayerInput playerInput)
+        {
+            //playerInput.SwitchCurrentControlScheme(playerInput.devices[1].device)
+            //Debug.Log(playerInput.currentControlScheme + name);
         }
 
 
@@ -89,7 +102,9 @@ namespace KurtSingle
 
         private void Move()
         {
-            Vector2 move = movement.action.ReadValue<Vector2>();
+            Vector2 move = _playerInput.actions.FindAction("Move").ReadValue<Vector2>();
+            //Vector2 move = movement.action.ReadValue<Vector2>();
+
             if (move != new Vector2(0f, 0f))
             {
                 move = CheckBounds(move);

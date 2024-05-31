@@ -53,7 +53,7 @@ namespace KurtSingle
                 if (enemyBase != null)
                 {
                     playerStats.PlayerTakeDamage(enemyBase.health);
-                    enemyBase.TakeDamage(enemyBase.health);
+                    enemyBase.TakeDamage(enemyBase.health, playerStats.isPlayerOne);
                     enemyBase.BeginDeath();
                 }
             }

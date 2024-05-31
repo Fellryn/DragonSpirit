@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 336145095706604541}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1195375987
@@ -576,6 +576,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeScene
       objectReference: {fileID: 0}
+    - target: {fileID: 2365486343321273749, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
+        type: 3}
+      propertyPath: m_Name
+      value: UI_Credits
+      objectReference: {fileID: 0}
     - target: {fileID: 7367715730582569855, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -681,16 +686,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1772427553}
-    - target: {fileID: 2365486343321273749, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
-        type: 3}
-      propertyPath: m_Name
-      value: UI_Credits
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069e562e36d614dcbbcbc50aa7ee0bc3, type: 3}
+--- !u!1 &336145095706604541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7532685271354869458, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
+    type: 3}
+  m_PrefabInstance: {fileID: 336145095706604540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

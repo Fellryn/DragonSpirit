@@ -21,12 +21,13 @@ namespace KurtSingle
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerPowerups playerPowerUps;
         [SerializeField] PlayerMultiplier playerMultiplier;
+        [SerializeField] GameObject otherPlayer;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
         public bool GodmodeActive { get; set; }
         public float PlayerMana { get; set; }
-
+        public bool isPlayerOne = true;
 
         [SerializeField]
         float maxMana = 10f;
@@ -39,10 +40,13 @@ namespace KurtSingle
         [SerializeField]
         RectTransform manaMask;
 
+        [Header("Multiplayer")]
         [SerializeField]
-        SceneNavigation sceneNavigation;
+        TextMeshProUGUI scoreTextMultiplayer;
         [SerializeField]
-        string gameOverSceneName = "GameOver";
+        RectTransform healthMaskMultiplayer;
+        [SerializeField]
+        RectTransform manaMaskMultiplayer;
 
         [SerializeField]
         Transform cachedModel;
@@ -58,11 +62,11 @@ namespace KurtSingle
         public static event ManaChanged OnManaChanged;
         private bool firstInvokeIgnored = false;
 
-        public delegate void DamageTaken();
+        public delegate void DamageTaken(bool playerOneTookDamage);
         public static event DamageTaken OnDamageTaken;
 
 
-        private void OnEnable()
+        private void Start()
         {
             EnemyBase.onKill += AddScore;
             //gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
@@ -72,36 +76,38 @@ namespace KurtSingle
 
             manaMaskOriginalPositions = manaMask.anchoredPosition;
             manaMaskOriginalDimensions = manaMask.sizeDelta;
+
+            PlayerLife = 10;
+            UpdateLivesText();
+            UpdateManaText();
+
+            //gameTickSystem.OnEveryHalfTick.AddListener()
         }
 
 
         private void OnDisable()
         {
-            EnemyBase.onKill -= AddScore;
             //gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
+            //gameTickSystem.OnEveryHalfTick.RemoveListener()
         }
 
 
         private void OnDestroy()
         {
+            EnemyBase.onKill -= AddScore;
             DOTween.Kill(healthMask);
             DOTween.Kill(manaMask);
         }
 
 
-        private void Start()
+        public void AddScore(int score, bool lastHitByPlayerOne)
         {
-            PlayerLife = 10;
-            UpdateLivesText();
-            UpdateManaText();
-        }
-
-
-        public void AddScore(int score)
-        {
-            PlayerScore += (score * playerMultiplier.MultiplierLevel);
-            UpdateScoreText();
-            //UpdateManaText();
+            if (lastHitByPlayerOne == isPlayerOne)
+            {
+                PlayerScore += (score * playerMultiplier.MultiplierLevel);
+                UpdateScoreText();
+                //UpdateManaText();
+            }
         }
 
 
@@ -119,7 +125,7 @@ namespace KurtSingle
             DamageVisualEffect();
             UpdateLivesText();
             CheckLifeStatus();
-            OnDamageTaken?.Invoke();
+            OnDamageTaken?.Invoke(isPlayerOne);
         }
 
 
@@ -136,6 +142,8 @@ namespace KurtSingle
             PlayerScore = Mathf.Clamp(PlayerScore, 0, int.MaxValue);
 
             scoreText.text = PlayerScore.ToString();
+
+            scoreTextMultiplayer.text = PlayerScore.ToString();
         }
 
 
@@ -151,6 +159,9 @@ namespace KurtSingle
             healthMask.DOAnchorPosY(newHealthYPosition, 0.2f).SetId(0);
             healthMask.DOSizeDelta(newHealthSizeDelta, 0.2f).SetId(1);
 
+            healthMaskMultiplayer.DOAnchorPosY(newHealthYPosition, 0.2f).SetId(0);
+            healthMaskMultiplayer.DOSizeDelta(newHealthSizeDelta, 0.2f).SetId(1);
+
             //healthMask.anchoredPosition = new Vector2(healthMaskOriginalPositions.x, healthMaskOriginalPositions.y * ((float)PlayerLife / maxLives));
             //healthMask.sizeDelta = new Vector2(healthMaskOriginalDimensions.x, healthMaskOriginalDimensions.y * ((float)PlayerLife / maxLives));
         }
@@ -160,8 +171,10 @@ namespace KurtSingle
         {
             if (PlayerLife <= 0 && !GodmodeActive)
             {
-                gameVars.WonLevel(false);
-                sceneNavigation.ChangeScene(gameOverSceneName);
+                //gameVars.WonLevel(false);
+                //sceneNavigation.ChangeScene(gameOverSceneName);
+
+                gameObject.SetActive(false);
             }
         }
 
@@ -229,6 +242,9 @@ namespace KurtSingle
             DOTween.Complete(3);
             manaMask.DOAnchorPosY(newManaYPosition, 0.2f).SetId(2);
             manaMask.DOSizeDelta(newManaSizeDelta, 0.2f).SetId(3);
+
+            manaMaskMultiplayer.DOAnchorPosY(newManaYPosition, 0.2f).SetId(2);
+            manaMaskMultiplayer.DOSizeDelta(newManaSizeDelta, 0.2f).SetId(3);
 
             if (!firstInvokeIgnored)
             {

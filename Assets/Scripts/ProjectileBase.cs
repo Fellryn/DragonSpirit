@@ -36,6 +36,7 @@ namespace KurtSingle
         public Transform cachedPlayerCamera;
         public Transform cachedUnitTransform;
         private Transform cachedPlayerTransform;
+        protected bool playerOneProjectile = true;
 
         protected string enemyTag = "Enemy";
         protected string playerTag = "Player";
@@ -145,11 +146,11 @@ namespace KurtSingle
                 {
                     if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
                     {
-                        enemyBase.TakeDamage(ProjectileDamage);
+                        enemyBase.TakeDamage(ProjectileDamage, playerOneProjectile);
                     }
                     else
                     {
-                        other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage);
+                        other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage, playerOneProjectile);
                     }
 
                     //if (other.TryGetComponent(out EnemyRangedAttack enemyRangedAttack))
@@ -190,7 +191,7 @@ namespace KurtSingle
             }
         }
 
-        public virtual void Initalise(Transform playerTransform, Transform firingUnitTransform, Transform mainCameraTransform, int projectileDamage = 1, float projectileMoveSpeed = 12f, bool useRandomProjectileSpeed = true, bool isEnemy = false, bool aimAtPlayer = false, float customRotationY = 0f)
+        public virtual void Initalise(Transform playerTransform, Transform firingUnitTransform, Transform mainCameraTransform, int projectileDamage = 1, float projectileMoveSpeed = 12f, bool useRandomProjectileSpeed = true, bool isEnemy = false, bool playerOneProjectile = true, bool aimAtPlayer = false, float customRotationY = 0f)
         {
             cachedPlayerTransform = playerTransform;
             cachedUnitTransform = firingUnitTransform;
@@ -198,6 +199,7 @@ namespace KurtSingle
             cachedPlayerCamera = mainCameraTransform;
             ProjectileDamage = projectileDamage;
             ProjectileMoveSpeed = projectileMoveSpeed;
+            this.playerOneProjectile = playerOneProjectile;
 
             if (useRandomProjectileSpeed) ProjectileMoveSpeed = ProjectileMoveSpeed + Random.Range(-moveSpeedVariation, moveSpeedVariation);
 

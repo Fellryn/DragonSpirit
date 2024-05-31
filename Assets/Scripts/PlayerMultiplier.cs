@@ -14,7 +14,9 @@ namespace KurtSingle
 	/// </summary>
 	public class PlayerMultiplier : MonoBehaviour 
 	{
-		
+		[SerializeField]
+		PlayerStats playerStats;
+
         public int MultiplierLevel { get; private set; }
 
 		[SerializeField]
@@ -30,10 +32,12 @@ namespace KurtSingle
 		[Header("References")]
 		[SerializeField]
 		private TextMeshProUGUI multiplierText;
+		[SerializeField]
+		private TextMeshProUGUI multiplierTextMultiplayer;
 
 
 
-        private void Start()
+		private void Start()
         {
             EnemyBase.onKill += AddKillCount;
 			PlayerStats.OnDamageTaken += PlayerHit;
@@ -58,18 +62,23 @@ namespace KurtSingle
 			TryIncreaseMultiplier();
 		}
 
-		public void AddKillCount(int Score)
+		public void AddKillCount(int Score, bool lastHitByPlayerOne)
 		{
-			numberOfEnemiesKilledSinceLastHit++;
+			if (playerStats.isPlayerOne == lastHitByPlayerOne)
+            {
+				numberOfEnemiesKilledSinceLastHit++;
+			}
 		}
 
-		public void PlayerHit()
+		public void PlayerHit(bool playerOneHit)
 		{
-			numberOfEnemiesKilledSinceLastHit = 0;
-			MultiplierLevel = 1;
-			DoMultiplierTween();
-			SetMultiplierText();
-
+			if (playerOneHit == playerStats.isPlayerOne)
+			{
+				numberOfEnemiesKilledSinceLastHit = 0;
+				MultiplierLevel = 1;
+				DoMultiplierTween();
+				SetMultiplierText();
+			}
         }
 
 		public void TryIncreaseMultiplier()
@@ -92,6 +101,7 @@ namespace KurtSingle
 		private void SetMultiplierText()
 		{
 			multiplierText.text = $"{MultiplierLevel}x";
+			multiplierTextMultiplayer.text = $"{MultiplierLevel}x";
 		}
 
     }
