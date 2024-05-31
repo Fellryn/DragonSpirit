@@ -27,7 +27,7 @@ namespace KurtSingle
         protected override void OnEnable()
         {
             base.OnEnable();
-            gameTickSystem.OnEveryHalfTick.AddListener(DoPositionCheck);
+            gameTickSystem.OnEveryHalfTick.AddListener(DoChecks);
             storedMoveSpeed = moveSpeed;
             storedMoveTarget = initialMoveTarget;
 
@@ -37,7 +37,7 @@ namespace KurtSingle
         protected override void OnDisable()
         {
             base.OnDisable();
-            gameTickSystem.OnEveryHalfTick.RemoveListener(DoPositionCheck);
+            gameTickSystem.OnEveryHalfTick.RemoveListener(DoChecks);
         }
 
 
@@ -81,6 +81,10 @@ namespace KurtSingle
             //cachedRigidbody.rotation = Quaternion.Euler(0f, cachedRigidbody.rotation.y, cachedRigidbody.rotation.z);
         }
 
+        private void DoChecks()
+        {
+            DoPositionCheck();
+        }
 
         private void DoPositionCheck()
         {

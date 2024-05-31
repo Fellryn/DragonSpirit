@@ -24,6 +24,7 @@ namespace KurtSingle
         protected Transform projectileHolder;
         protected Transform mainCameraTransform;
         private EnemyAnimation enemyAnimationScript;
+        protected MultiplayerManager multiplayerManager;
 
         // Example of polymorphism (Changing the function while still keeping the same name and previous behaviour)
         // On enable adds listener for shooting randomly, grabs link to prefab list
@@ -33,10 +34,13 @@ namespace KurtSingle
             base.OnEnable();
 
             gameTickSystem.OnRandomTick.AddListener(Attack);
+            gameTickSystem.OnTickWhole.AddListener(DoPlayerDistanceCheck);
+
             cachedPlayerTransform = FindAnyObjectByType<PlayerMovement>().GetComponent<Transform>();
             prefabLink = FindAnyObjectByType<PrefabReferencesLink>();
             projectileHolder = GameObject.FindWithTag("ProjectileHolder").GetComponent<Transform>();
             mainCameraTransform = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+            multiplayerManager = FindAnyObjectByType<MultiplayerManager>();
             if (TryGetComponent(out EnemyAnimation enemyAnimation)) enemyAnimationScript = enemyAnimation;
             if (!useCustomProjectileOrigin) projectileOrigin = transform;
         }
@@ -44,6 +48,7 @@ namespace KurtSingle
         protected virtual void OnDisable()
         {
             gameTickSystem.OnRandomTick.RemoveListener(Attack);
+            gameTickSystem.OnTickWhole.RemoveListener(DoPlayerDistanceCheck);
         }
 
         // Called from animation event that is on child object with animator component
@@ -75,7 +80,7 @@ namespace KurtSingle
         }
 
         // Example of abstraction (hiding all the details of launching a fireball, inheriting classes can just call LaunchFireball())
-        
+
         protected void LaunchFireball()
         {
 
@@ -94,6 +99,20 @@ namespace KurtSingle
                     isEnemy: true,
                     projectileMoveSpeed: projectileMoveSpeed,
                     aimAtPlayer: aimAtPlayer);
+            }
+        }
+
+        public void DoPlayerDistanceCheck()
+        {
+            if (multiplayerManager.playersList.Count > 1)
+            {
+                if (Vector3.Distance(multiplayerManager.playersList[0].position, transform.position) < Vector3.Distance(multiplayerManager.playersList[1].position, transform.position))
+                {
+                    cachedPlayerTransform = multiplayerManager.playersList[0];
+                } else
+                {
+                    cachedPlayerTransform = multiplayerManager.playersList[1];
+                }
             }
         }
     }

@@ -41,10 +41,13 @@ namespace KurtSingle
         float respawnTime = 3f;
         float timer = 0f;
 
+        public List<Transform> playersList = new List<Transform>();
+
         void Start()
         {
             playerInputManager.onPlayerJoined += PlayerJoined;
             gameTickSystem.OnEveryHalfTick.AddListener(CheckPlayerStatus);
+            playersList.Add(firstPlayer.transform);
         }
 
         void OnDestroy()
@@ -66,6 +69,8 @@ namespace KurtSingle
             playerInputManager.enabled = false;
 
             MovePlayerToOtherPlayer(false);
+
+            playersList.Add(secondPlayer.transform);
         }
 
 
@@ -93,18 +98,30 @@ namespace KurtSingle
                         {
                             firstPlayerStats.PlayerHeal(10);
                             MovePlayerToOtherPlayer();
+                            playersList.Add(firstPlayer.transform);
                         }
 
                         if (secondPlayerStats.PlayerLife <= 0)
                         {
                             secondPlayerStats.PlayerHeal(10);
                             MovePlayerToOtherPlayer(false);
+                            playersList.Add(secondPlayer.transform);
                         }
 
                     }
                     else
                     {
                         timer += 0.5f;
+
+                        if (!firstPlayer.activeSelf)
+                        {
+                            playersList.Remove(firstPlayer.transform);
+                        }
+
+                        if (!secondPlayer.activeSelf)
+                        {
+                            playersList.Remove(secondPlayer.transform);
+                        }
                     }
                 }
             } else

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using KurtSingle;
 using UlianaKutsenko;
 using TMPro;
@@ -21,7 +22,7 @@ namespace KurtSingle
         [SerializeField] GameTickSystem gameTickSystem;
         [SerializeField] PlayerPowerups playerPowerUps;
         [SerializeField] PlayerMultiplier playerMultiplier;
-        [SerializeField] GameObject otherPlayer;
+        [SerializeField] Button godmodeButton;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
@@ -69,6 +70,7 @@ namespace KurtSingle
         private void Start()
         {
             EnemyBase.onKill += AddScore;
+            godmodeButton.onClick.AddListener(ToggleGodmode);
             //gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
 
             if (isPlayerOne)
@@ -98,6 +100,7 @@ namespace KurtSingle
         private void OnDestroy()
         {
             EnemyBase.onKill -= AddScore;
+            godmodeButton.onClick.RemoveListener(ToggleGodmode);
             DOTween.Kill(healthMask);
             DOTween.Kill(manaMask);
         }

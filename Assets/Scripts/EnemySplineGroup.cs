@@ -143,6 +143,7 @@ namespace KurtSingle
                             enemyPack[i].transform.SetParent(enemyRandomHolder);
                             enemyMobile.ChangeMoveTarget(new Vector3(Random.Range(moveOffsetMin.x, moveOffsetMax.x), Random.Range(moveOffsetMin.y, moveOffsetMax.y), Random.Range(moveOffsetMin.z, moveOffsetMax.z)));
                             enemyMobile.useSpline = false;
+                            enemyMobile.DoPlayerDistanceCheck();
                         }
                     }
                 }
