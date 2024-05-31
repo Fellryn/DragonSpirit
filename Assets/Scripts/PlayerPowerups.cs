@@ -79,26 +79,24 @@ namespace KurtSingle
 
         private void Start()
         {
-            powerUpText.anchoredPosition = textOffscreenPos;
 
-            powerUpTextMultiplayer.anchoredPosition = new Vector2(powerUpText.anchoredPosition.x, textOffscreenPos.y);
+            powerUpText.anchoredPosition = new Vector2(powerUpText.anchoredPosition.x, textOffscreenPos.y);
+            powerUpTextMultiplayer.anchoredPosition = new Vector2(powerUpTextMultiplayer.anchoredPosition.x, textOffscreenPos.y);
 
             powerUpTextSequence = DOTween.Sequence();
-
             powerUpTextSequence
-                .Append(powerUpText.DOAnchorPos(textOnscreenPos, totalTweenTime * 0.25f).SetEase(textEaseInType))
+                .Append(powerUpText.DOAnchorPos(new Vector2(powerUpText.anchoredPosition.x, textOnscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseInType))
                 .AppendInterval(totalTweenTime * 0.5f)
                 .Join(powerUpText.DOShakeAnchorPos(totalTweenTime * 0.75f, shakeStrength, shakeVibrato, fadeOut: false).SetEase(shakeEaseType))
-                .Append(powerUpText.DOAnchorPos(textOffscreenPos, totalTweenTime * 0.25f).SetEase(textEaseOutType))
+                .Append(powerUpText.DOAnchorPos(new Vector2(powerUpText.anchoredPosition.x, textOffscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseOutType))
                 .SetAutoKill(false);
 
             powerUpTextMultiplayerSequence = DOTween.Sequence();
-
             powerUpTextMultiplayerSequence
-                .Append(powerUpTextMultiplayer.DOAnchorPos(textOnscreenPos, totalTweenTime * 0.25f).SetEase(textEaseInType))
+                .Append(powerUpTextMultiplayer.DOAnchorPos(new Vector2(powerUpTextMultiplayer.anchoredPosition.x, textOnscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseInType))
                 .AppendInterval(totalTweenTime * 0.5f)
                 .Join(powerUpTextMultiplayer.DOShakeAnchorPos(totalTweenTime * 0.75f, shakeStrength, shakeVibrato, fadeOut: false).SetEase(shakeEaseType))
-                .Append(powerUpTextMultiplayer.DOAnchorPos(textOffscreenPos, totalTweenTime * 0.25f).SetEase(textEaseOutType))
+                .Append(powerUpTextMultiplayer.DOAnchorPos(new Vector2(powerUpTextMultiplayer.anchoredPosition.x, textOffscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseOutType))
                 .SetAutoKill(false);
 
             powerUpTextSequence.Complete();
@@ -133,6 +131,7 @@ namespace KurtSingle
                             break;
                     }
 
+                    powerUpBase.PassPlayerTransform(transform);
                     powerUpBase.BeginDestruction();
                 }
 

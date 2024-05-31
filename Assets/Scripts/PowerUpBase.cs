@@ -71,8 +71,12 @@ namespace KurtSingle
 
         private void FixedUpdate()
         {
-            
             Move();
+        }
+
+        public void PassPlayerTransform(Transform playerTransform)
+        {
+            cachedPlayerTransform = playerTransform;
         }
 
 
