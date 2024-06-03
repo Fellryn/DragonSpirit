@@ -79,9 +79,13 @@ namespace KurtSingle
 			if (playerOneHit == playerStats.isPlayerOne)
 			{
 				numberOfEnemiesKilledSinceLastHit = 0;
-				MultiplierLevel = 1;
-				DoMultiplierTween();
+
 				SetMultiplierText();
+				if (MultiplierLevel != 1)
+				{
+					MultiplierLevel = 1;
+					DoMultiplierTween();
+				}
 			}
         }
 
