@@ -20,18 +20,35 @@ namespace KurtSingle
         [SerializeField] InputActionReference menuKeyPlayer;
         [SerializeField] InputActionReference menuKeyUI;
 
+        PlayerInput playerInput;
+        InputAction cancelActionPlayer;
+        InputAction cancelActionUI;
+
+
         private void Awake()
         {
 			GameManager.OnGameStateChanged += OnGameManagerStateChanged;
-            menuKeyPlayer.action.performed += HardwareMenuKeyPressed;
-            menuKeyUI.action.performed += HardwareMenuKeyPressed;
+   //         menuKeyPlayer.action.performed += HardwareMenuKeyPressed;
+   //         menuKeyUI.action.performed += HardwareMenuKeyPressed;
+
+            playerInput = GetComponent<PlayerInput>();
+
+            cancelActionPlayer = playerInput.actions.FindAction("Cancel");
+            cancelActionUI = playerInput.actions.FindAction("Cancel");
+
+            cancelActionPlayer.performed += HardwareMenuKeyPressed;
+            cancelActionUI.performed += HardwareMenuKeyPressed;
         }
 
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameManagerStateChanged;
-            menuKeyPlayer.action.performed -= HardwareMenuKeyPressed;
-            menuKeyUI.action.performed -= HardwareMenuKeyPressed;
+            //menuKeyPlayer.action.performed -= HardwareMenuKeyPressed;
+            //menuKeyUI.action.performed -= HardwareMenuKeyPressed;
+
+            cancelActionPlayer.performed -= HardwareMenuKeyPressed;
+            cancelActionUI.performed -= HardwareMenuKeyPressed;
+
         }
 
         private void HardwareMenuKeyPressed(InputAction.CallbackContext obj)
