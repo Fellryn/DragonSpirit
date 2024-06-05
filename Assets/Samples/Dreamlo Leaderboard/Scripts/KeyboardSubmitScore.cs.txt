@@ -1,0 +1,91 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using TMPro;
+using System.Globalization;
+
+public class KeyboardSubmitScore : MonoBehaviour
+{
+    [SerializeField] private TMP_InputField scoreInput;
+    [SerializeField] private Button scoreButton;
+    [SerializeField] private TextAsset profanityFile;
+    [SerializeField] private TextMeshProUGUI errorTooShortLabel;
+    [SerializeField] private TextMeshProUGUI errorProfanityLabel;
+    [SerializeField] private DisplayScore displayScore;
+    [SerializeField] private InputActionReference submitForm;
+
+    [SerializeField] private GameObject displayAfterSubmit;
+    [SerializeField] private GameObject afterSubmitMessage;
+
+    private string[] profanities;
+    private bool errorShort = false;
+    private bool errorProfanity = false;
+
+    private void OnEnable()
+    {
+        submitForm.action.performed += AttemptSubmit;
+    }
+
+    private void OnDisable()
+    {
+        submitForm.action.performed -= AttemptSubmit;
+    }
+
+    private void Awake()
+    {
+        profanities = profanityFile.text.Split("\r\n");
+    }
+
+    void AttemptSubmit(InputAction.CallbackContext context = default(InputAction.CallbackContext))
+    {
+        if (scoreButton.interactable && gameObject.activeSelf)
+        {
+            Submit();
+        }
+    }
+
+    bool ContainsProfanity(string input)
+    {
+        for (int i = 0; i < profanities.Length; i++)
+        {
+            if (input.Contains(profanities[i].Trim())) return true;
+        }
+        return false;
+    }
+
+    public string ProperCase(string input)
+    {
+        return new CultureInfo("en").TextInfo.ToTitleCase(input.ToLower());
+    }
+
+    public void Submittable()
+    {
+        scoreInput.text = ProperCase(scoreInput.text);
+        string inputText = scoreInput.text;
+        errorShort = inputText.Length < 3;
+        errorProfanity = ContainsProfanity(inputText.ToLower());
+        errorTooShortLabel.gameObject.SetActive(errorShort);
+        errorProfanityLabel.gameObject.SetActive(errorProfanity);
+        scoreButton.interactable = (!errorShort && !errorProfanity);
+    }
+
+    public void Submit()
+    {
+        HighScores.UploadScore(scoreInput.text, displayScore.totalScore);
+        scoreInput.interactable = false;
+        scoreButton.interactable = false;
+        displayAfterSubmit.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public void Skip()
+    {
+        scoreInput.interactable = false;
+        scoreButton.interactable = false;
+        afterSubmitMessage.SetActive(false);
+        displayAfterSubmit.SetActive(true);
+        gameObject.SetActive(false);
+    }
+}

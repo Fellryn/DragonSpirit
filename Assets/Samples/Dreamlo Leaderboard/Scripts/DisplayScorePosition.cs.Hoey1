@@ -1,0 +1,225 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+
+/// <summary>
+/// This allows the user to download the scores from a unique Dreamlo.com link.
+/// Then it cycles through the scores and shows the ones nearest to the current player score.
+/// Effectively, a near 5 (two above, two below, if they exist).
+/// 
+/// Original Author: John Abel Sem1 2023.
+/// Modified by: Mark Hoey.
+/// </summary>
+public class DisplayScorePosition : FastBehaviour
+{
+    [SerializeField] private HighScores highScores;
+    [SerializeField] private UnityEvent OnAllScoresUpdate;
+    [SerializeField] private CanvasGroup canvasGroup;
+
+    [SerializeField] int currentScoreTotal = 5;
+    private int lastKnownScoreTotal = 0;
+
+    [SerializeField] private float scoreChangeHeight = 10f;
+    [SerializeField] private float scoreChangeTime = 1f;
+    [SerializeField] private List<TextMeshProUGUI> scoreLabels;
+    [SerializeField] private List<GameObject> scoreGameObjects;
+    private List<Vector3> originalPositions = new List<Vector3>();
+
+    private int currentRank = -1;
+
+    private void Awake()
+    {
+        // Vertical Layout group caused issues with DoTween
+        if (GetComponent<VerticalLayoutGroup>() != null)
+        {
+            Destroy(GetComponent<VerticalLayoutGroup>());
+        }
+
+        //Use some helper extension methods to grab the objects/components automatically
+        scoreGameObjects = gameObject.GetChildrenList();
+        scoreLabels = gameObject.GetGrandChildrenList<TextMeshProUGUI>(0);
+
+        //Store the original positions of the objects to stop DoTween "walking"
+        foreach (var item in scoreGameObjects)
+        {
+            originalPositions.Add(item.GetComponent<RectTransform>().anchoredPosition3D);
+        }
+    }
+    private void OnEnable()
+    {
+        OnAllScoresUpdate.AddListener(DisplayScoreDisplay);
+    }
+
+    private void OnDisable()
+    {
+        OnAllScoresUpdate.RemoveListener(DisplayScoreDisplay);
+    }
+
+    private void Start()
+    {
+        highScores = GetComponent<HighScores>();
+        StartCoroutine("UpdateAllScores");
+    }
+
+    public void TestAddScore(int amount)
+    {
+        currentScoreTotal += amount;
+    }
+
+    private void Update()
+    {
+        if (currentScoreTotal <= lastKnownScoreTotal)
+        {
+            return;
+        }
+
+        lastKnownScoreTotal = currentScoreTotal;
+        OnAllScoresUpdate?.Invoke();
+    }
+
+    void DisplayScoreDisplay()
+    {
+        UpdateFiveNearScoresDisplay();
+        canvasGroup.DOFade(.625f, 5f);
+    }
+
+    IEnumerator UpdateAllScores()
+    {
+        while (true)
+        {
+            highScores.GetAllScores();
+#if UNITY_EDITOR
+            print("Updated Data from online: " + Time.time);
+#endif
+            yield return new WaitForSeconds(60);
+        }
+    }
+
+
+    private void UpdateFiveNearScoresDisplay(int _context = 0)
+    {
+#if UNITY_EDITOR
+        print("Updated score display: " + Time.time);
+#endif
+        int currentScore = currentScoreTotal;
+
+        if (currentScore <= 0) { return; }
+
+        if (highScores.allScoresList == null) { return; }
+
+        int scoresFound = highScores.allScoresList.Length;
+
+        if (scoresFound <= 0) { return; }
+
+        for (int i = 0; i < scoresFound; i++)
+        {
+            if (currentScore > highScores.allScoresList[i].score)
+            {
+                scoresFound = i;
+                break;
+            }
+        }
+
+        foreach (var item in scoreGameObjects)
+        {
+            item.SetActive(true);
+            item.SetActive(false);
+        }
+
+        void SetActiveAndSetText(GameObject whatToEnable, TextMeshProUGUI whatToUpdateText)
+        {
+            whatToEnable.SetActive(true);
+            whatToUpdateText.text = (scoresFound - 1).ToString() + ". " + highScores.allScoresList[scoresFound - 2].score.ToString("n0");
+
+        }
+
+        if (scoresFound - 2 >= 0)
+        {
+            scoreGameObjects[0].SetActive(true);
+            scoreLabels[0].text = (scoresFound - 1).ToString() + ". " + highScores.allScoresList[scoresFound - 2].score.ToString("n0");
+        }
+
+        if (scoresFound - 1 >= 0)
+        {
+            scoreGameObjects[1].SetActive(true);
+            scoreLabels[1].text = (scoresFound).ToString() + ". " + highScores.allScoresList[scoresFound - 1].score.ToString("n0");
+        }
+
+
+        scoreGameObjects[2].SetActive(true);
+        //scoreLabels[2].text = (found + 1).ToString() + ". " + currentScore.ToString("n0") + " (You)";
+        scoreLabels[2].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
+
+        if (scoresFound < highScores.allScoresList.Length)
+        {
+            scoreGameObjects[3].SetActive(true);
+            scoreLabels[3].text = (scoresFound + 2).ToString() + ". " + highScores.allScoresList[scoresFound].score.ToString("n0");
+        }
+
+        if (scoresFound + 1 < highScores.allScoresList.Length)
+        {
+            scoreGameObjects[4].SetActive(true);
+            scoreLabels[4].text = (scoresFound + 3).ToString() + ". " + highScores.allScoresList[scoresFound + 1].score.ToString("n0");
+        }
+
+        if (scoresFound != currentRank)
+        {
+            if (currentRank > 0)
+            {
+                MoveScore(scoresFound < currentRank);
+            }
+            currentRank = scoresFound;
+        }
+    }
+
+    public void Bounce(GameObject _object, Vector3 originalPosition, bool _up = true)
+    {
+        float _scoreChangeHeight = (_up) ? scoreChangeHeight : -scoreChangeHeight;
+        if (_object.activeSelf)
+        {
+            _object.transform.DOKill();
+            _object.transform.position = originalPosition;
+            _object.transform.DOJump(_object.transform.position, _scoreChangeHeight, 1, scoreChangeTime * 0.5f, false);
+        }
+    }
+
+    public void Bounce(RectTransform _object, Vector3 originalPosition, bool _up = true)
+    {
+        float _scoreChangeHeight = (_up) ? scoreChangeHeight : -scoreChangeHeight;
+        if (_object.gameObject.activeSelf)
+        {
+            _object.DOKill();
+            _object.anchoredPosition3D = originalPosition;
+            //_object.DOJump(_object.anchoredPosition3D, _scoreChangeHeight, 1, scoreChangeTime * 0.5f, false);
+            _object.DOJumpAnchorPos(_object.anchoredPosition3D, _scoreChangeHeight, 1, scoreChangeTime * 0.5f, false);
+        }
+    }
+
+    void MoveScore(bool _up = true)
+    {
+        for (int i = 0; i < scoreGameObjects.Count; i++)
+        {
+            Bounce(scoreGameObjects[i].GetComponent<RectTransform>(), originalPositions[i], !_up);
+        }
+
+    }
+
+    private Vector3 savedPosition;
+
+    // Method to store the RectTransform position data
+    public void SavePosition(RectTransform rectTransform)
+    {
+        savedPosition = rectTransform.anchoredPosition3D;
+    }
+
+    // Method to add back the stored position data to the RectTransform
+    public void RestorePosition(RectTransform rectTransform)
+    {
+        rectTransform.anchoredPosition3D = savedPosition;
+    }
+}

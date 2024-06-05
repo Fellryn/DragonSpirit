@@ -1,0 +1,182 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
+using System.Globalization;
+
+public class GamepadSubmitScore : MonoBehaviour
+{
+    [SerializeField] private SyncPlayerInput syncPlayerInput;
+    [SerializeField] private TextAsset profanityFile;
+
+    [SerializeField] private DisplayScore displayScore;
+    [SerializeField] private TMP_InputField scoreInput;
+    [SerializeField] private TextMeshProUGUI errorTooShortLabel;
+    [SerializeField] private TextMeshProUGUI errorProfanityLabel;
+    [SerializeField] private TextMeshProUGUI displayLabelBG;
+    [SerializeField] private TextMeshProUGUI displayLabel;
+
+    [SerializeField] private GameObject displayAfterSubmit;
+    [SerializeField] private GameObject afterSubmitMessage;
+
+    private string[] profanities;
+    private bool errorShort = false;
+    private bool errorProfanity = false;
+    private bool submittable = false;
+
+    private char[] alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_".ToCharArray();
+    private string[] display = new string[12];
+    private int selectorIndex = 0;
+    private int letterIndex = 0;
+
+    private PlayerInput input;
+
+    private void Start()
+    {
+        input = syncPlayerInput.sync;
+        input.actions["Right"].performed += PressedRight;
+        input.actions["Up"].performed += PressedRight;
+        input.actions["Left"].performed += PressedLeft;
+        input.actions["Down"].performed += PressedLeft;
+        input.actions["Start"].performed += AttemptSubmit;
+        input.actions["Decline"].performed += RemoveCurrentLetter;
+        input.actions["Accept"].performed += AddCurrentLetter;
+
+        profanities = profanityFile.text.Split("\r\n");
+        display[0] = "A";
+        UpdateCurrentString();
+    }
+
+    private void OnDestroy()
+    {
+        if (input != null)
+        {
+            input.actions["Right"].performed -= PressedRight;
+            input.actions["Up"].performed -= PressedRight;
+            input.actions["Left"].performed -= PressedLeft;
+            input.actions["Down"].performed -= PressedLeft;
+            input.actions["Start"].performed -= AttemptSubmit;
+            input.actions["Decline"].performed -= RemoveCurrentLetter;
+            input.actions["Accept"].performed -= AddCurrentLetter;
+        }
+    }
+
+    void PressedRight(InputAction.CallbackContext context)
+    {
+        PressedDirection(true);
+    }
+
+    void PressedLeft(InputAction.CallbackContext context)
+    {
+        PressedDirection(false);
+    }
+
+    void AttemptSubmit(InputAction.CallbackContext context = default(InputAction.CallbackContext))
+    {
+        if (submittable && gameObject.activeSelf)
+        {
+            Submit();
+        }
+    }
+
+    void Skip()
+    {
+        scoreInput.interactable = false;
+        afterSubmitMessage.SetActive(false);
+        displayAfterSubmit.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    void RemoveCurrentLetter(InputAction.CallbackContext context)
+    {
+        if (letterIndex <= 0)
+        {
+            Skip();
+            return;
+        }
+        display[letterIndex] = "";
+        letterIndex--;
+        scoreInput.text = ProperCase(scoreInput.text).Substring(0, scoreInput.text.Length - 1);
+        UpdateCurrentString();
+    }
+
+    void AddCurrentLetter(InputAction.CallbackContext context)
+    {
+        if (letterIndex > 12)
+        {
+            AttemptSubmit();
+            return;
+        }
+        string currentLetter = alphanumeric[selectorIndex].ToString();
+        if (currentLetter == "_") currentLetter = " ";
+        display[letterIndex] = currentLetter;
+        letterIndex++;
+        if (letterIndex < 12) display[letterIndex] = currentLetter;
+        scoreInput.text = ProperCase(scoreInput.text + currentLetter);
+        UpdateCurrentString();
+    }
+
+    void UpdateCurrentString()
+    {
+        string currentString = " ";
+        for (int i = 0; i < display.Length; i++)
+        {
+            if (display[i] == "" || display[i] == null) display[i] = "_";
+            currentString += display[i] + " ";
+        }
+        displayLabel.text = displayLabelBG.text = currentString;
+        Submittable();
+    }
+
+    void PressedDirection(bool right)
+    {
+        if(right)
+        {
+            selectorIndex++;
+            if (selectorIndex > alphanumeric.Length-1) selectorIndex = 0;
+        }
+        else
+        {
+            selectorIndex--;
+            if (selectorIndex < 0) selectorIndex = alphanumeric.Length - 1;
+        }
+        string currentLetter = alphanumeric[selectorIndex].ToString();
+        display[letterIndex] = currentLetter;
+        UpdateCurrentString();
+    }
+
+    bool ContainsProfanity(string input)
+    {
+        for (int i = 0; i < profanities.Length; i++)
+        {
+            if (input.Contains(profanities[i].Trim())) return true;
+        }
+        return false;
+    }
+
+    public string ProperCase(string input)
+    {
+        return new CultureInfo("en").TextInfo.ToTitleCase(input.ToLower());
+    }
+
+    public void Submittable()
+    {
+        scoreInput.text = ProperCase(scoreInput.text);
+        string inputText = scoreInput.text;
+        errorShort = inputText.Length < 3;
+        errorProfanity = ContainsProfanity(inputText.ToLower());
+        errorTooShortLabel.gameObject.SetActive(errorShort);
+        errorProfanityLabel.gameObject.SetActive(errorProfanity);
+        submittable = (!errorShort && !errorProfanity);
+    }
+
+    public void Submit()
+    {
+        UpdateCurrentString();
+        HighScores.UploadScore(scoreInput.text, displayScore.totalScore);
+        scoreInput.interactable = false;
+        displayAfterSubmit.SetActive(true);
+        gameObject.SetActive(false);
+    }
+}
