@@ -15,6 +15,8 @@ namespace KurtSingle
 	{
         public bool AllowEnemySpawn { get; private set; }
         public bool wonLastLevel { get; private set; }
+        public int PlayerOneScore { get; private set; }
+        public int PlayerTwoScore { get; private set; }
 
         private void OnEnable()
         {
@@ -38,6 +40,14 @@ namespace KurtSingle
             wonLastLevel = foo;
         }
 
+        public void SetPlayerOneScore(int value)
+        {
+            PlayerOneScore = value;
+        }
 
+        public void SetPlayerTwoScore(int value)
+        {
+            PlayerTwoScore = value;
+        }
     }
 }

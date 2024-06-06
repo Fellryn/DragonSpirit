@@ -80,12 +80,12 @@ namespace KurtSingle
 			{
 				numberOfEnemiesKilledSinceLastHit = 0;
 
-				SetMultiplierText();
 				if (MultiplierLevel != 1)
 				{
 					MultiplierLevel = 1;
 					DoMultiplierTween();
 				}
+				SetMultiplierText();
 			}
         }
 

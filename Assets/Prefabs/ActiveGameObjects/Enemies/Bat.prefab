@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Pterodactyl
   startingHealth: 1
-  score: 1
+  score: 10
   cachedModel: {fileID: 6028377269135645396}
   cachedProjectileTrackingPoint: {fileID: 0}
   canAttack: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   ragdollOnDeath: 0
   timeBeforeDestroyObject: 5
   ragdollObject: {fileID: 0}
+  lastHitByPlayerOne: 1
   useExplosiveForceEffectOnDeath: 1
   explosionPower: 5
   explosionRadius: 5

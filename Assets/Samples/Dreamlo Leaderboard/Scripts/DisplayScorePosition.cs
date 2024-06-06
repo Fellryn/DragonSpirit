@@ -29,7 +29,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
     private Vector3 canvasOpenLocation;
     [SerializeField] private Vector3 canvasClosedLocationOffset;
 
-    [SerializeField] int currentScoreTotal = 5;
+    [SerializeField] int currentScoreTotal = 0;
     private int lastKnownScoreTotal = 0;
 
     [SerializeField] private float scoreChangeHeight = 10f;
@@ -90,9 +90,9 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         DisplayScoreDisplay();
     }
 
-    public void TestAddScore(int amount)
+    public void SetScore(int amount)
     {
-        currentScoreTotal += amount;
+        currentScoreTotal = amount;
     }
 
     private void Update()
@@ -180,8 +180,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
             }
         }
 
-       
-
+    
         void SetActiveAndSetText(GameObject gameobjectToEnable, TextMeshProUGUI textfieldToUpdate, int displayIndex, int scoreListIndex, TextMeshProUGUI usernameTextfieldToUpdate = null)
         {
             gameobjectToEnable.SetActive(true);
@@ -199,32 +198,79 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
 
         }
 
+        scoreGameObjects[2].SetActive(true);
+        scoreTextfields[2].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
+        usernameTextfields[2].text = $"Current Player";
+
         if (scoresFound - 2 >= 0)
         {
             SetActiveAndSetText(scoreGameObjects[0], scoreTextfields[0], scoresFound - 1, scoresFound - 2, usernameTextfields[0]);
+        } else
+        {
+            scoreGameObjects[1].SetActive(true);
+            scoreTextfields[1].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
+            usernameTextfields[1].text = $"Current Player";
+
+            //scoreGameObjects[0].SetActive(true);
+            //scoreTextfields[0].text = $"{highScores.allScoresList[0].score.ToString("N0")}";
+            //usernameTextfields[0].text = $"{highScores.allScoresList[0].username.ToString()}";
+
+            if (scoresFound + 1 >= 0)
+            {
+                scoreGameObjects[1].SetActive(true);
+                scoreTextfields[1].text = $"2. {highScores.allScoresList[0].score.ToString("N0")}";
+                usernameTextfields[1].text = $"{highScores.allScoresList[0].username.ToString()}";
+
+
+            }
         }
 
         if (scoresFound - 1 >= 0)
         {
             SetActiveAndSetText(scoreGameObjects[1], scoreTextfields[1], scoresFound, scoresFound - 1, usernameTextfields[1]);
+        } else
+        {
+            scoreGameObjects[0].SetActive(true);
+            scoreTextfields[0].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
+            usernameTextfields[0].text = $"Current Player";
+
+            if (scoresFound + 2 >= 0)
+            {
+                scoreGameObjects[2].SetActive(true);
+                scoreTextfields[2].text = $"3. {highScores.allScoresList[1].score.ToString("N0")}";
+                usernameTextfields[2].text = $"{highScores.allScoresList[1].username.ToString()}";
+            }
         }
 
 
-        scoreGameObjects[2].SetActive(true);
-        scoreTextfields[2].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
-        usernameTextfields[2].text = $"Current Player";
-        
+
+
+
+        //scoreGameObjects[2].SetActive(true);
+        //scoreTextfields[2].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
+        //usernameTextfields[2].text = $"Current Player";
+
         //timeTextfields[2].text = Time.timeSinceLevelLoad.GetTimeSpanString();
 
-        if (scoresFound < highScores.allScoresList.Length)
+        scoreGameObjects[3].SetActive(false);
+        scoreGameObjects[4].SetActive(false);
+
+        if (currentRank >= 2)
         {
-            SetActiveAndSetText(scoreGameObjects[3], scoreTextfields[3], scoresFound + 2, scoresFound, usernameTextfields[3]);
+
+            if (scoresFound < highScores.allScoresList.Length)
+            {
+                SetActiveAndSetText(scoreGameObjects[3], scoreTextfields[3], scoresFound + 2, scoresFound, usernameTextfields[3]);
+            }
+
+            if (scoresFound + 1 < highScores.allScoresList.Length)
+            {
+                SetActiveAndSetText(scoreGameObjects[4], scoreTextfields[4], scoresFound + 3, scoresFound + 1, usernameTextfields[4]);
+
+            }
         }
 
-        if (scoresFound + 1 < highScores.allScoresList.Length)
-        {
-            SetActiveAndSetText(scoreGameObjects[4], scoreTextfields[4], scoresFound + 3, scoresFound + 1, usernameTextfields[4]);
-        }
+        Debug.Log(currentRank);
 
         if (scoresFound != currentRank)
         {
@@ -289,22 +335,22 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
     /// <summary>
     /// TODO: Move this and related fields to separate script - then can be used for any toggle group
     /// </summary>
-    bool isClosed = true;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        isClosed = !isClosed;
-        if (isClosed)
-        {
-            ToggleTextfieldVisibility(_showNames: true, _showTimes: true);
-            canvasGroup.GetComponent<RectTransform>().DOKill();
-            canvasGroup.GetComponent<RectTransform>().DOAnchorPos3D(canvasOpenLocation, 0.5f);
-        }
-        else
-        {
-            ToggleTextfieldVisibility(_showNames: false, _showTimes: false);
-            canvasGroup.GetComponent<RectTransform>().DOKill();
-            canvasGroup.GetComponent<RectTransform>().DOAnchorPos3D(canvasOpenLocation + canvasClosedLocationOffset, 0.5f);
-        }
+        //isClosed = !isClosed;
+        //if (isClosed)
+        //{
+        //    ToggleTextfieldVisibility(_showNames: true, _showTimes: true);
+        //    canvasGroup.GetComponent<RectTransform>().DOKill();
+        //    canvasGroup.GetComponent<RectTransform>().DOAnchorPos3D(canvasOpenLocation, 0.5f);
+        //}
+        //else
+        //{
+        //    ToggleTextfieldVisibility(_showNames: false, _showTimes: false);
+        //    canvasGroup.GetComponent<RectTransform>().DOKill();
+        //    canvasGroup.GetComponent<RectTransform>().DOAnchorPos3D(canvasOpenLocation + canvasClosedLocationOffset, 0.5f);
+        //}
 
     }
 }

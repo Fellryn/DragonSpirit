@@ -37,6 +37,10 @@ namespace KurtSingle
         [SerializeField]
         TextMeshProUGUI scoreText;
         [SerializeField]
+        DisplayScorePosition displayScorePosition;
+        [SerializeField]
+        DisplayScorePosition displayScorePositionMultiplayer;
+        [SerializeField]
         RectTransform healthMask;
         [SerializeField]
         RectTransform manaMask;
@@ -111,6 +115,8 @@ namespace KurtSingle
             if (lastHitByPlayerOne == isPlayerOne)
             {
                 PlayerScore += (score * playerMultiplier.MultiplierLevel);
+                displayScorePosition.SetScore(PlayerScore);
+                displayScorePositionMultiplayer.SetScore(PlayerScore);
                 UpdateScoreText();
                 //UpdateManaText();
             }

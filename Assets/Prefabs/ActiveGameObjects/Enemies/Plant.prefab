@@ -100,14 +100,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Plant
   startingHealth: 1
-  score: 1
+  score: 15
   cachedModel: {fileID: 3575681098747973862}
   cachedProjectileTrackingPoint: {fileID: 0}
   canAttack: 0
   isInvincible: 1
   deathBegun: 0
   ragdollOnDeath: 1
+  timeBeforeDestroyObject: 5
   ragdollObject: {fileID: 8518227173845875439}
+  lastHitByPlayerOne: 1
   useExplosiveForceEffectOnDeath: 0
   explosionPower: 10
   explosionRadius: 5

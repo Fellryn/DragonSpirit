@@ -109,15 +109,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Boss
-  startingHealth: 1
-  score: 100
+  startingHealth: 41
+  score: 1000
   cachedModel: {fileID: 4761886219069391381}
   cachedProjectileTrackingPoint: {fileID: 4603611003430234910}
   canAttack: 0
   isInvincible: 0
   deathBegun: 0
   ragdollOnDeath: 1
+  timeBeforeDestroyObject: 5
   ragdollObject: {fileID: 4021722891422403432}
+  lastHitByPlayerOne: 1
   useExplosiveForceEffectOnDeath: 0
   explosionPower: 10
   explosionRadius: 5

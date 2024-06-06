@@ -28,6 +28,11 @@ namespace KurtSingle
         GameObject multiPlayerHud;
 
         [SerializeField]
+        GameObject singlePlayerScoreHud;
+        [SerializeField]
+        GameObject multiPlayerScoreHud;
+
+        [SerializeField]
         GameObject firstPlayer;
         [SerializeField]
         GameObject secondPlayer;
@@ -60,6 +65,8 @@ namespace KurtSingle
         {
             singlePlayerHud.SetActive(false);
             multiPlayerHud.SetActive(true);
+            singlePlayerScoreHud.SetActive(false);
+            multiPlayerScoreHud.SetActive(true);
 
             //playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
 

@@ -73,7 +73,7 @@ public class HighScoresSampleData : MonoBehaviour
 
         if (useReallyHighFirstPlace)
         {
-            highScores.UploadScoreTimeComment("Steve", 35000, 5, "Minecraft4Life", overrideSamePlayer: true);
+            highScores.UploadScoreTimeComment("Steve", 6000, 5, "Minecraft4Life", overrideSamePlayer: true);
         }
     }
 }
