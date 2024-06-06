@@ -98,6 +98,15 @@ namespace KurtSingle
         {
             //gameTickSystem.OnTickWhole.RemoveListener(delegate { PlayerGainMana(1f); });
             //gameTickSystem.OnEveryHalfTick.RemoveListener()
+
+            if (isPlayerOne)
+            {
+                gameVars.SetPlayerOneScore(PlayerScore);
+            }
+            else
+            {
+                gameVars.SetPlayerTwoScore(PlayerScore);
+            }
         }
 
 
@@ -107,6 +116,8 @@ namespace KurtSingle
             godmodeButton.onClick.RemoveListener(ToggleGodmode);
             DOTween.Kill(healthMask);
             DOTween.Kill(manaMask);
+
+
         }
 
 

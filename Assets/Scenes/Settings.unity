@@ -1199,6 +1199,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 666485696776102630, guid: bdef38a0110674e2498f89eec4501df5,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -93.399994
+      objectReference: {fileID: 0}
     - target: {fileID: 1657000234444960148, guid: bdef38a0110674e2498f89eec4501df5,
         type: 3}
       propertyPath: m_TargetGraphic
@@ -1432,7 +1437,7 @@ PrefabInstance:
     - target: {fileID: 3874109527984302556, guid: bdef38a0110674e2498f89eec4501df5,
         type: 3}
       propertyPath: m_PlaneDistance
-      value: 52.21
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 4237206873607796216, guid: bdef38a0110674e2498f89eec4501df5,
         type: 3}
