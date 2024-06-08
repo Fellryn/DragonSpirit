@@ -90,6 +90,11 @@ namespace KurtSingle
             UpdateLivesText();
             UpdateManaText();
 
+            gameVars.SetPlayerOneScore(0);
+            gameVars.SetPlayerTwoScore(0);
+            gameVars.WonLevel(false);
+
+
             //gameTickSystem.OnEveryHalfTick.AddListener()
         }
 

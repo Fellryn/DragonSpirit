@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace KurtSingle
 {
@@ -36,36 +37,66 @@ namespace KurtSingle
 		TextMeshProUGUI playerTwoNameInput;
 
 		[SerializeField]
-		GameObject[] playerTwoFields;
+		TMP_InputField playerOneNameInputParent;
+		[SerializeField]
+		TMP_InputField playerTwoNameInputParent;
+
+		[SerializeField]
+		Button playerOneInputOverlay;
+		[SerializeField]
+		Button playerTwoInputOverlay;
+
+		[SerializeField]
+		Button[] playerTwoInputs;
+		[SerializeField]
+		TextMeshProUGUI[] playerTwoText;
+		[SerializeField]
+		TextMeshProUGUI submitText;
 
 		[SerializeField]
 		Button playerOneSubmitButton;
 		[SerializeField]
 		Button playerTwoSubmitButton;
 
+		[SerializeField]
+		PlayerInput playerInput;
+
+
+ 
+		public bool isUsingGamepad = false;
+
 		private void Start()
         {
-			DisplayLeaderboard();
+			DisplayLeaderboard(1000);
 
 			if (!gameVars.wonLastLevel)
             {
 				scoreInputArea.SetActive(false);
             }
 
-			if (gameVars.PlayerOneScore != 0)
+			playerOneScoreText.text = "0";
+			playerTwoScoreText.text = "0";
+
+			if (gameVars.PlayerOneScore > 0)
 			{
-				playerOneScoreText.text = gameVars.PlayerOneScore.ToString();
+				playerOneScoreText.text = gameVars.PlayerOneScore.ToString("N0");
 			}
 
-			if (gameVars.PlayerTwoScore != 0)
+			if (gameVars.PlayerTwoScore > 0)
 			{
-				playerTwoScoreText.text = gameVars.PlayerTwoScore.ToString();
+				playerTwoScoreText.text = gameVars.PlayerTwoScore.ToString("N0");
 			} else
             {
-				foreach (GameObject obj in playerTwoFields)
+				foreach (Button obj in playerTwoInputs)
                 {
-					obj.SetActive(false);
+					obj.interactable = false;
                 }
+				foreach (TextMeshProUGUI text in playerTwoText)
+                {
+					text.alpha = 0.11f;
+                }
+				submitText.alpha = 0.15f;
+
             }
 
 			playerOneSubmitButton.onClick.AddListener(delegate { SubmitPlayerScore(true); });
@@ -78,11 +109,23 @@ namespace KurtSingle
 			playerTwoSubmitButton.onClick.RemoveListener(delegate { SubmitPlayerScore(false); });
 		}
 
-        private async void DisplayLeaderboard()
+        private void Update()
         {
+            if (playerInput.currentControlScheme == "Gamepad")
+            {
+				isUsingGamepad = true;
+            } else
+            {
+				isUsingGamepad = false;
+            }
+        }
+
+        private async void DisplayLeaderboard(int timeInMs)
+        {
+			highScores.RefreshScoresDelayed(1);
 			try
 			{
-				await Task.Delay(1000);
+				await Task.Delay(timeInMs);
 				displayAllLeaderboardData.UpdateValues();
             }
             catch (Exception e)
@@ -93,12 +136,22 @@ namespace KurtSingle
 
 		private void SubmitPlayerScore(bool isPlayerOne)
         {
-			if (isPlayerOne)
+			if (isPlayerOne && gameVars.PlayerOneScore > 0 && playerOneNameInput.text.Length != 1)
             {
 				highScores.UploadScoreTimeComment(playerOneNameInput.text, gameVars.PlayerOneScore, 60, "Tafe Player");
-            } else
+				playerOneSubmitButton.interactable = false;
+				playerOneInputOverlay.interactable = false;
+				playerOneSubmitButton.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.05f;
+
+				DisplayLeaderboard(5000);
+            } else if (gameVars.PlayerTwoScore > 0 && playerTwoNameInput.text.Length != 1)
             {
 				highScores.UploadScoreTimeComment(playerTwoNameInput.text, gameVars.PlayerTwoScore, 60, "Tafe Player");
+				playerTwoSubmitButton.interactable = false;
+				playerTwoInputOverlay.interactable = false;
+				playerTwoSubmitButton.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.05f;
+
+				DisplayLeaderboard(5000);
 			}
         }
 

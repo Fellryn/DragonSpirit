@@ -45,6 +45,10 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
 
     private int currentRank = -1;
 
+    [SerializeField] int scoreTextFieldsChildIndex = 0;
+    [SerializeField] int usernameTextfieldsIndex = 1;
+    [SerializeField] string playerName = "Player One";
+
     private void Awake()
     {
         // Vertical Layout group caused issues with DoTween
@@ -55,8 +59,8 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
 
         //Use some helper extension methods to grab the objects/components automatically
         scoreGameObjects = gameObject.GetChildrenList();
-        scoreTextfields = gameObject.GetGrandChildrenList<TextMeshProUGUI>(0);
-        usernameTextfields = gameObject.GetGrandChildrenList<TextMeshProUGUI>(1);
+        scoreTextfields = gameObject.GetGrandChildrenList<TextMeshProUGUI>(scoreTextFieldsChildIndex);
+        usernameTextfields = gameObject.GetGrandChildrenList<TextMeshProUGUI>(usernameTextfieldsIndex);
         //timeTextfields = gameObject.GetGrandChildrenList<TextMeshProUGUI>(2);
 
         //Store the original positions of the objects to stop DoTween "walking"
@@ -184,7 +188,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         void SetActiveAndSetText(GameObject gameobjectToEnable, TextMeshProUGUI textfieldToUpdate, int displayIndex, int scoreListIndex, TextMeshProUGUI usernameTextfieldToUpdate = null)
         {
             gameobjectToEnable.SetActive(true);
-            textfieldToUpdate.text = $"{displayIndex}. {highScores.allScoresList[scoreListIndex].score.ToString("N0")}";
+            textfieldToUpdate.text = $"{displayIndex}.  {highScores.allScoresList[scoreListIndex].score.ToString("N0")}";
 
             if (usernameTextfieldToUpdate != null)
             {
@@ -199,8 +203,8 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         }
 
         scoreGameObjects[2].SetActive(true);
-        scoreTextfields[2].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
-        usernameTextfields[2].text = $"Current Player";
+        scoreTextfields[2].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+        usernameTextfields[2].text = playerName;
 
         if (scoresFound - 2 >= 0)
         {
@@ -208,8 +212,8 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         } else
         {
             scoreGameObjects[1].SetActive(true);
-            scoreTextfields[1].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
-            usernameTextfields[1].text = $"Current Player";
+            scoreTextfields[1].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+            usernameTextfields[1].text = playerName;
 
             //scoreGameObjects[0].SetActive(true);
             //scoreTextfields[0].text = $"{highScores.allScoresList[0].score.ToString("N0")}";
@@ -218,7 +222,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
             if (scoresFound + 1 >= 0)
             {
                 scoreGameObjects[1].SetActive(true);
-                scoreTextfields[1].text = $"2. {highScores.allScoresList[0].score.ToString("N0")}";
+                scoreTextfields[1].text = $"2.  {highScores.allScoresList[0].score.ToString("N0")}";
                 usernameTextfields[1].text = $"{highScores.allScoresList[0].username.ToString()}";
 
 
@@ -231,13 +235,13 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         } else
         {
             scoreGameObjects[0].SetActive(true);
-            scoreTextfields[0].text = $"{(scoresFound + 1)}. {currentScore.ToString("N0")} (You)";
-            usernameTextfields[0].text = $"Current Player";
+            scoreTextfields[0].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+            usernameTextfields[0].text = playerName;
 
             if (scoresFound + 2 >= 0)
             {
                 scoreGameObjects[2].SetActive(true);
-                scoreTextfields[2].text = $"3. {highScores.allScoresList[1].score.ToString("N0")}";
+                scoreTextfields[2].text = $"3.  {highScores.allScoresList[1].score.ToString("N0")}";
                 usernameTextfields[2].text = $"{highScores.allScoresList[1].username.ToString()}";
             }
         }
