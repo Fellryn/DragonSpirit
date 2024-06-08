@@ -21,6 +21,8 @@ namespace KurtSingle
         SceneNavigation sceneNavigation;
         [SerializeField]
         GameVars gameVars;
+        [SerializeField]
+        EnemyBossLookConstraint enemyBossLookConstraint;
 
         [SerializeField]
         GameObject singlePlayerHud;
@@ -63,6 +65,8 @@ namespace KurtSingle
 
         void PlayerJoined(PlayerInput playerInput)
         {
+
+
             singlePlayerHud.SetActive(false);
             multiPlayerHud.SetActive(true);
             singlePlayerScoreHud.SetActive(false);
@@ -78,6 +82,8 @@ namespace KurtSingle
             MovePlayerToOtherPlayer(false);
 
             playersList.Add(secondPlayer.transform);
+
+            enemyBossLookConstraint.GetPlayerTransforms(firstPlayer.transform, secondPlayer.transform);
         }
 
 

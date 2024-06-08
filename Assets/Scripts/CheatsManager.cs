@@ -106,7 +106,14 @@ namespace KurtSingle
         {
 			//playerStatsScript.powerupAttackTracking = false;
 			WipeAllEnemies();
-			playerMovement.CheatSkipToBoss();
+			//playerMovement.CheatSkipToBoss();
+
+			PlayerMovement[] allPlayerMovements = FindObjectsByType<PlayerMovement>(FindObjectsInactive.Exclude ,FindObjectsSortMode.None);
+
+			foreach (PlayerMovement playerMovement in allPlayerMovements)
+            {
+				playerMovement.CheatSkipToBoss();
+            }
         }
 	}
 }
