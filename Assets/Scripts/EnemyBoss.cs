@@ -39,8 +39,11 @@ namespace KurtSingle
         private float moveTimer = 0f;
         private bool allowTimerCount;
 
-        [Header("PowerUp Spawns")]
+        [Header("Extras")]
         [SerializeField] GameObject[] powerUpPrefabs;
+        [SerializeField] int pointsAwardedForHit = 25;
+        public delegate void OnBossHit(int points, bool lastHitByPlayerOne);
+        public static event OnBossHit onBossHit;
 
         // Example of polymorphism (extending parent function by using base.OnEnable())
         // Adding and removing listeners, getting references
@@ -235,5 +238,13 @@ namespace KurtSingle
                 currentFireballVolleyCount++;
             }
         }
+
+        public override void TakeDamage(int damageAmount, bool hitByPlayerOne)
+        {
+            base.TakeDamage(damageAmount, hitByPlayerOne);
+
+            onBossHit?.Invoke(pointsAwardedForHit, hitByPlayerOne);
+        }
+
     }
 }

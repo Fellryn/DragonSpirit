@@ -68,7 +68,7 @@ namespace KurtSingle
         }
 
         // Take damage (example of encapsulation - private (set) health property is only modified with this or set health)
-        public void TakeDamage(int damageAmount, bool hitByPlayerOne)
+        public virtual void TakeDamage(int damageAmount, bool hitByPlayerOne)
         {
             if (!isInvincible)
             {

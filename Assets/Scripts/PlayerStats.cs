@@ -74,6 +74,7 @@ namespace KurtSingle
         private void Start()
         {
             EnemyBase.onKill += AddScore;
+            EnemyBoss.onBossHit += AddScore;
             godmodeButton.onClick.AddListener(ToggleGodmode);
             //gameTickSystem.OnTickWhole.AddListener(delegate { PlayerGainMana(1f); }) ;
 
@@ -118,6 +119,7 @@ namespace KurtSingle
         private void OnDestroy()
         {
             EnemyBase.onKill -= AddScore;
+            EnemyBoss.onBossHit -= AddScore;
             godmodeButton.onClick.RemoveListener(ToggleGodmode);
             DOTween.Kill(healthMask);
             DOTween.Kill(manaMask);
