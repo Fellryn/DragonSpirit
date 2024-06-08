@@ -50,6 +50,9 @@ namespace KurtSingle
 
         public List<Transform> playersList = new List<Transform>();
 
+        public delegate void OnSecondPlayerJoin();
+        public static event OnSecondPlayerJoin onSecondPlayerJoin;
+
         void Start()
         {
             playerInputManager.onPlayerJoined += PlayerJoined;
@@ -65,7 +68,7 @@ namespace KurtSingle
 
         void PlayerJoined(PlayerInput playerInput)
         {
-
+            onSecondPlayerJoin?.Invoke();
 
             singlePlayerHud.SetActive(false);
             multiPlayerHud.SetActive(true);

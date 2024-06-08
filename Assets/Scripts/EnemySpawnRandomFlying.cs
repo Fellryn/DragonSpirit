@@ -33,15 +33,19 @@ namespace KurtSingle
         private int wyvernsCooldown;
         [SerializeField] Transform cachedPlayerTransform;
 
+        
+
         private void OnEnable()
         {
 			gameTickSystem.OnEveryHalfTick.AddListener(AddTick);
+            MultiplayerManager.onSecondPlayerJoin += SpawnMoreFliers;
         }
 
 		private void OnDisable()
 		{
 			gameTickSystem.OnEveryHalfTick.RemoveListener(AddTick);
-		}
+            MultiplayerManager.onSecondPlayerJoin -= SpawnMoreFliers;
+        }
 
 		private void AddTick()
         {
@@ -67,6 +71,11 @@ namespace KurtSingle
             }
         }
 
+        private void SpawnMoreFliers()
+        {
+            maxRandomEnemies = 30;
+            ticksBetweenSpawns = ticksBetweenSpawns / 3;
+        }
 
 		private void ChooseSpawn()
         {

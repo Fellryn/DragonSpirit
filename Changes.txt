@@ -1,3 +1,5 @@
+fix camera movement when 1st player reappears
+
 Score changed - top left and no score text//
 Player emission increased at start for short duration //
 boss black colour - cracks/stone //

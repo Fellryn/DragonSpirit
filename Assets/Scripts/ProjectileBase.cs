@@ -142,52 +142,43 @@ namespace KurtSingle
 
             if (transform.CompareTag(playerTag + projectileString))
             {
-                if (other.CompareTag(enemyTag))
+                if (Camera.main.WorldToViewportPoint(transform.position).x > 1.01f ||
+                    Camera.main.WorldToViewportPoint(transform.position).x < -0.01f ||
+                    Camera.main.WorldToViewportPoint(transform.position).y > 1.01f ||
+                    Camera.main.WorldToViewportPoint(transform.position).x < 0.01f)
                 {
-                    if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
-                    {
-                        enemyBase.TakeDamage(ProjectileDamage, playerOneProjectile);
-                    }
-                    else
-                    {
-                        other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage, playerOneProjectile);
-                    }
-
-                    //if (other.TryGetComponent(out EnemyRangedAttack enemyRangedAttack))
-                    //{
-                    //    if (enemyRangedAttack.projectileOrigin != null)
-                    //    {
-                    //        PlayEffects(enemyRangedAttack.projectileOrigin);
-                    //    }
-                    //    else
-                    //    {
-                    PlayEffects(transform);
-                    //}
-
                     Destroy(gameObject);
-
-                    //}
+                    return;
                 }
-
-                if (other.CompareTag(powerupEggTag))
+                else
                 {
-                    if (other.TryGetComponent(out PowerupEgg powerUpEgg))
+
+                    if (other.CompareTag(enemyTag))
                     {
-                        powerUpEgg.BreakEgg();
+                        if (other.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
+                        {
+                            enemyBase.TakeDamage(ProjectileDamage, playerOneProjectile);
+                        }
+                        else
+                        {
+                            other.GetComponentInParent<EnemyBase>().TakeDamage(ProjectileDamage, playerOneProjectile);
+                        }
+
+
+                        PlayEffects(transform);
+                        Destroy(gameObject);
                     }
-                    Destroy(gameObject);
-                    PlayEffects(transform);
+
+                    if (other.CompareTag(powerupEggTag))
+                    {
+                        if (other.TryGetComponent(out PowerupEgg powerUpEgg))
+                        {
+                            powerUpEgg.BreakEgg();
+                        }
+                        Destroy(gameObject);
+                        PlayEffects(transform);
+                    }
                 }
-
-
-
-                //if (other.CompareTag("Background"))
-                //{
-                //    Destroy(gameObject);
-                //    PlayEffects(this.transform);
-                //}
-
-
             }
         }
 

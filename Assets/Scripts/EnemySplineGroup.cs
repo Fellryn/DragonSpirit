@@ -39,6 +39,8 @@ namespace KurtSingle
 
         [Header("Detaching")]
         [SerializeField] float stayTime = 15f;
+        [SerializeField] bool detachFasterPerGroup = true;
+        [SerializeField] float minDetachTime = 5f;
         private float currentTicks = 0f;
 
         [SerializeField] Transform enemyRandomHolder;
@@ -144,6 +146,12 @@ namespace KurtSingle
                             enemyMobile.ChangeMoveTarget(new Vector3(Random.Range(moveOffsetMin.x, moveOffsetMax.x), Random.Range(moveOffsetMin.y, moveOffsetMax.y), Random.Range(moveOffsetMin.z, moveOffsetMax.z)));
                             enemyMobile.useSpline = false;
                             enemyMobile.DoPlayerDistanceCheck();
+
+                            if (detachFasterPerGroup)
+                            {
+                                stayTime -= 1f;
+                                stayTime = Mathf.Clamp(stayTime, minDetachTime, 20f);
+                            }
                         }
                     }
                 }
