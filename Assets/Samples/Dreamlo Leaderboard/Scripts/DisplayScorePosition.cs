@@ -130,7 +130,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         {
             highScores.GetAllScores();
 #if UNITY_EDITOR
-            print("Updated Data from online: " + Time.time);
+            //print("Updated Data from online: " + Time.time);
 #endif
             yield return new WaitForSeconds(refreshInterval);
         }
@@ -163,7 +163,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
     private void UpdateFiveNearScoresDisplay()
     {
 #if UNITY_EDITOR
-        print("Updated score display: " + Time.time);
+        //print("Updated score display: " + Time.time);
 #endif
         foreach (var item in scoreGameObjects)
         {

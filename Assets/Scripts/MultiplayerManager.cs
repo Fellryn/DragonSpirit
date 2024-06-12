@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UlianaKutsenko;
+using TMPro;
+using DG.Tweening;
 
 namespace KurtSingle
 {
@@ -45,8 +47,22 @@ namespace KurtSingle
         PlayerStats secondPlayerStats;
 
         [SerializeField]
-        float respawnTime = 3f;
+        float respawnTime = 5f;
         float timer = 0f;
+
+        [SerializeField]
+        TextMeshProUGUI respawnText;
+        [SerializeField] Vector2 textOffscreenPos;
+        [SerializeField] Vector2 textOnscreenPos;
+        [SerializeField] float totalTweenTime = 5f;
+        [SerializeField] Ease textEaseInType = Ease.OutQuint;
+        [SerializeField] Ease textEaseOutType = Ease.InQuint;
+        [SerializeField] float shakeStrength = 3f;
+        [SerializeField] int shakeVibrato = 2;
+        [SerializeField] Ease shakeEaseType = Ease.InOutQuad;
+        Sequence respawnTextSequence;
+
+
 
         public List<Transform> playersList = new List<Transform>();
 
@@ -58,6 +74,16 @@ namespace KurtSingle
             playerInputManager.onPlayerJoined += PlayerJoined;
             gameTickSystem.OnEveryHalfTick.AddListener(CheckPlayerStatus);
             playersList.Add(firstPlayer.transform);
+
+            respawnTextSequence = DOTween.Sequence();
+            respawnTextSequence
+                .Append(respawnText.rectTransform.DOAnchorPos(new Vector2(respawnText.rectTransform.anchoredPosition.x, textOnscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseInType))
+                .AppendInterval(totalTweenTime * 0.5f)
+                .Join(respawnText.rectTransform.DOShakeAnchorPos(totalTweenTime * 0.75f, shakeStrength, shakeVibrato, fadeOut: false).SetEase(shakeEaseType))
+                .Append(respawnText.rectTransform.DOAnchorPos(new Vector2(respawnText.rectTransform.anchoredPosition.x, textOffscreenPos.y), totalTweenTime * 0.25f).SetEase(textEaseOutType))
+                .SetAutoKill(false);
+
+            respawnTextSequence.Complete();
         }
 
         void OnDestroy()
@@ -129,6 +155,21 @@ namespace KurtSingle
                     {
                         timer += 0.5f;
 
+                        if (timer == 0.5f)
+                        {
+                            DisplayRespawnTimer();
+                        }
+
+                        if (timer % 1 == 0)
+                        {
+                            respawnText.text = $"Respawn in: {(respawnTime - timer).ToString()}";
+                        }
+
+                        if (timer == respawnTime)
+                        {
+                            respawnText.text = "Respawning!";
+                        }
+
                         if (!firstPlayer.activeSelf)
                         {
                             playersList.Remove(firstPlayer.transform);
@@ -162,6 +203,15 @@ namespace KurtSingle
                 //secondPlayer.transform.position = firstPlayer.transform.position;
                 //secondPlayer.GetComponent<PlayerMovement>().enabled = true;
             }
+        }
+
+        private void DisplayRespawnTimer()
+        {
+            respawnText.text = "Respawn in: 5";
+
+            respawnTextSequence.Complete();
+
+            respawnTextSequence.Restart();
         }
 
         private void LoseLevel()

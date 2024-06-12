@@ -62,6 +62,10 @@ namespace KurtSingle
         ParticleSystem particleSystemContinue;
         [SerializeField]
         Material playerMaterial;
+        [SerializeField]
+        Light projectileLight;
+        [SerializeField]
+        Color playerProjectileLight;
 
         protected virtual void OnEnable()
         {
@@ -256,6 +260,8 @@ namespace KurtSingle
 
                 particleSystemStart.GetComponent<ParticleSystemRenderer>().material = playerMaterial;
                 particleSystemContinue.GetComponent<ParticleSystemRenderer>().material = playerMaterial;
+
+                projectileLight.color = playerProjectileLight;
             }
         }
 

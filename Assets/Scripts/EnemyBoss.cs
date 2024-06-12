@@ -16,6 +16,7 @@ namespace KurtSingle
         [SerializeField] SceneNavigation sceneNavigation;
         [SerializeField] EnemyBossAnimation enemyBossAnimation;
         [SerializeField] EnemyBossLookConstraint enemyBossLookConstraint;
+        [SerializeField] EnemyBossHealthBar enemyBossHealthBar;
         [SerializeField] CameraController cameraController;
         private Camera cachedPlayerCamera;
 
@@ -42,6 +43,7 @@ namespace KurtSingle
         [Header("Extras")]
         [SerializeField] GameObject[] powerUpPrefabs;
         [SerializeField] int pointsAwardedForHit = 25;
+        private int lastPowerupIndex = -1;
         public delegate void OnBossHit(int points, bool lastHitByPlayerOne);
         public static event OnBossHit onBossHit;
 
@@ -93,6 +95,7 @@ namespace KurtSingle
         private void BossInit()
         {
             moveTargetPosition = cachedPlayerCamera.ViewportToWorldPoint(firstPosition);
+            enemyBossHealthBar.ShowHealthBar(health);
             Move();
 
         }
@@ -113,6 +116,12 @@ namespace KurtSingle
             if (health % 10 == 0)
             {
                 int i = Random.Range(0, powerUpPrefabs.Length);
+                if (i == lastPowerupIndex)
+                {
+                    i++;
+                    if (i >= powerUpPrefabs.Length) i = 0;
+                }
+                lastPowerupIndex = i;
                 Instantiate(powerUpPrefabs[i], projectileOrigin.position, Quaternion.identity);
             }
         }
@@ -244,6 +253,8 @@ namespace KurtSingle
             base.TakeDamage(damageAmount, hitByPlayerOne);
 
             onBossHit?.Invoke(pointsAwardedForHit, hitByPlayerOne);
+
+            enemyBossHealthBar.UpdateHealth(health);
         }
 
     }

@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.033675194, g: 0, b: 1, a: 1}
+      maxColor: {r: 0.930527, g: 0.9811321, b: 0.09718761, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1482,7 +1482,7 @@ ParticleSystem:
     tilesX: 4
     tilesY: 8
     animationType: 1
-    rowIndex: 5
+    rowIndex: 0
     cycles: 1
     uvChannelMask: -1
     rowMode: 0

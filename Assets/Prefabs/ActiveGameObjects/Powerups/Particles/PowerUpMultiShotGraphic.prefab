@@ -1540,7 +1540,7 @@ ParticleSystem:
     tilesX: 4
     tilesY: 8
     animationType: 1
-    rowIndex: 5
+    rowIndex: 0
     cycles: 10
     uvChannelMask: -1
     rowMode: 0

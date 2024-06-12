@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using KurtSingle;
+using DG.Tweening;
 
 
 namespace KurtSingle
@@ -128,6 +129,8 @@ namespace KurtSingle
         private void Fireball()
         {
             var newProjectile = Instantiate(fireballPrefab, projectilesHolder);
+
+            newProjectile.GetComponentInChildren<Light>().DOIntensity(0, 1f).From();
 
             if (newProjectile.TryGetComponent(out ProjectileBase projectileBase))
             {
