@@ -33,6 +33,8 @@ namespace KurtSingle
         private int wyvernsCooldown;
         [SerializeField] Transform cachedPlayerTransform;
 
+        private bool spawnOverride = false;
+
         
 
         private void OnEnable()
@@ -75,11 +77,12 @@ namespace KurtSingle
         {
             maxRandomEnemies = 30;
             ticksBetweenSpawns = ticksBetweenSpawns / 3;
+            spawnOverride = true;
         }
 
 		private void ChooseSpawn()
         {
-			if (gameVars.AllowEnemySpawn)
+			if (gameVars.AllowEnemySpawn || spawnOverride)
             {
                 if (randomEnemyHolder.childCount >= maxRandomEnemies) return;
 

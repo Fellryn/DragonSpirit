@@ -60,12 +60,14 @@ namespace KurtSingle
 
             originalCameraFovOffset.x = dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView;
             originalCameraFovOffset.y = dollyCamera.SplineOffset.y;
+
         }
 
         private void OnDisable()
         {
             //dollyCinemachineCamera.Lens.FieldOfView = originalCameraFovOffset.x;
             //dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
+
         }
 
 
