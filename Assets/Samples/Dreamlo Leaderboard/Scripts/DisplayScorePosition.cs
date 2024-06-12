@@ -274,8 +274,6 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
             }
         }
 
-        Debug.Log(currentRank);
-
         if (scoresFound != currentRank)
         {
             if (currentRank > 0)
