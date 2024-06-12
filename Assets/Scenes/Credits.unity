@@ -571,11 +571,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1772427553}
-    - target: {fileID: 1155250646738315174, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
-      objectReference: {fileID: 0}
     - target: {fileID: 2365486343321273749, guid: 069e562e36d614dcbbcbc50aa7ee0bc3,
         type: 3}
       propertyPath: m_Name
@@ -681,11 +676,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5604847217583678012, guid: 25dbc47d2c837974799b61f06e337c16,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1772427553}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
