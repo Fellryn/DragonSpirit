@@ -49,6 +49,11 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
     [SerializeField] int usernameTextfieldsIndex = 1;
     [SerializeField] string playerName = "Player One";
 
+    [SerializeField]
+    Color normalBackdropColour;
+    [SerializeField]
+    Color playerBackdropColour;
+
     private void Awake()
     {
         // Vertical Layout group caused issues with DoTween
@@ -162,6 +167,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
 #endif
         foreach (var item in scoreGameObjects)
         {
+            item.GetComponent<Image>().color = normalBackdropColour;
             item.SetActive(false);
         }
 
@@ -204,6 +210,8 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
 
         scoreGameObjects[2].SetActive(true);
         scoreTextfields[2].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+        scoreGameObjects[2].GetComponent<Image>().color = playerBackdropColour;
+
         usernameTextfields[2].text = playerName;
 
         if (scoresFound - 2 >= 0)
@@ -213,6 +221,8 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         {
             scoreGameObjects[1].SetActive(true);
             scoreTextfields[1].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+            scoreGameObjects[1].GetComponent<Image>().color = playerBackdropColour;
+
             usernameTextfields[1].text = playerName;
 
             //scoreGameObjects[0].SetActive(true);
@@ -224,6 +234,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
                 scoreGameObjects[1].SetActive(true);
                 scoreTextfields[1].text = $"2.  {highScores.allScoresList[0].score.ToString("N0")}";
                 usernameTextfields[1].text = $"{highScores.allScoresList[0].username.ToString()}";
+                scoreGameObjects[1].GetComponent<Image>().color = normalBackdropColour;
 
 
             }
@@ -236,6 +247,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
         {
             scoreGameObjects[0].SetActive(true);
             scoreTextfields[0].text = $"{(scoresFound + 1)}.  {currentScore.ToString("N0")} (You)";
+            scoreGameObjects[0].GetComponent<Image>().color = playerBackdropColour;
             usernameTextfields[0].text = playerName;
 
             if (scoresFound + 2 >= 0)
@@ -243,6 +255,7 @@ public class DisplayScorePosition : FastBehaviour, IPointerClickHandler
                 scoreGameObjects[2].SetActive(true);
                 scoreTextfields[2].text = $"3.  {highScores.allScoresList[1].score.ToString("N0")}";
                 usernameTextfields[2].text = $"{highScores.allScoresList[1].username.ToString()}";
+                scoreGameObjects[2].GetComponent<Image>().color = normalBackdropColour;
             }
         }
 
