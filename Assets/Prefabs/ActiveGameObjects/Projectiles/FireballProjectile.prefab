@@ -206,7 +206,12 @@ MonoBehaviour:
   cachedUnitTransform: {fileID: 0}
   explosionPrefab: {fileID: 9148410779099541663, guid: 568c8ef66276f3247ba5767a1dbdc7be,
     type: 3}
-  explosionClip: {fileID: 8300000, guid: d65713543b34a4e48a2e7dddb0bbfb16, type: 3}
+  explosionClips:
+  - {fileID: 8300000, guid: 562cf58e1d9cdda4db5146c828c8c8e4, type: 3}
+  - {fileID: 8300000, guid: b617a747b697303448463fb110a48eba, type: 3}
+  - {fileID: 8300000, guid: 23dc09b33aebfbe4cb4cf9a1ccaeb349, type: 3}
+  - {fileID: 8300000, guid: 3a438505fbfb70145889b0e97adb3283, type: 3}
+  - {fileID: 8300000, guid: 73cf66b8c656fa94f827288d7063622b, type: 3}
   particleSystemStart: {fileID: 6795162665372229142}
   particleSystemContinue: {fileID: 7040295597153197918}
   playerMaterial: {fileID: 2100000, guid: 5470d5a3989caca42996a5a168f857d7, type: 2}

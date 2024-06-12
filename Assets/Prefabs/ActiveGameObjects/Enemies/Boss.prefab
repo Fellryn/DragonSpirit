@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 9211855526262760094}
   - component: {fileID: 6439505593099168393}
   - component: {fileID: 6824638627483334959}
+  - component: {fileID: 4377774885812345629}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -228,6 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c123b0d81c162064a8d06c91f1f36e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundHandler: {fileID: 4377774885812345629}
+  deathSoundChanceToPlay: 1
   enemyName: Boss
   startingHealth: 41
   score: 1000
@@ -354,6 +357,24 @@ MonoBehaviour:
   healthBarYMoveTarget: -36
   healthBarMoveDuration: 1
   healthBarEasyType: 4
+--- !u!114 &4377774885812345629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117687411387397600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5331b565638a7fb43bdff83a06e2dcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: 9fc2b925d5b9ec045a47f9490b974cd0, type: 3}
+  - {fileID: 8300000, guid: 51760a42d1bdd1549ac60861b778acb3, type: 3}
+  - {fileID: 8300000, guid: cf6c4a82198dcc443a08fe23c57f0971, type: 3}
+  - {fileID: 8300000, guid: a6a1eb9063763ee40aa9e33e13aafe08, type: 3}
 --- !u!1001 &2733716891595071178
 PrefabInstance:
   m_ObjectHideFlags: 0

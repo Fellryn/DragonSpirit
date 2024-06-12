@@ -17,6 +17,7 @@ namespace KurtSingle
         public bool wonLastLevel { get; private set; }
         public int PlayerOneScore { get; private set; }
         public int PlayerTwoScore { get; private set; }
+        public float GameSpeed { get; private set; }
 
         private void OnEnable()
         {
@@ -27,6 +28,7 @@ namespace KurtSingle
         public void SetDefaults()
         {
             EnemySpawn(true);
+            GameSpeed = 1f;
         }
 
 
@@ -48,6 +50,11 @@ namespace KurtSingle
         public void SetPlayerTwoScore(int value)
         {
             PlayerTwoScore = value;
+        }
+
+        public void SetGameSpeed(float value)
+        {
+            GameSpeed = value;
         }
     }
 }

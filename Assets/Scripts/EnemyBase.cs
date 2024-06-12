@@ -9,6 +9,8 @@ namespace KurtSingle
     public abstract class EnemyBase : MonoBehaviour
     {
         protected GameTickSystem gameTickSystem;
+        [SerializeField] protected SoundHandler soundHandler;
+        [SerializeField] float deathSoundChanceToPlay = 0.7f;
 
         [Header("Base")]
         [SerializeField]
@@ -124,14 +126,26 @@ namespace KurtSingle
                 enemyShaderController.BeginDissolveAnimation();
             }
 
+            PlaySound(0, deathSoundChanceToPlay);
+
             if (TryGetComponent<EnemyAnimation>(out EnemyAnimation enemyAnimation))
             {
                 enemyAnimation.OnDeath();
             }
 
+
+
             Destroy(gameObject, timeBeforeDestroyObject);
 
             enabled = false;
+        }
+
+        protected void PlaySound(int index, float volume = 1f, float chanceToPlay = 1f)
+        {
+            if (soundHandler != null)
+            {
+                soundHandler.PlaySound(index, volume, chanceToPlay);
+            }
         }
 
     }

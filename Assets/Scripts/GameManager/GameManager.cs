@@ -20,6 +20,7 @@ namespace KurtSingle
         [SerializeField] PlayerInput playerInput;
         [SerializeField] EventSystem eventSystem;
         [SerializeField] GameObject firstMenuButton;
+        [SerializeField] GameVars gameVars;
         public GameStates State;
 
         public static event Action<GameStates> OnGameStateChanged;
@@ -64,7 +65,7 @@ namespace KurtSingle
         private void DoRunningSettings()
         {
             playerInput.SwitchCurrentActionMap("Player");
-            Time.timeScale = 1f;
+            Time.timeScale = gameVars.GameSpeed;
             
         }
 

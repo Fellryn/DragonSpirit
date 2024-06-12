@@ -76,6 +76,8 @@ namespace KurtSingle
 
                 LaunchFireball();
 
+                PlaySound(1, 0.5f, 0.7f);
+
             }
         }
 

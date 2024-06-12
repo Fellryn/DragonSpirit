@@ -46,7 +46,7 @@ namespace KurtSingle
         [SerializeField]
         protected GameObject explosionPrefab;
         [SerializeField]
-        protected AudioClip explosionClip;
+        protected AudioClip[] explosionClips;
         protected AudioSource soundEffectsAudioSource;
 
 
@@ -272,7 +272,8 @@ namespace KurtSingle
             explosionEffect.hideFlags = HideFlags.HideInInspector;
 
             soundEffectsAudioSource = GameObject.FindWithTag("SoundEffects").GetComponent<AudioSource>();
-            soundEffectsAudioSource.PlayOneShot(explosionClip);
+            int index = Random.Range(0, explosionClips.Length);
+            soundEffectsAudioSource.PlayOneShot(explosionClips[index], 0.5f);
         }
 
 

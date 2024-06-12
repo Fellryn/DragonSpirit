@@ -17,6 +17,7 @@ namespace KurtSingle
         [Header("Attack References")]
         [SerializeField] PlayerStats playerStats;
         [SerializeField] PlayerPowerups playerPowerUps;
+        [SerializeField] SoundHandler soundHandler;
         [SerializeField] Transform cachedPlayerCamera;
         [SerializeField] Transform projectilesHolder;
         [SerializeField] InputActionReference fire;
@@ -115,6 +116,9 @@ namespace KurtSingle
                 {
                     Fireball();
                 }
+
+            int index = Random.Range(4, 8);
+            soundHandler.PlaySound(index, 0.3f, 0.5f);
         }
 
         private void PlayerAltAttacking(InputAction.CallbackContext obj)

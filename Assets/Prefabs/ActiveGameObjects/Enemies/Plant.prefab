@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2721303882433174495}
   - component: {fileID: 8823542675244399678}
   - component: {fileID: 529496864878252641}
+  - component: {fileID: -3473543219418771254}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Enemy
@@ -98,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a5b0881b12de44b60e265d521958b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundHandler: {fileID: -3473543219418771254}
+  deathSoundChanceToPlay: 0.7
   enemyName: Plant
   startingHealth: 1
   score: 15
@@ -162,6 +165,22 @@ MonoBehaviour:
   maxGlowMultiplier: 4
   minGlowMultiplier: 1
   glowTime: 3
+--- !u!114 &-3473543219418771254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180002894980226749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5331b565638a7fb43bdff83a06e2dcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: 6e0593c2d5533ec4cb2c8e820ee80645, type: 3}
+  - {fileID: 8300000, guid: 86455e478b983434492011a71de43536, type: 3}
 --- !u!1 &5315749890254850014
 GameObject:
   m_ObjectHideFlags: 0

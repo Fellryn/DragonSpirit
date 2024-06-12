@@ -13,6 +13,7 @@ namespace KurtSingle
 	{
 		private EnemyAnimation enemyAnimation;
 		private EnemyBossAnimation enemyBossAnimation;
+        [SerializeField] SoundHandler soundHandler;
 
         private void Start()
         {
@@ -31,6 +32,11 @@ namespace KurtSingle
         {            
             if (enemyAnimation != null) enemyAnimation.AttackCompleted();
             if (enemyBossAnimation != null) enemyBossAnimation.AttackCompleted();
+        }
+
+        public void WingFlap()
+        {
+            if (soundHandler != null) soundHandler.PlaySound(3);
         }
 
 		public void BossHeadMovementCompleted()

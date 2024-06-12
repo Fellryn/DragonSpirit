@@ -87,10 +87,17 @@ MonoBehaviour:
   cachedUnitTransform: {fileID: 0}
   explosionPrefab: {fileID: 9148410779099541663, guid: 568c8ef66276f3247ba5767a1dbdc7be,
     type: 3}
-  explosionClip: {fileID: 8300000, guid: d65713543b34a4e48a2e7dddb0bbfb16, type: 3}
+  explosionClips:
+  - {fileID: 8300000, guid: 562cf58e1d9cdda4db5146c828c8c8e4, type: 3}
+  - {fileID: 8300000, guid: b617a747b697303448463fb110a48eba, type: 3}
+  - {fileID: 8300000, guid: 23dc09b33aebfbe4cb4cf9a1ccaeb349, type: 3}
+  - {fileID: 8300000, guid: 3a438505fbfb70145889b0e97adb3283, type: 3}
+  - {fileID: 8300000, guid: 73cf66b8c656fa94f827288d7063622b, type: 3}
   particleSystemStart: {fileID: 1163083307922447360}
   particleSystemContinue: {fileID: 455900269643847990}
   playerMaterial: {fileID: 0}
+  projectileLight: {fileID: 0}
+  playerProjectileLight: {r: 0, g: 0, b: 0, a: 0}
   randomEnemyToFollow: {fileID: 0}
   startMoveSpeedMod: 0.3
   maxVelocity: 25

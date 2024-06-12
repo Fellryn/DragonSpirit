@@ -5,6 +5,8 @@ using Unity.Cinemachine;
 using UnityEngine.Events;
 using UnityEditor;
 using KurtSingle;
+using DG.Tweening;
+using UnityEngine.UI;
 
 namespace KurtSingle
 {
@@ -31,6 +33,8 @@ namespace KurtSingle
 
         [SerializeField] Vector2 standardCameraSettings = new Vector2(60, 22);
         [SerializeField] Vector2 widescreenCameraSettings = new Vector2(22, 40);
+
+        [SerializeField] Image fadeInPanel;
 
         public bool atBoss = false;
         public UnityEvent AtBossEvent;
@@ -61,13 +65,16 @@ namespace KurtSingle
             originalCameraFovOffset.x = dollyCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView;
             originalCameraFovOffset.y = dollyCamera.SplineOffset.y;
 
+            fadeInPanel.gameObject.SetActive(true);
+            fadeInPanel.DOFade(0f, 1f);
         }
+
+
 
         private void OnDisable()
         {
             //dollyCinemachineCamera.Lens.FieldOfView = originalCameraFovOffset.x;
             //dollyCamera.SplineOffset.y = originalCameraFovOffset.y;
-
         }
 
 
@@ -125,6 +132,11 @@ namespace KurtSingle
             {
                 gameVars.EnemySpawn(false);
             }
+        }
+
+        public void FadeOut(float delay)
+        {
+            fadeInPanel.DOFade(1, 1).SetDelay(delay);
         }
     }
 }

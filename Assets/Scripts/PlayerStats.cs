@@ -23,6 +23,7 @@ namespace KurtSingle
         [SerializeField] PlayerPowerups playerPowerUps;
         [SerializeField] PlayerMultiplier playerMultiplier;
         [SerializeField] Button godmodeButton;
+        [SerializeField] SoundHandler soundHandler;
 
         public int PlayerScore { get; private set; }
         public int PlayerLife { get; set; }
@@ -156,6 +157,9 @@ namespace KurtSingle
             UpdateLivesText();
             CheckLifeStatus();
             OnDamageTaken?.Invoke(isPlayerOne);
+
+            int index = UnityEngine.Random.Range(1, 3);
+            soundHandler.PlaySound(index);
         }
 
 
@@ -205,6 +209,7 @@ namespace KurtSingle
                 //sceneNavigation.ChangeScene(gameOverSceneName);
 
                 gameObject.SetActive(false);
+                soundHandler.PlaySound(0);
             }
         }
 

@@ -97,7 +97,7 @@ namespace KurtSingle
             moveTargetPosition = cachedPlayerCamera.ViewportToWorldPoint(firstPosition);
             enemyBossHealthBar.ShowHealthBar(health);
             Move();
-
+            soundHandler.PlaySound(4);
         }
 
         // Do various checks, which is called by tick system event
@@ -123,6 +123,11 @@ namespace KurtSingle
                 }
                 lastPowerupIndex = i;
                 Instantiate(powerUpPrefabs[i], projectileOrigin.position, Quaternion.identity);
+            }
+
+            if (health <= 0)
+            {
+                cameraController.FadeOut(4f);
             }
         }
 
@@ -166,6 +171,9 @@ namespace KurtSingle
             enemyBossAnimation.SetMoveBool(true);
 
             transform.DOMove(moveTargetPosition, moveTime).SetEase(Ease.InOutCubic).OnComplete(StopMove).SetId(600);
+
+            int index = Random.Range(5, 17);
+            soundHandler.PlaySound(index, 0.5f, 0.8f);
 
             if (Vector3.Distance(transform.position, moveTargetPosition) > 3f)
             {
@@ -244,6 +252,9 @@ namespace KurtSingle
             {
                 LaunchFireball();
 
+                float volume = Random.Range(0.25f, 0.65f);
+                PlaySound(3, volume, 0.65f);
+
                 currentFireballVolleyCount++;
             }
         }
@@ -255,6 +266,12 @@ namespace KurtSingle
             onBossHit?.Invoke(pointsAwardedForHit, hitByPlayerOne);
 
             enemyBossHealthBar.UpdateHealth(health);
+
+            if (Random.Range(0f,1f) > 0.80f)
+            {
+                int index = Random.Range(1, 3);
+                PlaySound(index);
+            }
         }
 
     }

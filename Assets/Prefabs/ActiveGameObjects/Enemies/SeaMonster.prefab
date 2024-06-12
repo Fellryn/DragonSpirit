@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3922555067593398972}
   - component: {fileID: 6492259205032922097}
   - component: {fileID: 5009011691468180322}
+  - component: {fileID: 7270700655202974808}
   m_Layer: 0
   m_Name: SeaMonster
   m_TagString: Enemy
@@ -129,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f5fa0d8ee12e046af0ed9118cd1242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundHandler: {fileID: 7270700655202974808}
+  deathSoundChanceToPlay: 0.7
   enemyName: SeaMonster
   startingHealth: 1
   score: 15
@@ -193,6 +196,22 @@ MonoBehaviour:
   enemyName: SeaMonster
   maximumSpeedVariation: 0.2
   maximumOffset: 1
+--- !u!114 &7270700655202974808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6812187979344180450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5331b565638a7fb43bdff83a06e2dcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: db9b385dca664004493a9640c110dac8, type: 3}
+  - {fileID: 8300000, guid: 98931a9afca5c60429f16e297b78b955, type: 3}
 --- !u!1001 &6272012212708731523
 PrefabInstance:
   m_ObjectHideFlags: 0

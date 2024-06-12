@@ -95,11 +95,11 @@ namespace KurtSingle
 
 			if (timeScaleToggled)
             {
-				Time.timeScale = 5f;
+				gameVars.SetGameSpeed(4f);
             } else
             {
-				Time.timeScale = 1f;
-            }
+				gameVars.SetGameSpeed(1f);
+			}
         }
 
 		public void SkipToBoss()
@@ -109,10 +109,17 @@ namespace KurtSingle
 			//playerMovement.CheatSkipToBoss();
 
 			PlayerMovement[] allPlayerMovements = FindObjectsByType<PlayerMovement>(FindObjectsInactive.Exclude ,FindObjectsSortMode.None);
+			PlayerMultiplier[] allPlayerMultipliers = FindObjectsByType<PlayerMultiplier>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
 
 			foreach (PlayerMovement playerMovement in allPlayerMovements)
             {
 				playerMovement.CheatSkipToBoss();
+            }
+
+			foreach (PlayerMultiplier playerMultipler in allPlayerMultipliers)
+            {
+				playerMultipler.PlayerHit(true);
+				playerMultipler.PlayerHit(false);
             }
         }
 	}

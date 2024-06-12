@@ -19,6 +19,7 @@ namespace KurtSingle
         [SerializeField] PlayerAttack playerAttack;
         [SerializeField] PlayerShaderController playerShaderController;
         [SerializeField] RectTransform powerUpDisplay;
+        [SerializeField] SoundHandler soundHandler;
         [SerializeField] string powerUpTag = "PowerUp";
         [SerializeField] RectTransform powerUpText;
         [SerializeField] TextMeshProUGUI powerUpActualText;
@@ -113,18 +114,22 @@ namespace KurtSingle
                     switch (powerUpBase.powerUpName)
                     {
                         case lifePowerUpName:
+                            if (playerStats.PlayerLife >= 10) return;
                             playerStats.PlayerHeal(healPerPickup);
                             DisplayPowerup("Healed +5", Color.green);
+                            soundHandler.PlaySound(8);
                             //Instantiate(lifePowerUpPlayerEffect, transform);
                             break;
                         case multiShotPowerUpName:
                             ChangeMultiShotLevel(1);
                             DisplayPowerup("MultiShot", Color.yellow);
+                            soundHandler.PlaySound(9);
                             //Instantiate(multiShotPowerUpPlayerEffect, transform);
                             break;
                         case trackingPowerUpName:
                             ActivateTrackingAbility();
                             DisplayPowerup("Tracking Shot", Color.cyan);
+                            soundHandler.PlaySound(10);
                             //Instantiate(trackingPowerUpPlayerEffect, transform);
                             break;
                         default:

@@ -12,6 +12,9 @@ namespace KurtSingle
     public class PowerupEgg : MonoBehaviour
     {
         [SerializeField]
+        SoundHandler soundHandler;
+
+        [SerializeField]
         GameObject powerupPrefabToSpawn;
 
         [SerializeField]
@@ -35,7 +38,6 @@ namespace KurtSingle
         //	Instantiate(powerupEggDestroyEffect, transform.position, Quaternion.identity);
         //      }
 
-
         public void BreakEgg()
         {
             transform.tag = "Untagged";
@@ -43,6 +45,7 @@ namespace KurtSingle
             cachedEggBaseModel.gameObject.SetActive(true);
             cachedEggWholeModel.gameObject.SetActive(false);
             Instantiate(eggPartsPrefab, transform.position, Quaternion.identity, transform);
+            soundHandler.PlaySound(0, 0.7f);
 
             if (spawnRandomPowerup)
             {

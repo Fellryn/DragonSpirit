@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4152960580208556478}
   - component: {fileID: 3173975641364209166}
   - component: {fileID: 7405359485829063979}
+  - component: {fileID: -3503541333981437840}
   m_Layer: 0
   m_Name: Wyvern
   m_TagString: Enemy
@@ -98,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf498c0dda527c240af6fee3f6820ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundHandler: {fileID: -3503541333981437840}
+  deathSoundChanceToPlay: 0.7
   enemyName: Wyvern
   startingHealth: 1
   score: 25
@@ -174,6 +177,21 @@ MonoBehaviour:
   enemyName: Wyvern
   maximumSpeedVariation: 0.1
   maximumOffset: 1
+--- !u!114 &-3503541333981437840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546236311885392284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5331b565638a7fb43bdff83a06e2dcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: 762ec84b6076bef4ab8772fb7f65d4f7, type: 3}
 --- !u!1001 &9011622392477359899
 PrefabInstance:
   m_ObjectHideFlags: 0
