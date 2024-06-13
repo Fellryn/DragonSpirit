@@ -86,7 +86,6 @@ namespace KurtSingle
 
             if (!gameObject.scene.isLoaded) return;
 
-            gameVars.WonLevel(true);
             sceneNavigation.ChangeScene("GameOver");
         }
 
@@ -128,6 +127,7 @@ namespace KurtSingle
             if (health <= 0)
             {
                 cameraController.FadeOut(4f);
+                gameVars.WonLevel(true);
             }
         }
 

@@ -27,8 +27,13 @@ namespace KurtSingle
 		[SerializeField] PlayerStats playerStatsScript;
 
 		public bool timeScaleToggled = false;
-		
-		public void ToggleCheatsMenu()
+
+        private void Start()
+        {
+			gameVars.SetGameSpeed(1f);
+        }
+
+        public void ToggleCheatsMenu()
         {
 			cheatsPanel.gameObject.SetActive(!cheatsPanel.gameObject.activeSelf);
         }

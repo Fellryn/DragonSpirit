@@ -216,7 +216,7 @@ namespace KurtSingle
 
         private void LoseLevel()
         {
-            gameVars.WonLevel(false);
+            //gameVars.WonLevel(false);
             sceneNavigation.ChangeScene("GameOver");
         }
     }
